@@ -30,11 +30,28 @@ export const Hero = () => {
          ))}
       </div>
 
-           {/* Content */}
-        <div>
+      {/* Content */}
+      <div className="container mx-auto px-6 pt-32 pb-20 relative z-10">
+         <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left Column - Text Content */}
+            <div className="space-y-8">
+               <div className="animate-fade-in">
+                  <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-primary">
+                     <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+                     Software Engineer • React Specialist
 
-         
-        </div>
+                  </span>
+               </div>
+               {/* Headline */}
+               <div>
+                     
+               </div>
+            </div>
+
+            {/* Right Column - Profile Image */}
+         </div>
+
+      </div>
 
 
 
