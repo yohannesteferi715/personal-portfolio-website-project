@@ -1,8 +1,11 @@
-import {Button} from '@/components/Button'
+import { Button } from '@/components/Button'
 import {
-  ArrowRight,
-  Download,
+   ArrowRight,
+   Download,
 } from "lucide-react";
+
+import { SiGithub,  SiX } from "@icons-pack/react-simple-icons";
+
 import { AnimatedBorderButton } from '../components/AnimatedBorderButton'
 
 export const Hero = () => {
@@ -64,17 +67,43 @@ export const Hero = () => {
                </div>
                {/* CTAs */}
                <div className='flex flex-wrap gap-4 animate-fade-in animation-delay-300'>
-                 <Button size="lg">
-                Contact Me <ArrowRight className="w-5 h-5" />
-              </Button>
-              <AnimatedBorderButton>
-                <Download className="w-5 h-5" />
-                Download CV
-              </AnimatedBorderButton> 
+                  <Button size="lg">
+                     Contact Me <ArrowRight className="w-5 h-5" />
+                  </Button>
+                  <AnimatedBorderButton>
+                     <Download className="w-5 h-5" />
+                     Download CV
+                  </AnimatedBorderButton>
+               </div>
+               {/* Social Links */}
+               <div className="flex items-center gap-4 animate-fade-in animation-delay-400">
+                  <span className="text-sm text-muted-foreground">Follow me: </span>
+                  {[
+                      { icon: SiGithub, href: "#" },
+                    
+                     { icon: SiX, href: "#" },
+                  ].map((social, idx) => (
+                     <a
+                        key={idx}
+                        href={social.href}
+                        className="p-2 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all duration-300"
+                     >
+                        {<social.icon className="w-5 h-5" />}
+                     </a>
+                  ))}
                </div>
             </div>
 
             {/* Right Column - Profile Image */}
+            <div>
+               <div>
+                    <img
+                  src="/profile-photo.jpg"
+                  alt="Yohannes Teferi"
+                  className="w-full aspect-[4/5] object-cover rounded-2xl"
+                />
+               </div>
+            </div>
          </div>
 
       </div>
