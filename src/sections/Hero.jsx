@@ -4,7 +4,7 @@ import {
    Download,
 } from "lucide-react";
 
-import { SiGithub,  SiX } from "@icons-pack/react-simple-icons";
+import { SiGithub, SiX } from "@icons-pack/react-simple-icons";
 
 import { AnimatedBorderButton } from '../components/AnimatedBorderButton'
 
@@ -79,8 +79,8 @@ export const Hero = () => {
                <div className="flex items-center gap-4 animate-fade-in animation-delay-400">
                   <span className="text-sm text-muted-foreground">Follow me: </span>
                   {[
-                      { icon: SiGithub, href: "#" },
-                    
+                     { icon: SiGithub, href: "#" },
+
                      { icon: SiX, href: "#" },
                   ].map((social, idx) => (
                      <a
@@ -95,13 +95,22 @@ export const Hero = () => {
             </div>
 
             {/* Right Column - Profile Image */}
-            <div>
-               <div>
-                    <img
-                  src="/profile-photo.jpg"
-                  alt="Yohannes Teferi"
-                  className="w-full aspect-[4/5] object-cover rounded-2xl"
-                />
+            <div className="relatice animate-fade-in animation-delay-300">
+               {/* Profile Image */}
+               <div className="relative max-w-md mx-auto">
+                  <div
+                     className="absolute inset-0 
+              rounded-3xl bg-gradient-to-br 
+              from-primary/30 via-transparent 
+              to-primary/10 blur-2xl animate-pulse"
+                  />
+                  <div className="relative glass rounded-3xl p-2 glow-border">
+                     <img
+                        src="/profile-photo.jpg"
+                        alt="Yohannes Teferi"
+                        className="w-full aspect-[4/5] object-cover rounded-2xl"
+                     />
+                  </div>
                </div>
             </div>
          </div>
