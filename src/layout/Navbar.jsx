@@ -1,6 +1,6 @@
 import { Button } from "@/components/Button";
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 const navLinks = [
    { href: "#about", label: "About" },
    { href: "#projects", label: "Projects" },
@@ -12,10 +12,21 @@ const navLinks = [
 
 
 export const Navbar = () => {
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+   const [isScrolled, setIsScrolled] = useState(false);
+   useEffect(() => {
+      const handleScroll = () => {
+         setIsScrolled(window.scrollY > 50);
+      };
 
+      window.addEventListener("scroll", handleScroll);
 
-   return <header className="fixed top-0 left-0 right-0 bg-transparent py-5 z-50 ">
+      return () => window.removeEventListener("scroll", handleScroll);
+   }, []);
+
+   return <header     className={`fixed top-0 left-0 right-0 transition-all duration-500 ${
+        isScrolled ? "glass-strong py-3" : "bg-transparent py-5"
+      }  z-50`}>
       <nav className="container mx-auto px-6 flex items-center justify-between">
          <a href="#"
             className="text-xl font-bold tracking-tight hover:text-primary">
@@ -45,15 +56,15 @@ export const Navbar = () => {
          </div>
 
          {/* Mobile Menu Button*/}
-         <button className="md:hidden p-2 text-foreground cursor-pointer"onClick={()=>{
-               setIsMobileMenuOpen((prev)=>!prev)
+         <button className="md:hidden p-2 text-foreground cursor-pointer" onClick={() => {
+            setIsMobileMenuOpen((prev) => !prev)
          }}>
-           { isMobileMenuOpen ?<X/>: <Menu size={24} /> }
+            {isMobileMenuOpen ? <X /> : <Menu size={24} />}
 
 
          </button>
       </nav>
-     {isMobileMenuOpen &&( <div className="md:hidden glass-strong  animate-fade-in">
+      {isMobileMenuOpen && (<div className="md:hidden glass-strong  animate-fade-in">
          <div className="container  mx-auto px-6 py-6 flex flex-col ">
             {navLinks.map(
                (link, index) => (
@@ -69,7 +80,7 @@ export const Navbar = () => {
             <Button>Contact Me </Button>
          </div>
       </div>
-)}
+      )}
    </header>
 
 
