@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navbar } from "@/layout/Navbar";
 import { Hero } from "@/sections/Hero";
 import { About } from "@/sections/About";
+import { BackendArchitecture } from "@/sections/BackendArchitecture/BackendArchitecture";
 import { Skills } from "@/sections/Skills";
 import { Projects } from "@/sections/Projects";
 import { Experience } from "@/sections/Experience";
@@ -17,6 +18,7 @@ const Portfolio = () => (
     <main>
       <Hero />
       <About />
+      <BackendArchitecture />
       <Skills />
       <Projects />
       <Experience />
