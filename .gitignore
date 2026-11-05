@@ -19,6 +19,15 @@ yarn-error.log*
 # Vite cache
 .vite/
 
+# Python / backend
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+portfolio.db
+portfolio.db-shm
+portfolio.db-wal
+
 # OS files
 .DS_Store
 Thumbs.db

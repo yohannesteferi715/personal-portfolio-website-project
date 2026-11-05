@@ -11,4 +11,14 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+
+  server: {
+    proxy: {
+      // All /api/* requests are forwarded to the FastAPI server
+      '/api': {
+        target: process.env.VITE_API_PROXY_TARGET || 'http://127.0.0.1:8001',
+        changeOrigin: true,
+      },
+    },
+  },
 })
