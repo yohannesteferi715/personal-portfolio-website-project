@@ -2,6 +2,7 @@ import { useApi } from "@/hooks/useApi";
 import { Skeleton, SkeletonText, ApiError } from "@/components/Skeleton";
 import { getTechIcon } from "@/lib/techIcons";
 import { Briefcase, Calendar } from "lucide-react";
+import { TimelineConnector } from "@/components/TimelineConnector";
 
 const ExperienceSkeleton = ({ flipped }) => (
   <div className="relative grid md:grid-cols-2 gap-8">
@@ -52,10 +53,8 @@ export const Experience = () => {
 
         {/* Timeline */}
         <div className="relative">
-          {/* Animated vertical line */}
-          <div
-            className="absolute left-0 md:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-primary/70 via-primary/30 to-transparent md:-translate-x-1/2 timeline-glow"
-          />
+          {/* Animated SVG connector with glowing particles */}
+          <TimelineConnector />
 
           <div className="space-y-16">
             {loading
