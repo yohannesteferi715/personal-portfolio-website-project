@@ -32,16 +32,16 @@ export const Testimonials = () => {
   const previous = () => setActiveIdx((prev) => (prev - 1 + count) % count);
 
   return (
-    <section id="testimonials" className="py-32 relative overflow-hidden">
+    <section id="testimonials" className="py-8 md:py-12 relative overflow-hidden scroll-mt-16">
       <div className="absolute top-1/2 left-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Section header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-8 md:mb-10">
           <span className="text-secondary-foreground text-sm font-medium tracking-wider uppercase animate-fade-in">
             What People Say
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6 animate-fade-in animation-delay-100 text-secondary-foreground">
+          <h2 className="text-4xl md:text-5xl font-bold mt-2 mb-4 animate-fade-in animation-delay-100 text-secondary-foreground">
             Kind words from{" "}
             <span className="font-serif italic font-normal text-white">
               amazing people.
@@ -70,12 +70,21 @@ export const Testimonials = () => {
                 </blockquote>
 
                 <div className="flex items-center gap-4">
-                  <img
-                    src={current?.avatar_url}
-                    alt={current?.author}
-                    className="w-14 h-14 rounded-full object-cover ring-2 ring-primary/20"
-                    loading="lazy"
-                  />
+                  {current?.avatar_url ? (
+                    <img
+                      src={current.avatar_url}
+                      alt={current?.author || "Author"}
+                      className="w-14 h-14 rounded-full object-cover ring-2 ring-primary/20"
+                      loading="lazy"
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none";
+                      }}
+                    />
+                  ) : (
+                    <div className="w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-lg ring-2 ring-primary/20">
+                      {current?.author?.charAt(0) || "U"}
+                    </div>
+                  )}
                   <div>
                     <div className="font-semibold">{current?.author}</div>
                     <div className="text-sm text-muted-foreground">{current?.role}</div>
@@ -83,39 +92,41 @@ export const Testimonials = () => {
                 </div>
               </div>
 
-              {/* Navigation */}
-              <div className="flex items-center justify-center gap-4 mt-8">
-                <button
-                  onClick={previous}
-                  aria-label="Previous testimonial"
-                  className="p-3 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all"
-                >
-                  <ChevronLeft />
-                </button>
+              {/* Navigation — only show when there is more than 1 testimonial */}
+              {count > 1 && (
+                <div className="flex items-center justify-center gap-4 mt-8">
+                  <button
+                    onClick={previous}
+                    aria-label="Previous testimonial"
+                    className="p-3 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all cursor-pointer"
+                  >
+                    <ChevronLeft />
+                  </button>
 
-                <div className="flex gap-2">
-                  {testimonials?.map((_, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setActiveIdx(idx)}
-                      aria-label={`Go to testimonial ${idx + 1}`}
-                      className={`h-2 rounded-full transition-all duration-300 ${
-                        idx === activeIdx
-                          ? "w-8 bg-primary"
-                          : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50"
-                      }`}
-                    />
-                  ))}
+                  <div className="flex gap-2">
+                    {testimonials?.map((_, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setActiveIdx(idx)}
+                        aria-label={`Go to testimonial ${idx + 1}`}
+                        className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                          idx === activeIdx
+                            ? "w-8 bg-primary"
+                            : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                        }`}
+                      />
+                    ))}
+                  </div>
+
+                  <button
+                    onClick={next}
+                    aria-label="Next testimonial"
+                    className="p-3 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all cursor-pointer"
+                  >
+                    <ChevronRight />
+                  </button>
                 </div>
-
-                <button
-                  onClick={next}
-                  aria-label="Next testimonial"
-                  className="p-3 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all"
-                >
-                  <ChevronRight />
-                </button>
-              </div>
+              )}
             </div>
           )}
         </div>

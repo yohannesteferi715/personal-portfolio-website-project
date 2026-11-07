@@ -2,17 +2,18 @@ import { useApi } from "@/hooks/useApi";
 import { Skeleton, ApiError } from "@/components/Skeleton";
 import { getTechIcon } from "@/lib/techIcons";
 
-import { Server, Code2, Database, Wrench, Layers } from "lucide-react";
+import { Server, Code2, Database, Wrench, Layers, Bot } from "lucide-react";
 
 const CATEGORY_META = {
-  backend:     { label: "Backend",     color: "#20b2a6", icon: Server },
-  frontend:    { label: "Frontend",    color: "#61dafb", icon: Code2 },
-  database:    { label: "Databases",   color: "#f5a623", icon: Database },
-  devops:      { label: "DevOps",      color: "#34d399", icon: Wrench },
-  engineering: { label: "Engineering",  color: "#a78bfa", icon: Layers },
+  ai:          { label: "AI & Agentic Systems", color: "#a855f7", icon: Bot },
+  backend:     { label: "Backend Architecture", color: "#20b2a6", icon: Server },
+  frontend:    { label: "Frontend & UI",       color: "#61dafb", icon: Code2 },
+  database:    { label: "Databases & DSA",     color: "#f5a623", icon: Database },
+  devops:      { label: "DevOps & Cloud",      color: "#34d399", icon: Wrench },
+  engineering: { label: "System Design & SRS", color: "#a78bfa", icon: Layers },
 };
 
-const CATEGORY_ORDER = ["backend", "frontend", "database", "devops", "engineering"];
+const CATEGORY_ORDER = ["ai", "backend", "frontend", "database", "devops", "engineering"];
 
 // ── Compact animated skill chip ───────────────────────────────────────────────
 
@@ -21,7 +22,7 @@ const SkillChip = ({ name, delay }) => {
 
   return (
     <div
-      className="animate-skill-chip group/chip relative flex flex-col items-center gap-1.5 px-2 py-3 rounded-xl glass border border-border/30 hover:border-transparent cursor-default transition-all duration-300 hover:-translate-y-1"
+      className="animate-skill-chip group/chip relative flex flex-col items-center justify-center min-h-[76px] gap-1.5 px-2 py-2.5 rounded-xl glass border border-border/30 hover:border-transparent cursor-default transition-all duration-300 hover:-translate-y-1"
       style={{ animationDelay: `${delay}ms` }}
     >
       {/* Hover glow */}
@@ -37,7 +38,7 @@ const SkillChip = ({ name, delay }) => {
         <Icon className="w-5 h-5 transition-transform duration-300 group-hover/chip:rotate-6" style={{ color }} />
       </div>
       {/* Name */}
-      <span className="text-[11px] font-medium text-muted-foreground group-hover/chip:text-foreground transition-colors duration-200 text-center leading-tight">
+      <span className="text-[11px] font-medium text-muted-foreground group-hover/chip:text-foreground transition-colors duration-200 text-center leading-tight line-clamp-2">
         {name}
       </span>
     </div>
@@ -46,13 +47,15 @@ const SkillChip = ({ name, delay }) => {
 
 // ── Compact category card ─────────────────────────────────────────────────────
 
-const CategoryCard = ({ category, skills, index }) => {
+const CategoryCard = ({ category, skills, index, isSpan2 }) => {
   const meta = CATEGORY_META[category] || { label: category, color: "#7a8491", icon: Code2 };
   const CatIcon = meta.icon;
 
   return (
     <div
-      className="animate-skill-card glass rounded-2xl p-5 border border-border/30 hover:border-primary/20 transition-all duration-300"
+      className={`animate-skill-card glass rounded-2xl p-5 border border-border/30 hover:border-primary/20 transition-all duration-300 ${
+        isSpan2 ? "md:col-span-2" : ""
+      }`}
       style={{ animationDelay: `${index * 100}ms` }}
     >
       {/* Header */}
@@ -71,7 +74,7 @@ const CategoryCard = ({ category, skills, index }) => {
       </div>
 
       {/* Skill chips grid */}
-      <div className="grid grid-cols-3 sm:grid-cols-4 gap-2.5">
+      <div className={`grid gap-2.5 ${isSpan2 ? "grid-cols-3 sm:grid-cols-6" : "grid-cols-3 sm:grid-cols-4"}`}>
         {skills.map((skill, i) => (
           <SkillChip key={skill.id || i} name={skill.name} delay={index * 100 + i * 30} />
         ))}
@@ -109,33 +112,39 @@ export const Skills = () => {
   }, {});
 
   return (
-    <section id="skills" className="py-24 relative overflow-hidden">
+    <section id="skills" className="py-8 md:py-12 relative overflow-hidden scroll-mt-16">
       <div className="absolute top-1/4 right-0 w-72 h-72 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 left-0 w-56 h-56 bg-highlight/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Section header */}
-        <div className="text-center max-w-2xl mx-auto mb-12">
+        <div className="text-center max-w-2xl mx-auto mb-8 md:mb-10">
           <span className="text-secondary-foreground text-sm font-medium tracking-wider uppercase animate-fade-in">
             Technical Expertise
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-4 animate-fade-in animation-delay-100 text-secondary-foreground">
+          <h2 className="text-4xl md:text-5xl font-bold mt-2 mb-3 animate-fade-in animation-delay-100 text-secondary-foreground">
             Skills &{" "}
             <span className="font-serif italic font-normal text-white">Technologies</span>
           </h2>
           <p className="text-muted-foreground text-sm animate-fade-in animation-delay-200">
-            My technical toolkit across backend, frontend, databases, DevOps, and engineering practices.
+            My technical toolkit across AI & Agentic systems, backend architecture, frontend, databases, DevOps, and engineering practices.
           </p>
         </div>
 
         {error && <ApiError message={error} />}
 
-        {/* Compact 2-column grid — keeps section to ~half screen */}
+        {/* Compact 2-column grid */}
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-4">
           {loading
-            ? Array.from({ length: 5 }).map((_, i) => <CardSkeleton key={i} />)
-            : CATEGORY_ORDER.filter((cat) => grouped[cat]?.length).map((cat, idx) => (
-                <CategoryCard key={cat} category={cat} skills={grouped[cat]} index={idx} />
+            ? Array.from({ length: 6 }).map((_, i) => <CardSkeleton key={i} />)
+            : CATEGORY_ORDER.filter((cat) => grouped[cat]?.length).map((cat, idx, arr) => (
+                <CategoryCard
+                  key={cat}
+                  category={cat}
+                  skills={grouped[cat]}
+                  index={idx}
+                  isSpan2={idx === arr.length - 1 && arr.length % 2 !== 0}
+                />
               ))}
         </div>
       </div>

@@ -7,6 +7,7 @@ import { getTechIcon } from "@/lib/techIcons";
 
 const FILTERS = [
   { label: "All", value: null },
+  { label: "AI & RAG", value: "ai" },
   { label: "Backend", value: "backend" },
   { label: "Frontend", value: "frontend" },
   { label: "Full-Stack", value: "full-stack" },
@@ -36,17 +37,17 @@ export const Projects = () => {
     : projects || [];
 
   return (
-    <section id="projects" className="py-32 relative overflow-hidden">
+    <section id="projects" className="py-8 md:py-12 relative overflow-hidden scroll-mt-16">
       <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 left-0 w-64 h-64 bg-highlight/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Section header */}
-        <div className="text-center mx-auto max-w-3xl mb-12">
+        <div className="text-center mx-auto max-w-3xl mb-8 md:mb-10">
           <span className="text-secondary-foreground text-sm font-medium tracking-wider uppercase animate-fade-in">
             Featured Work
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6 animate-fade-in animation-delay-100 text-secondary-foreground">
+          <h2 className="text-4xl md:text-5xl font-bold mt-2 mb-4 animate-fade-in animation-delay-100 text-secondary-foreground">
             Projects that{" "}
             <span className="font-serif italic font-normal text-white">
               solve real problems
@@ -60,7 +61,7 @@ export const Projects = () => {
 
         {/* Filter buttons */}
         {!loading && (projects || []).length > 0 && (
-          <div className="flex flex-wrap gap-2 justify-center mb-10 animate-fade-in animation-delay-300">
+          <div className="flex flex-wrap gap-2 justify-center mb-6 md:mb-8 animate-fade-in animation-delay-300">
             {FILTERS.map((f) => (
               <button
                 key={f.value || "all"}
@@ -78,13 +79,13 @@ export const Projects = () => {
         )}
 
         {error && (
-          <div className="mb-8">
+          <div className="mb-6">
             <ApiError message={error} />
           </div>
         )}
 
         {/* Projects grid */}
-        <div className="grid md:grid-cols-2 gap-8" style={{ perspective: "1200px" }}>
+        <div className="grid md:grid-cols-2 gap-6 md:gap-8" style={{ perspective: "1200px" }}>
           {loading
             ? Array.from({ length: 4 }).map((_, i) => <SkeletonCard key={i} />)
             : filtered.map((project, idx) => (
@@ -106,27 +107,32 @@ export const Projects = () => {
 
                     {/* Hover action buttons */}
                     <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:scale-100 scale-90">
-                      {project.live_url && project.live_url !== "#" && (
+                      {project.live_url && project.live_url !== "#" ? (
                         <a
                           href={project.live_url}
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={`View ${project.title} live`}
-                          className="p-4 rounded-full glass-strong hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110"
+                          className="p-4 rounded-full glass-strong hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110 shadow-lg"
                         >
                           <ExternalLink className="w-5 h-5" />
                         </a>
-                      )}
-                      {project.github_url && project.github_url !== "#" && (
+                      ) : null}
+                      {project.github_url && project.github_url !== "#" ? (
                         <a
                           href={project.github_url}
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={`View ${project.title} on GitHub`}
-                          className="p-4 rounded-full glass-strong hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110"
+                          className="p-4 rounded-full glass-strong hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110 shadow-lg"
                         >
                           <SiGithub className="w-5 h-5" />
                         </a>
+                      ) : null}
+                      {(!project.live_url || project.live_url === "#") && (!project.github_url || project.github_url === "#") && (
+                        <span className="px-4 py-2 rounded-full glass-strong text-xs font-medium text-primary border border-primary/30 shadow-lg tracking-wide uppercase">
+                          Featured Case Study
+                        </span>
                       )}
                     </div>
 

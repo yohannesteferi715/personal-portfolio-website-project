@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navbar } from "@/layout/Navbar";
+import { Footer } from "@/layout/Footer";
 import { Hero } from "@/sections/Hero";
 import { About } from "@/sections/About";
 import { BackendArchitecture } from "@/sections/BackendArchitecture/BackendArchitecture";
@@ -13,9 +14,9 @@ import { Contact } from "@/sections/Contact";
 import { AdminApp } from "@/admin/AdminApp";
 
 const Portfolio = () => (
-  <div className="min-h-screen overflow-x-hidden">
+  <div className="min-h-screen overflow-x-hidden flex flex-col justify-between">
     <Navbar />
-    <main>
+    <main className="flex-1">
       <Hero />
       <About />
       <BackendArchitecture />
@@ -27,6 +28,7 @@ const Portfolio = () => (
       <Testimonials />
       <Contact />
     </main>
+    <Footer />
   </div>
 );
 

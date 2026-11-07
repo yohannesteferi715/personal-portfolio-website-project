@@ -4,6 +4,42 @@ import { getTechIcon } from "@/lib/techIcons";
 import { Briefcase, Calendar } from "lucide-react";
 import { TimelineConnector } from "@/components/TimelineConnector";
 
+const DEFAULT_EXPERIENCES = [
+  {
+    id: 1,
+    period: "2027",
+    role: "High-Performance Systems & Agentic AI",
+    company: "Deepening Focus & Advanced Innovation",
+    description:
+      "Advancing into asynchronous high-throughput architectures and autonomous agentic workflows. Engineering production-grade RAG systems, semantic vector search, LLM orchestration, and high-performance microservices with FastAPI.",
+    employment_type: "Specialization & Innovation",
+    technologies: ["FastAPI", "LLMs", "RAG Systems", "Agentic AI"],
+    current: true,
+  },
+  {
+    id: 2,
+    period: "2026",
+    role: "Modern Full-Stack & API Architecture",
+    company: "Production Systems & Engineering Standards",
+    description:
+      "Scaled into enterprise frontend architecture and robust RESTful API design. Built reactive user interfaces with React.js and TypeScript, engineered production APIs with Django REST Framework (DRF), and authored formal Software Requirements Specifications (SRS) and software design blueprints.",
+    employment_type: "Architecture & Engineering",
+    technologies: ["React.js", "TypeScript", "REST APIs", "DRF", "SRS & Software Design"],
+    current: false,
+  },
+  {
+    id: 3,
+    period: "2025",
+    role: "Foundations & Core Backend Engineering",
+    company: "Core Systems & Algorithms",
+    description:
+      "Established foundational computer science and engineering disciplines. Mastered data structures and algorithms (DSA), relational database schema design, and core web backend development with HTML, CSS, JavaScript, and pure Django.",
+    employment_type: "Foundations & Core Systems",
+    technologies: ["HTML", "CSS", "JavaScript", "Pure Django", "Database Design", "DSA"],
+    current: false,
+  },
+];
+
 const ExperienceSkeleton = ({ flipped }) => (
   <div className="relative grid md:grid-cols-2 gap-8">
     <div className={`pl-8 md:pl-0 ${flipped ? "md:col-start-2 md:pl-16" : "md:pr-16"}`}>
@@ -23,29 +59,30 @@ const ExperienceSkeleton = ({ flipped }) => (
 );
 
 export const Experience = () => {
-  const { data: experiences, loading, error } = useApi("/api/v1/experience", []);
+  const { data: experiences, loading, error } = useApi("/api/v1/experience", DEFAULT_EXPERIENCES);
+  const items = experiences && experiences.length > 0 ? experiences : DEFAULT_EXPERIENCES;
 
   return (
-    <section id="experience" className="py-32 relative overflow-hidden">
+    <section id="experience" className="py-8 md:py-12 relative overflow-hidden scroll-mt-16">
       {/* Background glows */}
       <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-highlight/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Section header */}
-        <div className="max-w-3xl mb-20">
+        <div className="max-w-3xl mb-8 md:mb-10">
           <span className="text-secondary-foreground text-sm font-medium tracking-wider uppercase animate-fade-in">
             Career Journey
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6 animate-fade-in animation-delay-100 text-secondary-foreground">
+          <h2 className="text-4xl md:text-5xl font-bold mt-2 mb-4 animate-fade-in animation-delay-100 text-secondary-foreground">
             Experience that{" "}
             <span className="font-serif italic font-normal text-white">
               speaks volumes.
             </span>
           </h2>
           <p className="text-muted-foreground animate-fade-in animation-delay-200">
-            A timeline of my professional growth — building backend systems,
-            designing APIs, and solving engineering problems.
+            A chronological timeline of my professional growth & technical evolution — building backend architectures,
+            modern full-stack applications, and autonomous agentic AI systems.
           </p>
         </div>
 
@@ -56,18 +93,18 @@ export const Experience = () => {
           {/* Animated SVG connector with glowing particles */}
           <TimelineConnector />
 
-          <div className="space-y-16">
+          <div className="space-y-8 md:space-y-10">
             {loading
-              ? Array.from({ length: 4 }).map((_, i) => (
+              ? Array.from({ length: 3 }).map((_, i) => (
                   <ExperienceSkeleton key={i} flipped={i % 2 !== 0} />
                 ))
-              : experiences?.map((exp, idx) => {
+              : items.map((exp, idx) => {
                   const isLeft = idx % 2 === 0;
                   const animClass = isLeft ? "animate-timeline-left" : "animate-timeline-right";
 
                   return (
                     <div
-                      key={exp.id}
+                      key={exp.id || idx}
                       className="relative grid md:grid-cols-2 gap-8"
                     >
                       {/* Timeline dot with pulse */}
@@ -88,15 +125,15 @@ export const Experience = () => {
                       <div
                         className={`pl-10 md:pl-0 ${animClass} ${
                           isLeft
-                            ? "md:pr-16 md:text-right"
-                            : "md:col-start-2 md:pl-16"
+                            ? "md:pr-14 text-left"
+                            : "md:col-start-2 md:pl-14 text-left"
                         }`}
                         style={{ animationDelay: `${(idx + 1) * 200}ms` }}
                       >
-                        <div className="timeline-card-hover glass p-6 rounded-2xl border border-primary/20 hover:border-primary/40">
+                        <div className="timeline-card-hover glass p-6 rounded-2xl border border-primary/20 hover:border-primary/40 text-left">
                           {/* Period + current badge */}
-                          <div className={`flex items-center gap-2 ${isLeft ? "md:justify-end" : ""} flex-wrap`}>
-                            <div className={`flex items-center gap-2 ${isLeft ? "md:flex-row-reverse" : ""}`}>
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <div className="flex items-center gap-2">
                               <Calendar className="w-4 h-4 text-primary" />
                               <span className="text-sm text-primary font-medium">
                                 {exp.period}
@@ -110,11 +147,11 @@ export const Experience = () => {
                           </div>
 
                           {/* Role + company */}
-                          <div className={`mt-3 flex items-start gap-3 ${isLeft ? "md:flex-row-reverse" : ""}`}>
-                            <div className={`w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 ${isLeft ? "md:order-2" : ""}`}>
+                          <div className="mt-3 flex items-start gap-3">
+                            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
                               <Briefcase className="w-5 h-5 text-primary" />
                             </div>
-                            <div className={isLeft ? "md:text-right" : ""}>
+                            <div>
                               <h3 className="text-xl font-semibold">{exp.role}</h3>
                               <p className="text-muted-foreground text-sm">{exp.company}</p>
                               {exp.employment_type && (
@@ -132,7 +169,7 @@ export const Experience = () => {
 
                           {/* Tech tags with brand icons */}
                           {exp.technologies?.length > 0 && (
-                            <div className={`flex flex-wrap gap-2 mt-5 ${isLeft ? "md:justify-end" : ""}`}>
+                            <div className="flex flex-wrap gap-2 mt-5">
                               {exp.technologies.map((tech, i) => {
                                 const { Icon, color } = getTechIcon(tech);
                                 return (

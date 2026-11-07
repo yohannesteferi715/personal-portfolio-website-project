@@ -14,15 +14,15 @@ export const Education = () => {
   const { data: education, loading, error } = useApi("/api/v1/education", []);
 
   return (
-    <section id="education" className="py-32 relative overflow-hidden">
+    <section id="education" className="py-8 md:py-12 relative overflow-hidden scroll-mt-16">
       <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-highlight/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="max-w-3xl mb-16">
+        <div className="max-w-3xl mb-8 md:mb-10">
           <span className="text-secondary-foreground text-sm font-medium tracking-wider uppercase animate-fade-in">
             Academic Background
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6 animate-fade-in animation-delay-100 text-secondary-foreground">
+          <h2 className="text-4xl md:text-5xl font-bold mt-2 mb-4 animate-fade-in animation-delay-100 text-secondary-foreground">
             Education
           </h2>
           <p className="text-muted-foreground animate-fade-in animation-delay-200">
@@ -38,33 +38,38 @@ export const Education = () => {
             : education?.map((edu, idx) => (
                 <div
                   key={edu.id}
-                  className="glass p-6 rounded-2xl animate-fade-in border border-primary/10 hover:border-primary/30 transition-all duration-300"
+                  className="glass p-6 md:p-8 rounded-2xl animate-fade-in border border-primary/20 hover:border-primary/40 transition-all duration-300 relative group overflow-hidden"
                   style={{ animationDelay: `${(idx + 1) * 150}ms` }}
                 >
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <div className="flex items-start gap-5">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
                       <GraduationCap className="w-6 h-6 text-primary" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-lg font-semibold">{edu.degree}</h3>
-                      <p className="text-muted-foreground">{edu.institution}</p>
-                      <p className="text-sm text-primary mt-1">{edu.field_of_study}</p>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        {edu.start_date} — {edu.end_date}
-                      </p>
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-1">
+                        <h3 className="text-xl font-semibold group-hover:text-primary transition-colors">{edu.degree}</h3>
+                        <span className="inline-flex self-start sm:self-auto px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium border border-primary/20">
+                          {edu.start_date} — {edu.end_date}
+                        </span>
+                      </div>
+                      <p className="text-muted-foreground font-medium">{edu.institution}</p>
+                      <p className="text-xs text-secondary-foreground font-mono mt-0.5">{edu.field_of_study}</p>
                       {edu.description && (
-                        <p className="text-sm text-muted-foreground mt-3">{edu.description}</p>
+                        <p className="text-sm text-muted-foreground/90 mt-3 leading-relaxed">{edu.description}</p>
                       )}
                       {edu.coursework?.length > 0 && (
-                        <div className="flex flex-wrap gap-2 mt-4">
-                          {edu.coursework.map((c, i) => (
-                            <span
-                              key={i}
-                              className="px-3 py-1 bg-surface text-xs rounded-full text-muted-foreground border border-border/50"
-                            >
-                              {c}
-                            </span>
-                          ))}
+                        <div className="pt-2">
+                          <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground/70 mb-2">Key Coursework</p>
+                          <div className="flex flex-wrap gap-2">
+                            {edu.coursework.map((c, i) => (
+                              <span
+                                key={i}
+                                className="px-3 py-1 bg-surface/80 text-xs rounded-lg text-muted-foreground border border-border/50 hover:border-primary/30 hover:text-foreground transition-colors"
+                              >
+                                {c}
+                              </span>
+                            ))}
+                          </div>
                         </div>
                       )}
                     </div>

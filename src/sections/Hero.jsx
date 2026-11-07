@@ -42,6 +42,9 @@ export const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/80 to-background" />
       </div>
 
+      {/* Ambient background glow */}
+      <div className="absolute top-1/4 left-1/12 w-96 h-96 bg-primary/12 rounded-full blur-3xl pointer-events-none" />
+
       {/* Floating particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {PARTICLES.map((p) => (
@@ -60,16 +63,16 @@ export const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-6 pt-32 pb-20 relative z-10">
+      <div className="container mx-auto px-6 pt-28 md:pt-32 pb-14 md:pb-16 relative z-10">
         {profileError && (
-          <div className="mb-8">
+          <div className="mb-6">
             <ApiError message={profileError} />
           </div>
         )}
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
           {/* Left column */}
-          <div className="space-y-8">
+          <div className="space-y-6">
             {/* Badge */}
             <div className="animate-fade-in">
               {profileLoading ? (
@@ -77,7 +80,7 @@ export const Hero = () => {
               ) : (
                 <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-primary">
                   <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                  {profile?.title ?? "Software Engineer"}
+                  {profile?.title ?? "Backend & Agentic AI Engineer"}
                 </span>
               )}
             </div>
@@ -97,7 +100,7 @@ export const Hero = () => {
                     {profile?.headline_highlight ?? "scalable"}
                   </span>
                   <br />
-                  {profile?.headline_suffix ?? "backend systems with"}
+                  {profile?.headline_suffix ?? "backend systems & AI agents with"}
                   <br />
                   <span className="font-serif italic font-normal text-white">
                     {profile?.headline_italic ?? "precision."}
@@ -109,7 +112,8 @@ export const Hero = () => {
                 <SkeletonText lines={2} className="max-w-lg" />
               ) : (
                 <p className="text-lg text-muted-foreground max-w-lg animate-fade-in animation-delay-200">
-                  {profile?.bio}
+                  {profile?.bio ??
+                    "Backend-focused full-stack and AI systems engineer specialized in Python (FastAPI, Django, DRF), React, and autonomous Agentic RAG architectures."}
                 </p>
               )}
             </div>
@@ -127,9 +131,9 @@ export const Hero = () => {
                   </AnimatedBorderButton>
                 </a>
               ) : (
-                <AnimatedBorderButton>
+                <AnimatedBorderButton onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}>
                   <Download className="w-5 h-5" />
-                  Download CV
+                  Request CV
                 </AnimatedBorderButton>
               )}
             </div>
@@ -162,7 +166,7 @@ export const Hero = () => {
           {/* Right column — profile photo */}
           <div className="animate-fade-in animation-delay-300">
             <div className="relative max-w-md mx-auto">
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/30 via-transparent to-primary/10 blur-2xl animate-pulse" />
+              <div className="absolute -inset-1.5 rounded-3xl bg-gradient-to-br from-primary/50 via-primary/25 to-highlight/15 blur-2xl opacity-90 animate-pulse" />
               <div className="relative glass rounded-3xl p-2 glow-border">
                 {profileLoading ? (
                   <Skeleton className="w-full aspect-[4/5] rounded-2xl" />
@@ -196,7 +200,7 @@ export const Hero = () => {
 
                     <div className="absolute -top-4 -left-4 glass rounded-xl px-4 py-3 animate-float animation-delay-500">
                       <div className="text-2xl font-bold text-primary">
-                        {profile?.years_experience ?? 5}+
+                        {profile?.years_experience ?? 2}+
                       </div>
                       <div className="text-xs text-muted-foreground">Years Exp.</div>
                     </div>
@@ -208,8 +212,8 @@ export const Hero = () => {
         </div>
 
         {/* Tech marquee with icons */}
-        <div className="mt-20 animate-fade-in animation-delay-600">
-          <p className="text-sm text-muted-foreground mb-6 text-center">
+        <div className="mt-12 md:mt-14 animate-fade-in animation-delay-600">
+          <p className="text-sm text-muted-foreground mb-4 text-center">
             Technologies I work with
           </p>
           {skillsLoading ? (
@@ -248,7 +252,7 @@ export const Hero = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-fade-in animation-delay-800">
+      <div className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 animate-fade-in animation-delay-800">
         <a
           href="#about"
           className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors group"

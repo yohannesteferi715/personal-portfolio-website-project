@@ -1,13 +1,18 @@
 import {
   Server, Database, Container, FileText,
   Code2, Shield, Layers, Rocket, Users, Lightbulb,
-  Network, Boxes, Wrench, GitBranch,
+  Network, Boxes, Wrench, GitBranch, Bot, Brain,
+  Sparkles, Cpu,
 } from "lucide-react";
 import { useApi } from "@/hooks/useApi";
 import { Skeleton, SkeletonText, ApiError } from "@/components/Skeleton";
 
 // Map ALL icon names that could be stored in DB to Lucide components + colors
 const ICON_MAP = {
+  Bot:       { Icon: Bot,       color: "#06B6D4" },
+  Brain:     { Icon: Brain,     color: "#A855F7" },
+  Sparkles:  { Icon: Sparkles,  color: "#8B5CF6" },
+  Cpu:       { Icon: Cpu,       color: "#EC4899" },
   Server:    { Icon: Server,    color: "#20b2a6" },
   Database:  { Icon: Database,  color: "#f5a623" },
   Container: { Icon: Container, color: "#2496ED" },
@@ -36,17 +41,17 @@ export const About = () => {
   const { data: about, loading, error } = useApi("/api/v1/about");
 
   return (
-    <section id="about" className="py-32 relative overflow-hidden">
+    <section id="about" className="py-8 md:py-12 relative overflow-hidden scroll-mt-16">
       {/* Background glows */}
       <div className="absolute top-1/2 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 pointer-events-none" />
       <div className="absolute bottom-0 left-1/4 w-64 h-64 bg-highlight/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
-        {error && <div className="mb-8"><ApiError message={error} /></div>}
+        {error && <div className="mb-6"><ApiError message={error} /></div>}
 
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
           {/* ── Left column — text ────────────────────────────────────────── */}
-          <div className="space-y-8">
+          <div className="space-y-6">
             <div className="animate-fade-in">
               <span className="text-secondary-foreground text-sm font-medium tracking-wider uppercase">
                 About Me
@@ -69,12 +74,18 @@ export const About = () => {
             </div>
 
             {/* Mission quote card */}
-            <div className="glass rounded-2xl p-6 glow-border animate-fade-in animation-delay-300 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-primary to-primary/20" />
-              <p className="text-lg font-medium italic text-foreground pl-3">
-                "{about?.mission_quote}"
-              </p>
-            </div>
+            {loading ? (
+              <div className="glass rounded-2xl p-6 glow-border">
+                <Skeleton className="h-12 w-full" />
+              </div>
+            ) : about?.mission_quote ? (
+              <div className="glass rounded-2xl p-6 glow-border animate-fade-in animation-delay-300 relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-primary to-primary/20" />
+                <p className="text-lg font-medium italic text-foreground pl-3 font-serif">
+                  "{about.mission_quote}"
+                </p>
+              </div>
+            ) : null}
           </div>
 
           {/* ── Right column — highlight cards ────────────────────────────── */}

@@ -62,9 +62,9 @@
   }
 
   .glow-border {
-    box-shadow: 0 0 20px
-        color-mix(in srgb, var(--color-primary) 20%, transparent),
-      inset 0 0 20px color-mix(in srgb, var(--color-primary) 5%, transparent);
+    box-shadow: 0 0 32px
+        color-mix(in srgb, var(--color-primary) 28%, transparent),
+      inset 0 0 16px color-mix(in srgb, var(--color-primary) 8%, transparent);
   }
 }
 
@@ -628,5 +628,56 @@
 
   .animate-icon-pop {
     animation: icon-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+}
+
+/* Living architecture diagram */
+.arch-node {
+  transform: translate(-50%, -50%);
+  transition:
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    transform 0.35s ease;
+}
+
+.arch-node .arch-ico,
+.arch-node .arch-ico-wrap {
+  transition: color 0.35s ease, background-color 0.35s ease;
+}
+
+.arch-node[data-lit="1"] {
+  border-color: var(--lit);
+  box-shadow: 0 0 26px color-mix(in srgb, var(--lit) 42%, transparent);
+}
+
+.arch-node[data-lit="1"] .arch-ico {
+  color: var(--lit);
+}
+
+.arch-node[data-lit="1"] .arch-ico-wrap {
+  background-color: color-mix(in srgb, var(--lit) 16%, transparent);
+}
+
+.arch-node:hover,
+.arch-node:focus-visible {
+  border-color: var(--accent);
+  box-shadow: 0 0 26px color-mix(in srgb, var(--accent) 36%, transparent);
+  transform: translate(-50%, -50%) scale(1.035);
+  z-index: 2;
+}
+
+.arch-node:hover .arch-ico,
+.arch-node:focus-visible .arch-ico {
+  color: var(--accent);
+}
+
+.arch-node:hover .arch-ico-wrap,
+.arch-node:focus-visible .arch-ico-wrap {
+  background-color: color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arch-particle {
+    display: none;
   }
 }

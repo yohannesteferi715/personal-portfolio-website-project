@@ -10,16 +10,15 @@ SEED_DATA = {
     # ─────────────────────────────────────────────────────────────────────────
     "profile": {
         "name": "Yohannes Teferi",
-        "title": "Backend-Focused Full-Stack Software Engineer",
+        "title": "Backend & Agentic AI Engineer",
         "headline_prefix": "Building",
         "headline_highlight": "scalable",
-        "headline_suffix": "backend systems with",
+        "headline_suffix": "backend systems & AI agents with",
         "headline_italic": "precision.",
         "bio": (
-            "Backend-focused full-stack software engineer with 2+ years of experience "
-            "building web applications, designing RESTful APIs, and developing scalable "
-            "backend systems. Specialized in Python, Django, Django REST Framework, "
-            "and FastAPI, with React for modern user interfaces."
+            "Backend-focused full-stack software and AI engineer with 2+ years of experience "
+            "building high-throughput APIs, scalable distributed architectures, and autonomous RAG systems. "
+            "Specialized in Python (FastAPI, Django, DRF), React, TypeScript, and multi-agent AI workflows."
         ),
         "years_experience": 2,
         "profile_photo_url": "/api/uploads/profile/profile-photo.jpg",
@@ -38,11 +37,19 @@ SEED_DATA = {
     # SKILLS — organized by category
     # ─────────────────────────────────────────────────────────────────────────
     "skills": [
+        # AI & Agentic Systems
+        {"name": "Agentic AI", "category": "ai"},
+        {"name": "RAG Systems", "category": "ai"},
+        {"name": "LLMs", "category": "ai"},
+        {"name": "LangChain", "category": "ai"},
+        {"name": "Vector Databases", "category": "ai"},
+        {"name": "Prompt Engineering", "category": "ai"},
+
         # Backend Development
+        {"name": "FastAPI", "category": "backend"},
         {"name": "Python", "category": "backend"},
         {"name": "Django", "category": "backend"},
         {"name": "Django REST Framework", "category": "backend"},
-        {"name": "FastAPI", "category": "backend"},
         {"name": "RESTful API Design", "category": "backend"},
         {"name": "API Authentication & Authorization", "category": "backend"},
         {"name": "Redis", "category": "backend"},
@@ -50,15 +57,17 @@ SEED_DATA = {
 
         # Frontend Development
         {"name": "React", "category": "frontend"},
+        {"name": "TypeScript", "category": "frontend"},
         {"name": "JavaScript", "category": "frontend"},
         {"name": "HTML5", "category": "frontend"},
         {"name": "CSS3", "category": "frontend"},
 
-        # Databases
+        # Databases & Foundations
         {"name": "PostgreSQL", "category": "database"},
-        {"name": "SQL", "category": "database"},
         {"name": "Database Design", "category": "database"},
         {"name": "Data Modeling", "category": "database"},
+        {"name": "SQL", "category": "database"},
+        {"name": "DSA", "category": "database"},
 
         # DevOps & Tools
         {"name": "Docker", "category": "devops"},
@@ -68,12 +77,12 @@ SEED_DATA = {
         {"name": "API Documentation", "category": "devops"},
 
         # Software Engineering
-        {"name": "SRS", "category": "engineering"},
-        {"name": "SDD", "category": "engineering"},
+        {"name": "SRS & Software Design", "category": "engineering"},
         {"name": "Software Architecture", "category": "engineering"},
         {"name": "System Design", "category": "engineering"},
+        {"name": "SRS", "category": "engineering"},
+        {"name": "SDD", "category": "engineering"},
         {"name": "Clean Code", "category": "engineering"},
-        {"name": "Requirements Analysis", "category": "engineering"},
     ],
 
     # ─────────────────────────────────────────────────────────────────────────
@@ -82,39 +91,36 @@ SEED_DATA = {
     "about": {
         "paragraphs": [
             (
-                "I am a backend-focused full-stack software engineer with 2+ years of "
-                "experience building web applications, designing RESTful APIs, and developing "
-                "scalable backend systems. My primary expertise is in Python-based backend "
-                "development using Django, Django REST Framework, and FastAPI, alongside React "
-                "for building modern and responsive user interfaces."
+                "I am a backend-focused full-stack and AI systems engineer with 2+ years of "
+                "experience building scalable web architectures, production RESTful APIs, and "
+                "autonomous Agentic RAG workflows. My core expertise centers on Python (FastAPI, "
+                "Django, DRF) and modern React/TypeScript user interfaces."
             ),
             (
-                "I have experience with PostgreSQL, Docker, database architecture, API design, "
-                "and software engineering documentation, including Software Requirements "
-                "Specifications (SRS) and Software Design Descriptions (SDD). I approach every "
-                "project with a focus on maintainability, clean architecture, and proper "
-                "separation of concerns."
+                "I specialize in building intelligent retrieval-augmented generation (RAG) pipelines, "
+                "multi-agent orchestration, vector embeddings, and robust database architectures with PostgreSQL "
+                "and Redis. I pair this with software engineering rigor, authoring Software Requirements "
+                "Specifications (SRS) and Software Design Descriptions (SDD) to ensure maintainable, high-trust software."
             ),
             (
-                "I enjoy designing reliable backend systems, solving complex engineering "
-                "problems, and building maintainable software solutions. My engineering practice "
-                "goes beyond writing code — I value requirements analysis, system design, "
-                "documentation, and making technical decisions that stand the test of time."
+                "From designing high-throughput asynchronous APIs to orchestrating agentic tool-use loops "
+                "that solve real-world problems, I treat software engineering as an end-to-end discipline: "
+                "clean abstractions, solid system design, and verifiable performance."
             ),
         ],
         "mission_quote": (
             "I believe great software starts with solid architecture, clear requirements, "
-            "and code that other engineers can understand and maintain."
+            "and code that other engineers can understand, maintain, and scale."
         ),
         "highlights": [
+            {"icon": "Bot", "title": "Agentic AI & RAG",
+             "description": "Building autonomous multi-agent systems, semantic vector search, and verifiable RAG pipelines."},
             {"icon": "Server", "title": "Backend Architecture",
-             "description": "Designing RESTful APIs and scalable backend systems with Django, DRF, and FastAPI."},
-            {"icon": "Database", "title": "Database Design",
-             "description": "Modeling relational schemas in PostgreSQL with proper indexing and data integrity."},
-            {"icon": "Container", "title": "Containerization",
-             "description": "Dockerizing applications for consistent development and deployment environments."},
-            {"icon": "FileText", "title": "Engineering Documentation",
-             "description": "Writing SRS, SDD, and API docs that keep teams aligned and projects maintainable."},
+             "description": "Designing high-performance async APIs and microservices with FastAPI, Django, and DRF."},
+            {"icon": "Database", "title": "Database Design & DSA",
+             "description": "Modeling relational schemas in PostgreSQL, Redis caching, and algorithmic optimization."},
+            {"icon": "FileText", "title": "Software Design & SRS",
+             "description": "Writing SRS, SDD, and architectural documentation ensuring maintainable and aligned codebases."},
         ],
     },
 
@@ -122,6 +128,32 @@ SEED_DATA = {
     # PROJECTS — sample projects demonstrating backend engineering
     # ─────────────────────────────────────────────────────────────────────────
     "projects": [
+        {
+            "title": "Agentic RAG Knowledge Engine",
+            "description": (
+                "An autonomous multi-agent research and retrieval-augmented generation (RAG) platform "
+                "with hybrid vector search, dynamic tool invocation, citation verification, and an async FastAPI backend."
+            ),
+            "problem": (
+                "Complex research queries require multi-step reasoning, source retrieval, and synthesis "
+                "without hallucinations or lost context."
+            ),
+            "approach": (
+                "Designed an agentic supervisor with LangChain and FastAPI, integrating pgvector for hybrid retrieval, "
+                "query decomposition, and automated fact-checking guardrails."
+            ),
+            "architecture": (
+                "FastAPI async backend, LangChain agentic supervisor, PostgreSQL + pgvector, Redis task queue, "
+                "Docker Compose, and React streaming UI."
+            ),
+            "image_url": "/api/uploads/projects/project2.png",
+            "tags": ["FastAPI", "Agentic AI", "RAG Systems", "LangChain", "PostgreSQL", "Docker"],
+            "category": "ai",
+            "live_url": "#",
+            "github_url": "#",
+            "featured": True,
+            "order": 1,
+        },
         {
             "title": "E-Commerce API Platform",
             "description": (
@@ -148,7 +180,7 @@ SEED_DATA = {
             "live_url": "#",
             "github_url": "#",
             "featured": True,
-            "order": 1,
+            "order": 2,
         },
         {
             "title": "FastAPI Task Management Service",
@@ -175,7 +207,7 @@ SEED_DATA = {
             "live_url": "#",
             "github_url": "#",
             "featured": True,
-            "order": 2,
+            "order": 3,
         },
         {
             "title": "Authentication & Authorization System",
@@ -201,7 +233,7 @@ SEED_DATA = {
             "live_url": "#",
             "github_url": "#",
             "featured": True,
-            "order": 3,
+            "order": 4,
         },
         {
             "title": "Dockerized Blog Platform",
@@ -227,46 +259,62 @@ SEED_DATA = {
             "live_url": "#",
             "github_url": "#",
             "featured": True,
-            "order": 4,
+            "order": 5,
         },
     ],
 
     # ─────────────────────────────────────────────────────────────────────────
-    # EXPERIENCE — real, no fabrication
+    # EXPERIENCE — Career & Technical Growth Timeline
     # ─────────────────────────────────────────────────────────────────────────
     "experiences": [
         {
-            "period": "2023 — Present",
-            "role": "Software Engineer",
-            "company": "Freelance / Open to Opportunities",
+            "period": "2027",
+            "role": "High-Performance Systems & Agentic AI",
+            "company": "Deepening Focus & Advanced Innovation",
             "description": (
-                "Building full-stack web applications with Python (Django, FastAPI) and React. "
-                "Designing RESTful APIs, implementing authentication systems, and managing "
-                "PostgreSQL databases. Working on personal projects and contributing to "
-                "open-source."
+                "Advancing into asynchronous high-throughput architectures and autonomous agentic workflows. "
+                "Engineering production-grade RAG systems, semantic vector search, LLM orchestration, "
+                "and high-performance microservices with FastAPI."
             ),
-            "employment_type": "Freelance",
-            "start_date": "2023-01",
+            "employment_type": "Specialization & Innovation",
+            "start_date": "2027-01",
             "end_date": None,
-            "technologies": ["Python", "Django", "FastAPI", "PostgreSQL", "React", "Docker"],
+            "technologies": ["FastAPI", "LLMs", "RAG Systems", "Agentic AI"],
             "current": True,
             "order": 1,
         },
         {
-            "period": "2022 — 2023",
-            "role": "Junior Backend Developer",
-            "company": "Personal Projects & Learning",
+            "period": "2026",
+            "role": "Modern Full-Stack & API Architecture",
+            "company": "Production Systems & Engineering Standards",
             "description": (
-                "Developed backend systems and APIs using Django and Django REST Framework. "
-                "Gained experience with database design, API authentication, and clean code "
-                "practices through hands-on project building."
+                "Scaled into enterprise frontend architecture and robust RESTful API design. "
+                "Built reactive user interfaces with React.js and TypeScript, engineered production "
+                "APIs with Django REST Framework (DRF), and authored formal Software Requirements "
+                "Specifications (SRS) and software design blueprints."
             ),
-            "employment_type": "Self-directed",
-            "start_date": "2022-06",
-            "end_date": "2023-01",
-            "technologies": ["Python", "Django", "DRF", "PostgreSQL", "Git"],
+            "employment_type": "Architecture & Engineering",
+            "start_date": "2026-01",
+            "end_date": "2026-12",
+            "technologies": ["React.js", "TypeScript", "REST APIs", "DRF", "SRS & Software Design"],
             "current": False,
             "order": 2,
+        },
+        {
+            "period": "2025",
+            "role": "Foundations & Core Backend Engineering",
+            "company": "Core Systems & Algorithms",
+            "description": (
+                "Established foundational computer science and engineering disciplines. Mastered data "
+                "structures and algorithms (DSA), relational database schema design, and core web "
+                "backend development with HTML, CSS, JavaScript, and pure Django."
+            ),
+            "employment_type": "Foundations & Core Systems",
+            "start_date": "2025-01",
+            "end_date": "2025-12",
+            "technologies": ["HTML", "CSS", "JavaScript", "Pure Django", "Database Design", "DSA"],
+            "current": False,
+            "order": 3,
         },
     ],
 
