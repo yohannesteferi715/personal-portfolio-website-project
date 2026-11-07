@@ -326,17 +326,18 @@ SEED_DATA = {
             "institution": "Haramaya University",
             "degree": "B.Sc. in Software Engineering",
             "field_of_study": "Software Engineering & Computer Science",
-            "start_date": "2019",
-            "end_date": "2023",
+            "start_date": "5-Year",
+            "end_date": "Program",
             "description": (
-                "Completed an intensive four-year Software Engineering degree covering computer science fundamentals, "
-                "algorithmic problem solving, system architecture, database design, and end-to-end SDLC methodologies. "
-                "Combined deep theoretical analysis with extensive laboratory projects, software verification & testing, "
-                "and an enterprise capstone software project."
+                "Completed a rigorous five-year Software Engineering degree covering computer science fundamentals, "
+                "multi-language programming paradigms, algorithmic problem solving, system architecture, database design, "
+                "and end-to-end SDLC methodologies. Combined deep theoretical analysis with extensive laboratory projects, "
+                "software verification & testing, and an enterprise production capstone software project."
             ),
             "coursework": [
-                "Web Application Development",
+                "Programming Fundamentals & Diverse Languages",
                 "Data Structures & Algorithms (DSA)",
+                "Web Application Development",
                 "Software Testing & QA",
                 "SDLC & System Design",
                 "Machine Learning (ML)",

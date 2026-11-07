@@ -3,62 +3,68 @@ import { Skeleton, ApiError } from "@/components/Skeleton";
 import {
   GraduationCap, Globe, Binary, CheckCircle2,
   Workflow, Brain, Cloud, Database, Layers,
-  Calendar, MapPin, Award, BookOpen, Sparkles, ShieldCheck,
+  Code2, MapPin, Sparkles, Clock, Laptop, BookOpen,
 } from "lucide-react";
 
-// ── Coursework metadata: icons, colors, tags & concept scopes ────────────────
+// ── Coursework metadata: icons, colors, tags & conceptual scopes ─────────────
 const COURSE_META = {
-  "web application development": {
-    icon: Globe,
-    color: "#20b2a6",
-    tag: "Full-Stack & APIs",
-    description: "Client-server architecture, responsive frameworks, RESTful APIs, session management & web security.",
+  "programming fundamentals & diverse languages": {
+    icon: Code2,
+    color: "#06b6d4",
+    tag: "Multi-Language Core",
+    description: "Imperative & object-oriented foundations across Python, C++, Java & JavaScript, memory models & typing disciplines.",
   },
   "data structures & algorithms (dsa)": {
     icon: Binary,
     color: "#f5a623",
-    tag: "Complexity & Trees",
-    description: "Asymptotic complexity (Big-O), dynamic programming, tree traversals, graph theory & optimization.",
+    tag: "Algorithms & Complexity",
+    description: "Asymptotic complexity (Big-O), dynamic programming, tree traversals, graph theory & spatial/temporal optimization.",
+  },
+  "web application development": {
+    icon: Globe,
+    color: "#20b2a6",
+    tag: "Full-Stack & APIs",
+    description: "Client-server architecture, modern responsive frameworks, RESTful API design, authentication & web security.",
   },
   "software testing & qa": {
     icon: CheckCircle2,
     color: "#10b981",
-    tag: "TDD & Verification",
-    description: "Test-Driven Development (TDD), unit/integration suites, automated pipelines & quality assurance standards.",
+    tag: "TDD & Quality Control",
+    description: "Test-Driven Development (TDD), unit & integration test suites, automated test execution & code verification standards.",
   },
   "sdlc & system design": {
     icon: Workflow,
     color: "#a855f7",
     tag: "Lifecycle & SRS/SDD",
-    description: "Agile & Waterfall models, formal SRS/SDD specification authoring, architectural patterns & UML modeling.",
+    description: "Agile & Waterfall methodologies, formal SRS/SDD specification authoring, architectural patterns & UML diagrams.",
   },
   "machine learning (ml)": {
     icon: Brain,
     color: "#ec4899",
-    tag: "AI & Neural Models",
-    description: "Supervised and unsupervised models, statistical learning, neural networks, loss functions & vector spaces.",
+    tag: "AI & Neural Systems",
+    description: "Supervised & unsupervised models, statistical analysis, neural networks, loss functions & vector representations.",
   },
   "cloud & distributed systems": {
     icon: Cloud,
     color: "#38bdf8",
-    tag: "Cloud & Scaling",
-    description: "Microservice decomposition, horizontal scaling, cloud deployment models, containerization & resilience.",
+    tag: "Cloud & Microservices",
+    description: "Microservice decomposition, horizontal scaling, cloud deployment models, containerization & fault tolerance.",
   },
   "database management systems": {
     icon: Database,
     color: "#3b82f6",
     tag: "SQL & Normalization",
-    description: "Relational schema design, 3NF normalization, ACID transaction mechanics, indexing & SQL tuning.",
+    description: "Relational schema design, 3NF normalization, ACID transaction mechanics, indexing strategies & SQL tuning.",
   },
   "object-oriented design (ood)": {
     icon: Layers,
     color: "#f97316",
-    tag: "SOLID Principles",
-    description: "Encapsulation, polymorphism, structural design patterns, loose coupling & clean modular abstractions.",
+    tag: "SOLID & Abstractions",
+    description: "SOLID design principles, structural & behavioral design patterns, modular architecture & clean code abstractions.",
   },
 };
 
-// Smart fallback course metadata resolver
+// Smart fallback resolver for course name variations
 const getCourseMeta = (courseName = "") => {
   const normalized = courseName.toLowerCase();
   for (const [key, meta] of Object.entries(COURSE_META)) {
@@ -67,13 +73,15 @@ const getCourseMeta = (courseName = "") => {
     }
   }
 
-  // Keyword-based fallback matching
-  if (normalized.includes("web")) return COURSE_META["web application development"];
+  if (normalized.includes("program") || normalized.includes("language"))
+    return COURSE_META["programming fundamentals & diverse languages"];
   if (normalized.includes("dsa") || normalized.includes("algorithm") || normalized.includes("data structure"))
     return COURSE_META["data structures & algorithms (dsa)"];
+  if (normalized.includes("web"))
+    return COURSE_META["web application development"];
   if (normalized.includes("test") || normalized.includes("qa"))
     return COURSE_META["software testing & qa"];
-  if (normalized.includes("sdlc") || normalized.includes("lifecycle") || normalized.includes("software engineering"))
+  if (normalized.includes("sdlc") || normalized.includes("lifecycle") || normalized.includes("system design"))
     return COURSE_META["sdlc & system design"];
   if (normalized.includes("machine") || normalized.includes("ml") || normalized.includes("ai"))
     return COURSE_META["machine learning (ml)"];
@@ -88,7 +96,7 @@ const getCourseMeta = (courseName = "") => {
     icon: BookOpen,
     color: "#20b2a6",
     tag: "Core Engineering",
-    description: "Foundational software engineering curriculum and practical laboratory projects.",
+    description: "Comprehensive software engineering curriculum and rigorous laboratory projects.",
   };
 };
 
@@ -98,13 +106,14 @@ const DEFAULT_EDUCATION = [
     institution: "Haramaya University",
     degree: "B.Sc. in Software Engineering",
     field_of_study: "Software Engineering & Computer Science",
-    start_date: "2019",
-    end_date: "2023",
+    start_date: "5-Year",
+    end_date: "Program",
     description:
-      "Completed an intensive four-year Software Engineering degree covering computer science fundamentals, algorithmic problem solving, system architecture, database design, and end-to-end SDLC methodologies. Combined deep theoretical analysis with extensive laboratory projects, software verification & testing, and an enterprise capstone software project.",
+      "Completed a rigorous five-year Software Engineering degree combining computer science foundations, multi-language programming paradigms, algorithmic problem solving, system architecture, database design, and end-to-end SDLC methodologies. Combined deep theoretical analysis with extensive laboratory projects, software verification & testing, and an enterprise production capstone software project.",
     coursework: [
-      "Web Application Development",
+      "Programming Fundamentals & Diverse Languages",
       "Data Structures & Algorithms (DSA)",
+      "Web Application Development",
       "Software Testing & QA",
       "SDLC & System Design",
       "Machine Learning (ML)",
@@ -118,16 +127,16 @@ const DEFAULT_EDUCATION = [
 const EducationSkeleton = () => (
   <div className="glass p-8 rounded-3xl space-y-6 border border-primary/20">
     <div className="flex gap-4 items-center">
-      <Skeleton className="w-14 h-14 rounded-2xl" />
+      <Skeleton className="w-16 h-16 rounded-2xl" />
       <div className="space-y-2 flex-1">
-        <Skeleton className="h-6 w-1/3" />
+        <Skeleton className="h-7 w-1/3" />
         <Skeleton className="h-4 w-1/4" />
       </div>
     </div>
-    <Skeleton className="h-16 w-full rounded-xl" />
-    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-      {Array.from({ length: 8 }).map((_, i) => (
-        <Skeleton key={i} className="h-24 rounded-xl" />
+    <Skeleton className="h-20 w-full rounded-xl" />
+    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {Array.from({ length: 9 }).map((_, i) => (
+        <Skeleton key={i} className="h-28 rounded-xl" />
       ))}
     </div>
   </div>
@@ -139,9 +148,9 @@ export const Education = () => {
 
   return (
     <section id="education" className="py-8 md:py-12 relative overflow-hidden scroll-mt-16">
-      {/* Background ambient light */}
-      <div className="absolute top-1/2 right-1/4 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 left-1/3 w-64 h-64 bg-highlight/5 rounded-full blur-3xl pointer-events-none" />
+      {/* Ambient background light */}
+      <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 left-1/3 w-80 h-80 bg-highlight/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Section header */}
@@ -156,8 +165,8 @@ export const Education = () => {
             </span>
           </h2>
           <p className="text-muted-foreground animate-fade-in animation-delay-200 text-sm max-w-2xl mx-auto">
-            Formal degree program establishing rigorous principles in computer science, algorithmic efficiency,
-            system architecture, and end-to-end software development lifecycles.
+            Formal 5-year engineering program establishing deep principles in computer science, algorithmic efficiency,
+            diverse programming languages, and end-to-end software development lifecycles.
           </p>
         </div>
 
@@ -169,28 +178,23 @@ export const Education = () => {
             : items.map((edu, idx) => (
                 <div
                   key={edu.id || idx}
-                  className="glass rounded-3xl p-6 sm:p-8 md:p-10 border border-border/40 hover:border-primary/40 transition-all duration-300 shadow-xl shadow-background/50 relative overflow-hidden group"
+                  className="glass rounded-3xl p-6 sm:p-8 md:p-10 border border-border/40 hover:border-primary/40 transition-all duration-300 shadow-2xl shadow-background/60 relative overflow-hidden group"
                 >
-                  {/* Subtle corner ambient glow */}
-                  <div className="absolute -top-20 -right-20 w-52 h-52 bg-primary/10 rounded-full blur-3xl pointer-events-none group-hover:bg-primary/20 transition-all duration-500" />
+                  {/* Subtle corner ambient light */}
+                  <div className="absolute -top-24 -right-24 w-60 h-60 bg-primary/10 rounded-full blur-3xl pointer-events-none group-hover:bg-primary/20 transition-all duration-500" />
 
                   {/* ── Top Header Row ────────────────────────────────────────── */}
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-border/30">
                     <div className="flex items-start gap-4 sm:gap-5">
-                      <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/30 flex items-center justify-center flex-shrink-0 group-hover:scale-105 group-hover:shadow-[0_0_20px_rgba(32,178,166,0.3)] transition-all duration-300">
+                      {/* University Crest / Cap Icon */}
+                      <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-primary/25 via-primary/10 to-transparent border border-primary/30 flex items-center justify-center flex-shrink-0 group-hover:scale-105 group-hover:shadow-[0_0_24px_rgba(32,178,166,0.35)] transition-all duration-300">
                         <GraduationCap className="w-7 h-7 sm:w-8 sm:h-8 text-primary" />
                       </div>
 
-                      <div className="space-y-1">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <h3 className="text-xl sm:text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
-                            {edu.degree}
-                          </h3>
-                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-medium border border-emerald-500/20">
-                            <ShieldCheck className="w-3.5 h-3.5" />
-                            Degree Conferred
-                          </span>
-                        </div>
+                      <div className="space-y-1.5">
+                        <h3 className="text-xl sm:text-2xl font-bold text-foreground group-hover:text-primary transition-colors tracking-tight">
+                          {edu.degree}
+                        </h3>
 
                         <div className="flex items-center gap-2 text-sm font-medium text-foreground/80 flex-wrap">
                           <span className="text-primary font-semibold">{edu.institution}</span>
@@ -198,12 +202,12 @@ export const Education = () => {
                           <span className="text-muted-foreground">{edu.field_of_study}</span>
                         </div>
 
-                        <div className="flex items-center gap-4 text-xs text-muted-foreground pt-1 flex-wrap">
-                          <span className="inline-flex items-center gap-1.5">
-                            <Calendar className="w-3.5 h-3.5 text-primary" />
-                            {edu.start_date} — {edu.end_date}
+                        <div className="flex items-center gap-4 text-xs text-muted-foreground pt-0.5 flex-wrap">
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/25 font-medium">
+                            <Clock className="w-3.5 h-3.5" />
+                            5-Year Professional Degree Program
                           </span>
-                          <span className="inline-flex items-center gap-1.5">
+                          <span className="inline-flex items-center gap-1.5 text-muted-foreground/80">
                             <MapPin className="w-3.5 h-3.5 text-highlight" />
                             Addis Ababa / Haramaya, Ethiopia
                           </span>
@@ -213,19 +217,23 @@ export const Education = () => {
 
                     {/* Quick Badge */}
                     <div className="hidden md:flex flex-col items-end gap-1 flex-shrink-0">
-                      <span className="px-3 py-1 rounded-full text-xs font-mono font-medium glass border border-primary/30 text-primary">
-                        4-Year Engineering Program
+                      <span className="px-3 py-1 rounded-full text-xs font-mono font-semibold glass border border-primary/40 text-primary bg-primary/5">
+                        Accredited Curriculum
                       </span>
-                      <span className="text-[11px] text-muted-foreground">Accredited B.Sc. Curriculum</span>
+                      <span className="text-[11px] text-muted-foreground">Rigorous B.Sc. Standards</span>
                     </div>
                   </div>
 
                   {/* ── Degree Narrative Description ───────────────────────────── */}
-                  {edu.description && (
-                    <div className="py-5 text-sm sm:text-base text-muted-foreground leading-relaxed border-b border-border/20">
-                      <p>{edu.description}</p>
+                  <div className="py-6 border-b border-border/20">
+                    <div className="flex items-start gap-3.5 p-4 sm:p-5 rounded-2xl bg-surface/40 border border-border/30">
+                      <div className="w-1.5 self-stretch rounded-full bg-gradient-to-b from-primary via-primary/50 to-transparent flex-shrink-0" />
+                      <p className="text-sm sm:text-base text-muted-foreground/90 leading-relaxed">
+                        {edu.description ||
+                          "Completed a rigorous five-year Software Engineering degree combining computer science foundations, multi-language programming paradigms, algorithmic problem solving, system architecture, database design, and end-to-end SDLC methodologies. Combined deep theoretical analysis with extensive laboratory projects, software verification & testing, and an enterprise production capstone software project."}
+                      </p>
                     </div>
-                  )}
+                  </div>
 
                   {/* ── Key Coursework & Academic Pillars ───────────────────────── */}
                   {edu.coursework?.length > 0 && (
@@ -238,11 +246,11 @@ export const Education = () => {
                           </h4>
                         </div>
                         <span className="text-xs text-muted-foreground/60 font-mono">
-                          {edu.coursework.length} Core Subjects
+                          {edu.coursework.length} Foundational Disciplines
                         </span>
                       </div>
 
-                      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
                         {edu.coursework.map((course, i) => {
                           const meta = getCourseMeta(course);
                           const CourseIcon = meta.icon;
@@ -255,19 +263,19 @@ export const Education = () => {
                               {/* Hover Glow */}
                               <div
                                 className="absolute inset-0 rounded-xl opacity-0 group-hover/course:opacity-100 transition-opacity duration-300 pointer-events-none"
-                                style={{ boxShadow: `0 0 16px ${meta.color}25` }}
+                                style={{ boxShadow: `0 0 18px ${meta.color}25` }}
                               />
 
                               <div>
                                 <div className="flex items-center justify-between gap-2 mb-2.5">
                                   <div
-                                    className="w-8 h-8 rounded-lg flex items-center justify-center transition-transform group-hover/course:scale-110"
+                                    className="w-8 h-8 rounded-lg flex items-center justify-center transition-transform group-hover/course:scale-110 flex-shrink-0"
                                     style={{ backgroundColor: `${meta.color}18` }}
                                   >
                                     <CourseIcon className="w-4 h-4" style={{ color: meta.color }} />
                                   </div>
                                   <span
-                                    className="text-[10px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded-md border"
+                                    className="text-[10px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded-md border text-right"
                                     style={{
                                       color: meta.color,
                                       borderColor: `${meta.color}30`,
@@ -282,7 +290,7 @@ export const Education = () => {
                                   {course}
                                 </h5>
 
-                                <p className="text-[11px] text-muted-foreground/80 leading-relaxed line-clamp-3">
+                                <p className="text-[11px] text-muted-foreground/80 leading-relaxed">
                                   {meta.description}
                                 </p>
                               </div>
@@ -295,21 +303,21 @@ export const Education = () => {
 
                   {/* ── Academic Pillars Strip (Bottom) ────────────────────────── */}
                   <div className="mt-8 pt-5 border-t border-border/30 grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
-                    <div className="p-3 rounded-xl glass border border-border/20">
-                      <div className="text-xs font-semibold text-foreground">4-Year Degree</div>
+                    <div className="p-3.5 rounded-xl glass border border-border/20 hover:border-primary/20 transition-colors">
+                      <div className="text-xs font-semibold text-foreground">5-Year Program</div>
                       <div className="text-[10px] text-muted-foreground">Rigorous B.Sc. Standards</div>
                     </div>
-                    <div className="p-3 rounded-xl glass border border-border/20">
-                      <div className="text-xs font-semibold text-foreground">DSA & Algorithms</div>
-                      <div className="text-[10px] text-muted-foreground">Mathematical Foundations</div>
+                    <div className="p-3.5 rounded-xl glass border border-border/20 hover:border-primary/20 transition-colors">
+                      <div className="text-xs font-semibold text-foreground">Multi-Language Core</div>
+                      <div className="text-[10px] text-muted-foreground">Python, C++, Java, JS & OOP</div>
                     </div>
-                    <div className="p-3 rounded-xl glass border border-border/20">
-                      <div className="text-xs font-semibold text-foreground">Full SDLC & QA</div>
+                    <div className="p-3.5 rounded-xl glass border border-border/20 hover:border-primary/20 transition-colors">
+                      <div className="text-xs font-semibold text-foreground">Complete SDLC & QA</div>
                       <div className="text-[10px] text-muted-foreground">SRS to Production Deploy</div>
                     </div>
-                    <div className="p-3 rounded-xl glass border border-border/20">
-                      <div className="text-xs font-semibold text-foreground">Cloud, Web & ML</div>
-                      <div className="text-[10px] text-muted-foreground">Applied Modern Computing</div>
+                    <div className="p-3.5 rounded-xl glass border border-border/20 hover:border-primary/20 transition-colors">
+                      <div className="text-xs font-semibold text-foreground">Capstone Production</div>
+                      <div className="text-[10px] text-muted-foreground">End-to-End Enterprise System</div>
                     </div>
                   </div>
                 </div>
