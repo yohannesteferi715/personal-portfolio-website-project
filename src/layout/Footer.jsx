@@ -1,5 +1,5 @@
 import { ArrowUp, Terminal } from "lucide-react";
-import { SiGithub, SiX } from "@icons-pack/react-simple-icons";
+import { SiGithub, SiX, SiTelegram } from "@icons-pack/react-simple-icons";
 import { useApi } from "@/hooks/useApi";
 
 // Inline LinkedIn SVG
@@ -9,7 +9,7 @@ const SiLinkedin = ({ className }) => (
   </svg>
 );
 
-const ICON_MAP = { github: SiGithub, x: SiX, linkedin: SiLinkedin };
+const ICON_MAP = { github: SiGithub, x: SiX, linkedin: SiLinkedin, telegram: SiTelegram };
 
 export const Footer = () => {
   const { data: profile } = useApi("/api/v1/profile");

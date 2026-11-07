@@ -1,6 +1,6 @@
 import { Button } from "@/components/Button";
 import { ArrowRight, Download, ChevronDown } from "lucide-react";
-import { SiGithub, SiX } from "@icons-pack/react-simple-icons";
+import { SiGithub, SiX, SiTelegram } from "@icons-pack/react-simple-icons";
 import { AnimatedBorderButton } from "@/components/AnimatedBorderButton";
 import { Skeleton, SkeletonText, ApiError } from "@/components/Skeleton";
 import { useApi } from "@/hooks/useApi";
@@ -13,7 +13,7 @@ const SiLinkedin = ({ className }) => (
   </svg>
 );
 
-const ICON_MAP = { github: SiGithub, x: SiX, linkedin: SiLinkedin };
+const ICON_MAP = { github: SiGithub, x: SiX, linkedin: SiLinkedin, telegram: SiTelegram };
 
 // Floating particles — stable between renders
 const PARTICLES = Array.from({ length: 30 }, (_, i) => ({
@@ -100,7 +100,7 @@ export const Hero = () => {
                     {profile?.headline_highlight ?? "scalable"}
                   </span>
                   <br />
-                  {profile?.headline_suffix ?? "backend systems & AI agents with"}
+                  {profile?.headline_suffix ?? "backend & agentic systems with"}
                   <br />
                   <span className="font-serif italic font-normal text-white">
                     {profile?.headline_italic ?? "precision."}

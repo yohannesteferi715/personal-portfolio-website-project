@@ -13,7 +13,7 @@ SEED_DATA = {
         "title": "Backend & Agentic AI Engineer",
         "headline_prefix": "Building",
         "headline_highlight": "scalable",
-        "headline_suffix": "backend systems & AI agents with",
+        "headline_suffix": "backend & agentic systems with",
         "headline_italic": "precision.",
         "bio": (
             "Backend-focused full-stack software and AI engineer with 2+ years of experience "
@@ -28,8 +28,9 @@ SEED_DATA = {
         "phone": None,
         "location": "Addis Ababa, Ethiopia",
         "social_links": [
-            {"platform": "github", "href": "https://github.com/yohn"},
-            {"platform": "linkedin", "href": "https://linkedin.com/in/yohn"},
+            {"platform": "github", "href": "https://github.com/yohannesteferi715"},
+            {"platform": "linkedin", "href": "https://www.linkedin.com/in/yohannes-teferi-071159371"},
+            {"platform": "telegram", "href": "https://t.me/yoni715"},
         ],
     },
 

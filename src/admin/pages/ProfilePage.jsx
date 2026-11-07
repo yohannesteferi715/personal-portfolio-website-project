@@ -3,7 +3,7 @@ import { api } from "../api";
 import { PageHeader, Card, Field, Input, Textarea, Toggle, Alert, Btn, Spinner } from "../components/ui";
 import { Plus, Trash2, Upload } from "lucide-react";
 
-const PLATFORMS = ["github", "x", "linkedin", "instagram", "youtube", "dribbble"];
+const PLATFORMS = ["github", "linkedin", "telegram", "x", "instagram", "youtube", "dribbble"];
 
 export const ProfilePage = () => {
   const [form, setForm] = useState(null);

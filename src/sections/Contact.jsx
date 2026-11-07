@@ -20,12 +20,20 @@ export const Contact = () => {
   const [submitStatus, setSubmitStatus] = useState({ type: null, message: "" });
 
   // Build contact info from live profile data, with sensible fallbacks
+  const telegramLink = profile?.social_links?.find((l) => l.platform === "telegram");
+
   const contactInfo = [
     profile?.email && {
       icon: Mail,
       label: "Email",
       value: profile.email,
       href: `mailto:${profile.email}`,
+    },
+    telegramLink && {
+      icon: Send,
+      label: "Telegram",
+      value: telegramLink.href.replace(/^https?:\/\/(www\.)?t\.me\//i, "@"),
+      href: telegramLink.href,
     },
     profile?.phone && {
       icon: Phone,
