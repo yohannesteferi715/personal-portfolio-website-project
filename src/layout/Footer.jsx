@@ -33,23 +33,27 @@ export const Footer = () => {
       {/* Decorative ambient glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-24 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-10">
           {/* Brand info */}
-          <div className="md:col-span-2 space-y-4">
+          <div className="sm:col-span-2 space-y-4">
             <a
               href="#"
               onClick={(e) => {
                 e.preventDefault();
                 scrollToTop();
               }}
-              className="inline-flex items-center gap-1.5 text-2xl font-bold tracking-tight text-foreground hover:text-primary transition-colors"
+              className="inline-flex items-center gap-2.5 text-xl font-bold tracking-tight text-foreground hover:text-primary transition-colors group cursor-pointer"
             >
-              <span>YT</span>
-              <span className="text-primary animate-pulse">.</span>
+              <div className="w-8 h-8 rounded-lg glass border border-primary/30 flex items-center justify-center font-mono font-bold text-xs text-primary group-hover:border-primary transition-colors">
+                YT
+              </div>
+              <span>
+                Yohannes <span className="text-primary font-mono">.</span>
+              </span>
             </a>
             <p className="text-sm text-muted-foreground max-w-md leading-relaxed">
-              {profile?.title || "Backend-Focused Full-Stack Software Engineer"}. Specializing in building scalable architectures, robust APIs, and performant web services.
+              {profile?.title || "Backend & Agentic AI Engineer"}. Specializing in building scalable architectures, production REST APIs, and autonomous RAG workflows.
             </p>
             <div className="flex items-center gap-3 pt-2">
               {profile?.social_links?.map((link, idx) => {

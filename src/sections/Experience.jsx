@@ -76,7 +76,7 @@ export const Experience = () => {
       <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-highlight/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Section header */}
         <div className="max-w-3xl mb-8 md:mb-10">
           <span className="text-secondary-foreground text-sm font-medium tracking-wider uppercase animate-fade-in">
@@ -144,7 +144,7 @@ export const Experience = () => {
                         style={{ animationDelay: `${(idx + 1) * 200}ms` }}
                       >
                         <div
-                          className="timeline-card-hover glass p-6 rounded-2xl border border-primary/20 hover:border-primary/40 text-left cursor-pointer group/card transition-all"
+                          className="timeline-card-hover glass p-5 sm:p-6 rounded-2xl border border-primary/20 hover:border-primary/40 text-left cursor-pointer group/card transition-all"
                           onClick={() => handlePulse(idx)}
                           title="Click card to trigger energy pulse"
                         >

@@ -35,7 +35,7 @@ export const Testimonials = () => {
     <section id="testimonials" className="py-8 md:py-12 relative overflow-hidden scroll-mt-16">
       <div className="absolute top-1/2 left-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Section header */}
         <div className="text-center max-w-3xl mx-auto mb-8 md:mb-10">
           <span className="text-secondary-foreground text-sm font-medium tracking-wider uppercase animate-fade-in">
@@ -59,13 +59,13 @@ export const Testimonials = () => {
               {/* Main testimonial card */}
               <div
                 key={activeIdx}
-                className="glass p-8 rounded-3xl md:p-12 glow-border animate-fade-in"
+                className="glass p-5 sm:p-8 md:p-12 rounded-2xl sm:rounded-3xl glow-border animate-fade-in"
               >
-                <div className="absolute -top-4 left-8 w-12 h-12 rounded-full bg-primary flex items-center justify-center">
-                  <Quote className="w-6 h-6 text-primary-foreground" />
+                <div className="absolute -top-4 left-6 sm:left-8 w-10 sm:w-12 h-10 sm:h-12 rounded-full bg-primary flex items-center justify-center">
+                  <Quote className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground" />
                 </div>
 
-                <blockquote className="text-xl md:text-2xl font-medium leading-relaxed mb-8 pt-4">
+                <blockquote className="text-base sm:text-xl md:text-2xl font-medium leading-relaxed mb-6 sm:mb-8 pt-3 sm:pt-4">
                   "{current?.quote}"
                 </blockquote>
 

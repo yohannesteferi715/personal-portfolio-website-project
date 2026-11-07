@@ -325,7 +325,7 @@ export const BackendArchitecture = () => {
     <section id="backend-architecture" className="relative overflow-hidden py-8 md:py-12 scroll-mt-16">
       <div className="pointer-events-none absolute top-1/3 left-1/4 h-72 w-72 rounded-full bg-primary/5 blur-3xl" />
 
-      <div className="container relative z-10 mx-auto px-6">
+      <div className="container relative z-10 mx-auto px-4 sm:px-6">
         <div className="mx-auto mb-8 md:mb-10 max-w-2xl text-center">
           <span className="animate-fade-in text-sm font-medium tracking-wider text-secondary-foreground uppercase">
             System Architecture
@@ -449,7 +449,7 @@ export const BackendArchitecture = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 4 }}
                   transition={{ duration: 0.2 }}
-                  className="pointer-events-none absolute left-1/2 w-max max-w-[90%] -translate-x-1/2 text-center"
+                  className="pointer-events-none absolute left-1/2 w-full max-w-lg px-4 -translate-x-1/2 text-center"
                 >
                   <p className="text-sm font-semibold" style={{ color: active.accent }}>
                     {active.label}
@@ -463,7 +463,7 @@ export const BackendArchitecture = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="absolute left-1/2 -translate-x-1/2 text-xs text-muted-foreground/50 whitespace-nowrap"
+                  className="absolute left-1/2 -translate-x-1/2 text-xs text-muted-foreground/50 text-center w-full px-4 max-w-sm"
                 >
                   Click or hover any component to inspect its architecture role
                 </motion.p>

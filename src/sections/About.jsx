@@ -46,7 +46,7 @@ export const About = () => {
       <div className="absolute top-1/2 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 pointer-events-none" />
       <div className="absolute bottom-0 left-1/4 w-64 h-64 bg-highlight/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {error && <div className="mb-6"><ApiError message={error} /></div>}
 
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
@@ -102,7 +102,7 @@ export const About = () => {
                   return (
                     <div
                       key={idx}
-                      className="about-card-glow animate-about-card glass rounded-2xl p-6 border border-border/30 group cursor-default"
+                      className="about-card-glow animate-about-card glass rounded-2xl p-5 sm:p-6 border border-border/30 group cursor-default"
                       style={{
                         animationDelay: `${(idx + 1) * 120}ms`,
                         "--card-color": color,

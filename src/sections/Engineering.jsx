@@ -52,7 +52,7 @@ export const Engineering = () => {
     <section id="engineering" className="py-8 md:py-12 relative overflow-hidden scroll-mt-16">
       <div className="absolute top-1/2 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-8 md:mb-10">
           <span className="text-secondary-foreground text-sm font-medium tracking-wider uppercase animate-fade-in">
             Engineering Practices
@@ -71,7 +71,7 @@ export const Engineering = () => {
           {PRACTICES.map((item, idx) => (
             <div
               key={idx}
-              className="glass p-6 rounded-2xl animate-fade-in border border-border/40 hover:border-primary/30 transition-all duration-300 group hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5 cursor-default"
+              className="glass p-5 sm:p-6 rounded-2xl animate-fade-in border border-border/40 hover:border-primary/30 transition-all duration-300 group hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5 cursor-default"
               style={{ animationDelay: `${(idx + 1) * 80}ms` }}
             >
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-all duration-300">

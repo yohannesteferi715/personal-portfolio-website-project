@@ -152,7 +152,7 @@ export const Education = () => {
       <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-10 left-1/3 w-80 h-80 bg-highlight/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Section header */}
         <div className="max-w-3xl mb-8 md:mb-10 text-center mx-auto">
           <span className="text-secondary-foreground text-sm font-medium tracking-wider uppercase animate-fade-in">
@@ -178,7 +178,7 @@ export const Education = () => {
             : items.map((edu, idx) => (
                 <div
                   key={edu.id || idx}
-                  className="glass rounded-3xl p-6 sm:p-8 md:p-10 border border-border/40 hover:border-primary/40 transition-all duration-300 shadow-2xl shadow-background/60 relative overflow-hidden group"
+                  className="glass rounded-2xl sm:rounded-3xl p-4 sm:p-7 md:p-10 border border-border/40 hover:border-primary/40 transition-all duration-300 shadow-2xl shadow-background/60 relative overflow-hidden group"
                 >
                   {/* Subtle corner ambient light */}
                   <div className="absolute -top-24 -right-24 w-60 h-60 bg-primary/10 rounded-full blur-3xl pointer-events-none group-hover:bg-primary/20 transition-all duration-500" />

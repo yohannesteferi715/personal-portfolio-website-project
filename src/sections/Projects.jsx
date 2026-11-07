@@ -41,7 +41,7 @@ export const Projects = () => {
       <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 left-0 w-64 h-64 bg-highlight/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Section header */}
         <div className="text-center mx-auto max-w-3xl mb-8 md:mb-10">
           <span className="text-secondary-foreground text-sm font-medium tracking-wider uppercase animate-fade-in">
@@ -145,7 +145,7 @@ export const Projects = () => {
                   </div>
 
                   {/* Content */}
-                  <div className="p-6 space-y-4">
+                  <div className="p-5 sm:p-6 space-y-4">
                     <div className="flex items-start justify-between gap-2">
                       <h3 className="text-xl font-semibold group-hover:text-primary transition-colors duration-300">
                         {project.title}
@@ -166,7 +166,7 @@ export const Projects = () => {
 
                     {/* Tech tags with brand icons */}
                     {project.tags?.length > 0 && (
-                      <div className="flex flex-wrap gap-2 pt-2">
+                      <div className="flex flex-wrap gap-2 pt-1">
                         {project.tags.map((tag, i) => (
                           <TechTag
                             key={i}
@@ -176,6 +176,34 @@ export const Projects = () => {
                         ))}
                       </div>
                     )}
+
+                    {/* Mobile touch action bar (direct links without needing hover) */}
+                    {(project.live_url && project.live_url !== "#") || (project.github_url && project.github_url !== "#") ? (
+                      <div className="flex md:hidden items-center gap-4 pt-3 border-t border-border/30">
+                        {project.live_url && project.live_url !== "#" && (
+                          <a
+                            href={project.live_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:underline"
+                          >
+                            <ExternalLink className="w-3.5 h-3.5" />
+                            Live Demo
+                          </a>
+                        )}
+                        {project.github_url && project.github_url !== "#" && (
+                          <a
+                            href={project.github_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-foreground"
+                          >
+                            <SiGithub className="w-3.5 h-3.5" />
+                            Source Code
+                          </a>
+                        )}
+                      </div>
+                    ) : null}
                   </div>
                 </article>
               ))}

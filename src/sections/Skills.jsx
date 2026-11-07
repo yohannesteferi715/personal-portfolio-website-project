@@ -47,15 +47,13 @@ const SkillChip = ({ name, delay }) => {
 
 // ── Compact category card ─────────────────────────────────────────────────────
 
-const CategoryCard = ({ category, skills, index, isSpan2 }) => {
+const CategoryCard = ({ category, skills, index }) => {
   const meta = CATEGORY_META[category] || { label: category, color: "#7a8491", icon: Code2 };
   const CatIcon = meta.icon;
 
   return (
     <div
-      className={`animate-skill-card glass rounded-2xl p-5 border border-border/30 hover:border-primary/20 transition-all duration-300 ${
-        isSpan2 ? "md:col-span-2" : ""
-      }`}
+      className="animate-skill-card glass rounded-2xl p-4 sm:p-5 border border-border/30 hover:border-primary/20 transition-all duration-300"
       style={{ animationDelay: `${index * 100}ms` }}
     >
       {/* Header */}
@@ -74,7 +72,7 @@ const CategoryCard = ({ category, skills, index, isSpan2 }) => {
       </div>
 
       {/* Skill chips grid */}
-      <div className={`grid gap-2.5 ${isSpan2 ? "grid-cols-3 sm:grid-cols-6" : "grid-cols-3 sm:grid-cols-4"}`}>
+      <div className="grid gap-2 sm:gap-2.5 grid-cols-2 min-[420px]:grid-cols-3 sm:grid-cols-4">
         {skills.map((skill, i) => (
           <SkillChip key={skill.id || i} name={skill.name} delay={index * 100 + i * 30} />
         ))}
@@ -116,7 +114,7 @@ export const Skills = () => {
       <div className="absolute top-1/4 right-0 w-72 h-72 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 left-0 w-56 h-56 bg-highlight/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Section header */}
         <div className="text-center max-w-2xl mx-auto mb-8 md:mb-10">
           <span className="text-secondary-foreground text-sm font-medium tracking-wider uppercase animate-fade-in">
@@ -137,13 +135,12 @@ export const Skills = () => {
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-4">
           {loading
             ? Array.from({ length: 6 }).map((_, i) => <CardSkeleton key={i} />)
-            : CATEGORY_ORDER.filter((cat) => grouped[cat]?.length).map((cat, idx, arr) => (
+            : CATEGORY_ORDER.filter((cat) => grouped[cat]?.length).map((cat, idx) => (
                 <CategoryCard
                   key={cat}
                   category={cat}
                   skills={grouped[cat]}
                   index={idx}
-                  isSpan2={idx === arr.length - 1 && arr.length % 2 !== 0}
                 />
               ))}
         </div>

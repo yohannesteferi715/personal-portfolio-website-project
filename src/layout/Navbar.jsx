@@ -67,7 +67,7 @@ export const Navbar = () => {
           : "bg-transparent py-4 sm:py-5"
       }`}
     >
-      <nav className="container mx-auto px-6 flex items-center justify-between">
+      <nav className="container mx-auto px-4 sm:px-6 flex items-center justify-between">
         {/* ── Brand Logo / Monogram Badge ────────────────────────────── */}
         <a
           href="#"
@@ -153,7 +153,7 @@ export const Navbar = () => {
       {/* ── Mobile Drawer ──────────────────────────────────────────── */}
       {isMobileMenuOpen && (
         <div className="lg:hidden glass-strong border-b border-border/50 animate-fade-in shadow-2xl">
-          <div className="container mx-auto px-6 py-5 flex flex-col gap-2">
+          <div className="container mx-auto px-4 sm:px-6 py-5 flex flex-col gap-2">
             <div className="grid grid-cols-2 gap-2 mb-2">
               {navLinks.map((link, idx) => {
                 const isActive = activeSection === link.href.substring(1);
@@ -162,14 +162,14 @@ export const Navbar = () => {
                     href={link.href}
                     key={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`text-sm py-2 px-3 rounded-xl transition-all flex items-center justify-between ${
+                    className={`text-xs sm:text-sm py-2 px-2.5 sm:px-3 rounded-xl transition-all flex items-center justify-between ${
                       isActive
                         ? "text-primary font-semibold bg-primary/15 border border-primary/25"
                         : "text-muted-foreground hover:text-foreground hover:bg-surface/60 border border-transparent"
                     }`}
                   >
-                    <span>{link.label}</span>
-                    <span className="text-[10px] font-mono text-muted-foreground/50">0{idx + 1}</span>
+                    <span className="truncate">{link.label}</span>
+                    <span className="text-[10px] font-mono text-muted-foreground/50 ml-1 flex-shrink-0">0{idx + 1}</span>
                   </a>
                 );
               })}

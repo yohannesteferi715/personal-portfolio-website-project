@@ -63,7 +63,7 @@ export const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-6 pt-28 md:pt-32 pb-14 md:pb-16 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 pt-28 md:pt-32 pb-14 md:pb-16 relative z-10">
         {profileError && (
           <div className="mb-6">
             <ApiError message={profileError} />
@@ -89,12 +89,12 @@ export const Hero = () => {
             <div className="space-y-4">
               {profileLoading ? (
                 <>
-                  <Skeleton className="h-16 w-full" />
-                  <Skeleton className="h-16 w-5/6" />
-                  <Skeleton className="h-16 w-4/6" />
+                  <Skeleton className="h-14 sm:h-16 w-full" />
+                  <Skeleton className="h-14 sm:h-16 w-5/6" />
+                  <Skeleton className="h-14 sm:h-16 w-4/6" />
                 </>
               ) : (
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight animate-fade-in animation-delay-100">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight animate-fade-in animation-delay-100">
                   {profile?.headline_prefix ?? "Building"}{" "}
                   <span className="text-primary glow-text">
                     {profile?.headline_highlight ?? "scalable"}
@@ -111,7 +111,7 @@ export const Hero = () => {
               {profileLoading ? (
                 <SkeletonText lines={2} className="max-w-lg" />
               ) : (
-                <p className="text-lg text-muted-foreground max-w-lg animate-fade-in animation-delay-200">
+                <p className="text-base sm:text-lg text-muted-foreground max-w-lg animate-fade-in animation-delay-200">
                   {profile?.bio ??
                     "Backend-focused full-stack and AI systems engineer specialized in Python (FastAPI, Django, DRF), React, and autonomous Agentic RAG architectures."}
                 </p>
@@ -165,7 +165,7 @@ export const Hero = () => {
 
           {/* Right column — profile photo */}
           <div className="animate-fade-in animation-delay-300">
-            <div className="relative max-w-md mx-auto">
+            <div className="relative max-w-xs sm:max-w-sm md:max-w-md mx-auto">
               <div className="absolute -inset-1.5 rounded-3xl bg-gradient-to-br from-primary/50 via-primary/25 to-highlight/15 blur-2xl opacity-90 animate-pulse" />
               <div className="relative glass rounded-3xl p-2 glow-border">
                 {profileLoading ? (
@@ -181,16 +181,16 @@ export const Hero = () => {
                 {/* Availability badge */}
                 {!profileLoading && (
                   <>
-                    <div className="absolute -bottom-4 -right-4 glass rounded-xl px-4 py-3 animate-float">
-                      <div className="flex items-center gap-3">
+                    <div className="absolute -bottom-3 sm:-bottom-4 -right-2 sm:-right-4 glass rounded-xl px-3 sm:px-4 py-2 sm:py-3 animate-float shadow-lg">
+                      <div className="flex items-center gap-2.5 sm:gap-3">
                         <div
-                          className={`w-3 h-3 rounded-full animate-pulse ${
+                          className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full animate-pulse ${
                             profile?.available_for_work
                               ? "bg-green-500"
                               : "bg-yellow-500"
                           }`}
                         />
-                        <span className="text-sm font-medium">
+                        <span className="text-xs sm:text-sm font-medium">
                           {profile?.available_for_work
                             ? "Available for work"
                             : "Not available"}
@@ -198,11 +198,11 @@ export const Hero = () => {
                       </div>
                     </div>
 
-                    <div className="absolute -top-4 -left-4 glass rounded-xl px-4 py-3 animate-float animation-delay-500">
-                      <div className="text-2xl font-bold text-primary">
+                    <div className="absolute -top-3 sm:-top-4 -left-2 sm:-left-4 glass rounded-xl px-3 sm:px-4 py-2 sm:py-3 animate-float animation-delay-500 shadow-lg">
+                      <div className="text-xl sm:text-2xl font-bold text-primary leading-tight">
                         {profile?.years_experience ?? 2}+
                       </div>
-                      <div className="text-xs text-muted-foreground">Years Exp.</div>
+                      <div className="text-[10px] sm:text-xs text-muted-foreground">Years Exp.</div>
                     </div>
                   </>
                 )}
