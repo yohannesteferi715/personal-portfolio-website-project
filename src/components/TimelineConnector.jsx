@@ -1,129 +1,152 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
+import { motion, useScroll, useSpring, useTransform, useReducedMotion } from "motion/react";
 
-// ── Particle config ──────────────────────────────────────────────────────────
-// 5 traveling particles with staggered delays + 3 occasional sparks
-const PARTICLES = [
-  { delay: 0,   duration: 5,   size: 3,   opacity: 0.8 },
-  { delay: 1.2, duration: 6,   size: 2.5, opacity: 0.6 },
-  { delay: 2.5, duration: 4.5, size: 3.5, opacity: 0.7 },
-  { delay: 3.8, duration: 7,   size: 2,   opacity: 0.5 },
-  { delay: 5.0, duration: 5.5, size: 3,   opacity: 0.65 },
-];
-
-const SPARKS = [
-  { top: "15%", delay: 0,   duration: 2.5 },
-  { top: "48%", delay: 1.8, duration: 3 },
-  { top: "78%", delay: 0.8, duration: 2.2 },
+// Staggered ambient beads traveling between milestone years
+const AMBIENT_BEADS = [
+  { delay: 0,   duration: 4.8, size: 3.5, color: "#20b2a6" },
+  { delay: 1.6, duration: 5.4, size: 3.0, color: "#61dafb" },
+  { delay: 3.2, duration: 4.4, size: 3.2, color: "#a855f7" },
 ];
 
 /**
- * Animated SVG timeline connector with glowing particles and sparks.
- * Replaces the plain CSS div line while preserving its exact position.
- *
- * Positioning matches the original:
- *   mobile  → left:1px  (center of the original 2px line at left:0)
- *   desktop → left:50%
+ * Animated timeline connector with scroll-reactive glowing points and tap surge pulses.
+ * Connects the milestone years (2027 → 2026 → 2025) with dynamic data flow.
  */
-export const TimelineConnector = () => {
+export const TimelineConnector = ({ containerRef, tapSignal }) => {
+  const shouldReduce = useReducedMotion();
   const [isHovered, setIsHovered] = useState(false);
+  const [tapPulses, setTapPulses] = useState([]);
+  const lineRef = useRef(null);
 
-  const handleEnter = useCallback(() => setIsHovered(true), []);
-  const handleLeave = useCallback(() => setIsHovered(false), []);
+  // Scroll tracking across the timeline container
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start 75%", "end 60%"],
+  });
 
-  // Touch: activate on tap, deactivate after a delay
-  const handleTouchStart = useCallback((e) => {
-    // Don't prevent default — allow scrolling
-    setIsHovered(true);
-  }, []);
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 140,
+    damping: 24,
+    mass: 0.3,
+    restDelta: 0.001,
+  });
 
-  const handleTouchEnd = useCallback(() => {
-    // Delay deactivation so the effect is visible
-    const t = setTimeout(() => setIsHovered(false), 1200);
-    return () => clearTimeout(t);
-  }, []);
+  const pointTop = useTransform(smoothProgress, [0, 1], ["2%", "98%"]);
+  const fillHeight = useTransform(smoothProgress, [0, 1], ["0%", "100%"]);
 
-  // Cleanup on unmount
-  useEffect(() => () => setIsHovered(false), []);
+  const triggerPulse = useCallback((fromRatio = 0) => {
+    if (shouldReduce) return;
+    const id = Date.now() + Math.random();
+    setTapPulses((prev) => [...prev.slice(-3), { id, startRatio: fromRatio }]);
+    setTimeout(() => {
+      setTapPulses((prev) => prev.filter((p) => p.id !== id));
+    }, 1200);
+  }, [shouldReduce]);
+
+  // Trigger from outside signal (e.g. clicking a year dot or card)
+  useEffect(() => {
+    if (tapSignal && tapSignal.timestamp) {
+      triggerPulse(tapSignal.fromRatio ?? 0);
+    }
+  }, [tapSignal, triggerPulse]);
+
+  // Click / tap directly on the line
+  const handleLineClick = (e) => {
+    if (!lineRef.current) return;
+    const rect = lineRef.current.getBoundingClientRect();
+    const clickRatio = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
+    triggerPulse(clickRatio);
+  };
 
   return (
     <div
-      className="absolute left-[1px] md:left-1/2 top-0 bottom-0 w-6 -translate-x-1/2 overflow-visible z-0"
-      onMouseEnter={handleEnter}
-      onMouseLeave={handleLeave}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
+      ref={lineRef}
+      onClick={handleLineClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="absolute left-[1px] md:left-1/2 top-0 bottom-0 w-8 -translate-x-1/2 overflow-visible z-0 cursor-pointer group/line"
+      title="Tap or click to send energy pulse through the timeline"
       role="presentation"
-      aria-hidden="true"
     >
-      <svg
-        className="absolute inset-0 w-full h-full overflow-visible"
-        preserveAspectRatio="none"
-      >
-        <defs>
-          {/* Gradient for the main line */}
-          <linearGradient id="timeline-grad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#20b2a6" stopOpacity={isHovered ? 0.95 : 0.7} />
-            <stop offset="50%" stopColor="#20b2a6" stopOpacity={isHovered ? 0.6 : 0.3} />
-            <stop offset="100%" stopColor="#20b2a6" stopOpacity="0" />
-          </linearGradient>
+      {/* ── Base Track (Subtle guide line between years) ─────────── */}
+      <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-primary/30 via-primary/20 to-transparent transition-colors duration-300 group-hover/line:bg-primary/40" />
 
-          {/* Glow filter */}
-          <filter id="timeline-glow-filter" x="-200%" y="-10%" width="500%" height="120%">
-            <feGaussianBlur stdDeviation={isHovered ? 3 : 2} result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
-
-        {/* Main line */}
-        <line
-          x1="50%"
-          y1="0"
-          x2="50%"
-          y2="100%"
-          stroke="url(#timeline-grad)"
-          strokeWidth={isHovered ? 2.5 : 2}
-          filter="url(#timeline-glow-filter)"
-          strokeLinecap="round"
-          style={{ transition: "stroke-width 0.3s ease" }}
-        />
-      </svg>
-
-      {/* Traveling particles (HTML divs for smooth CSS transform animation) */}
-      {PARTICLES.map((p, i) => (
-        <div
-          key={`particle-${i}`}
-          className="timeline-particle"
+      {/* ── Scroll-Linked Dynamic Progress Line ─────────────────────── */}
+      {!shouldReduce && (
+        <motion.div
+          className="absolute left-1/2 -translate-x-1/2 top-0 w-[2.5px] rounded-full origin-top pointer-events-none"
           style={{
-            "--p-delay": `${p.delay}s`,
-            "--p-duration": isHovered ? `${p.duration * 0.6}s` : `${p.duration}s`,
-            "--p-size": `${p.size}px`,
-            "--p-opacity": p.opacity,
+            height: fillHeight,
+            background: "linear-gradient(to bottom, #20b2a6, #61dafb, #a855f7)",
+            boxShadow: isHovered
+              ? "0 0 12px 1px rgba(97, 218, 251, 0.8)"
+              : "0 0 8px 1px rgba(32, 178, 166, 0.5)",
           }}
         />
-      ))}
+      )}
 
-      {/* Occasional sparks */}
-      {SPARKS.map((s, i) => (
-        <div
-          key={`spark-${i}`}
-          className="timeline-spark"
-          style={{
-            "--spark-top": s.top,
-            "--spark-delay": `${s.delay}s`,
-            "--spark-duration": `${s.duration}s`,
+      {/* ── Scroll-Driven Radiant Energy Point (Travels as you scroll) */}
+      {!shouldReduce && (
+        <motion.div
+          className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-20"
+          style={{ top: pointTop }}
+        >
+          <div className="relative flex items-center justify-center">
+            {/* Outer halo */}
+            <span className="absolute w-5 h-5 rounded-full bg-primary/30 blur-[3px] animate-pulse" />
+            {/* Glowing core */}
+            <span className="w-3.5 h-3.5 rounded-full bg-white border-2 border-primary shadow-[0_0_12px_3px_#20b2a6] flex items-center justify-center">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+            </span>
+          </div>
+        </motion.div>
+      )}
+
+      {/* ── Tap Surge Packets (Point shoots down line on tap) ──────── */}
+      {tapPulses.map((pulse) => (
+        <motion.div
+          key={pulse.id}
+          initial={{ top: `${pulse.startRatio * 100}%`, opacity: 1, scale: 0.9 }}
+          animate={{
+            top: `${Math.min(100, (pulse.startRatio + 0.6) * 100)}%`,
+            opacity: [0.9, 1, 0],
+            scale: [1, 1.4, 0.6],
           }}
-        />
+          transition={{ duration: 0.95, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-30"
+        >
+          <div className="relative flex flex-col items-center">
+            {/* Radiant photon point */}
+            <div className="w-4 h-4 rounded-full bg-cyan-300 shadow-[0_0_18px_4px_#38bdf8] flex items-center justify-center">
+              <span className="w-2 h-2 rounded-full bg-white shadow-[0_0_6px_#fff]" />
+            </div>
+            {/* Trailing light streak */}
+            <div className="w-[2px] h-12 -mt-12 bg-gradient-to-t from-cyan-400 via-primary/60 to-transparent blur-[0.5px]" />
+          </div>
+        </motion.div>
       ))}
 
-      {/* Extra sparks on hover */}
+      {/* ── Ambient Traveling Beads (Continuous data flow) ─────────── */}
+      {!shouldReduce &&
+        AMBIENT_BEADS.map((bead, i) => (
+          <div
+            key={`ambient-bead-${i}`}
+            className="timeline-ambient-bead"
+            style={{
+              "--bead-delay": `${bead.delay}s`,
+              "--bead-duration": isHovered ? `${bead.duration * 0.6}s` : `${bead.duration}s`,
+              "--bead-size": `${bead.size}px`,
+              "--bead-color": bead.color,
+            }}
+          />
+        ))}
+
+      {/* ── Micro Sparks on hover / tap ────────────────────────────── */}
       {isHovered && (
         <>
-          <div className="timeline-spark timeline-spark-extra" style={{ "--spark-top": "30%", "--spark-delay": "0s", "--spark-duration": "1.5s" }} />
-          <div className="timeline-spark timeline-spark-extra" style={{ "--spark-top": "65%", "--spark-delay": "0.5s", "--spark-duration": "1.8s" }} />
-          <div className="timeline-spark timeline-spark-extra" style={{ "--spark-top": "88%", "--spark-delay": "0.3s", "--spark-duration": "1.2s" }} />
+          <div className="timeline-spark timeline-spark-extra" style={{ "--spark-top": "25%", "--spark-delay": "0s", "--spark-duration": "1.2s" }} />
+          <div className="timeline-spark timeline-spark-extra" style={{ "--spark-top": "50%", "--spark-delay": "0.3s", "--spark-duration": "1.4s" }} />
+          <div className="timeline-spark timeline-spark-extra" style={{ "--spark-top": "75%", "--spark-delay": "0.6s", "--spark-duration": "1.3s" }} />
         </>
       )}
     </div>

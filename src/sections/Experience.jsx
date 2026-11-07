@@ -1,7 +1,8 @@
+import { useRef, useState } from "react";
 import { useApi } from "@/hooks/useApi";
 import { Skeleton, SkeletonText, ApiError } from "@/components/Skeleton";
 import { getTechIcon } from "@/lib/techIcons";
-import { Briefcase, Calendar } from "lucide-react";
+import { Briefcase, Calendar, Sparkles } from "lucide-react";
 import { TimelineConnector } from "@/components/TimelineConnector";
 
 const DEFAULT_EXPERIENCES = [
@@ -59,8 +60,15 @@ const ExperienceSkeleton = ({ flipped }) => (
 );
 
 export const Experience = () => {
+  const containerRef = useRef(null);
+  const [tapSignal, setTapSignal] = useState(null);
   const { data: experiences, loading, error } = useApi("/api/v1/experience", DEFAULT_EXPERIENCES);
   const items = experiences && experiences.length > 0 ? experiences : DEFAULT_EXPERIENCES;
+
+  const handlePulse = (idx) => {
+    const ratio = idx / Math.max(1, items.length - 1);
+    setTapSignal({ fromRatio: ratio, timestamp: Date.now() });
+  };
 
   return (
     <section id="experience" className="py-8 md:py-12 relative overflow-hidden scroll-mt-16">
@@ -89,9 +97,9 @@ export const Experience = () => {
         {error && <ApiError message={error} />}
 
         {/* Timeline */}
-        <div className="relative">
-          {/* Animated SVG connector with glowing particles */}
-          <TimelineConnector />
+        <div className="relative" ref={containerRef}>
+          {/* Animated SVG connector with scroll & tap-reactive glowing particles */}
+          <TimelineConnector containerRef={containerRef} tapSignal={tapSignal} />
 
           <div className="space-y-8 md:space-y-10">
             {loading
@@ -107,19 +115,24 @@ export const Experience = () => {
                       key={exp.id || idx}
                       className="relative grid md:grid-cols-2 gap-8"
                     >
-                      {/* Timeline dot with pulse */}
-                      <div
-                        className={`absolute left-0 md:left-1/2 top-0 z-10 ${
+                      {/* Timeline dot with interactive tap ripple */}
+                      <button
+                        type="button"
+                        onClick={() => handlePulse(idx)}
+                        className={`absolute left-0 md:left-1/2 top-0 z-10 -translate-x-1/2 group/dot cursor-pointer focus:outline-none transition-transform hover:scale-125 ${
                           exp.current ? "animate-timeline-dot-active" : "animate-timeline-dot"
                         }`}
                         style={{ animationDelay: `${idx * 200}ms` }}
+                        aria-label={`Pulse timeline from ${exp.period}`}
+                        title="Click to pulse energy down the line"
                       >
-                        <div className="w-4 h-4 bg-primary rounded-full ring-4 ring-background relative">
+                        <div className="w-5 h-5 bg-primary rounded-full ring-4 ring-background relative flex items-center justify-center transition-all duration-300 group-hover/dot:ring-primary/40 group-hover/dot:shadow-[0_0_14px_#20b2a6]">
+                          <span className="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_4px_#fff]" />
                           {exp.current && (
                             <span className="absolute inset-0 rounded-full bg-primary animate-ping opacity-60" />
                           )}
                         </div>
-                      </div>
+                      </button>
 
                       {/* Card */}
                       <div
@@ -130,7 +143,11 @@ export const Experience = () => {
                         }`}
                         style={{ animationDelay: `${(idx + 1) * 200}ms` }}
                       >
-                        <div className="timeline-card-hover glass p-6 rounded-2xl border border-primary/20 hover:border-primary/40 text-left">
+                        <div
+                          className="timeline-card-hover glass p-6 rounded-2xl border border-primary/20 hover:border-primary/40 text-left cursor-pointer group/card transition-all"
+                          onClick={() => handlePulse(idx)}
+                          title="Click card to trigger energy pulse"
+                        >
                           {/* Period + current badge */}
                           <div className="flex items-center gap-2 flex-wrap">
                             <div className="flex items-center gap-2">
@@ -139,20 +156,27 @@ export const Experience = () => {
                                 {exp.period}
                               </span>
                             </div>
-                            {exp.current && (
-                              <span className="px-2.5 py-0.5 rounded-full bg-green-500/10 text-green-400 text-xs font-medium border border-green-500/20">
-                                Current
+                            {exp.current ? (
+                              <span className="px-2.5 py-0.5 rounded-full bg-green-500/10 text-green-400 text-xs font-medium border border-green-500/20 flex items-center gap-1">
+                                <Sparkles className="w-3 h-3 animate-spin-slow" />
+                                Current Focus
+                              </span>
+                            ) : (
+                              <span className="text-xs text-muted-foreground/50 font-mono">
+                                Milestone
                               </span>
                             )}
                           </div>
 
                           {/* Role + company */}
                           <div className="mt-3 flex items-start gap-3">
-                            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover/card:bg-primary/20 transition-colors">
                               <Briefcase className="w-5 h-5 text-primary" />
                             </div>
                             <div>
-                              <h3 className="text-xl font-semibold">{exp.role}</h3>
+                              <h3 className="text-xl font-semibold group-hover/card:text-primary transition-colors">
+                                {exp.role}
+                              </h3>
                               <p className="text-muted-foreground text-sm">{exp.company}</p>
                               {exp.employment_type && (
                                 <span className="text-xs text-muted-foreground/60 mt-0.5 inline-block">
