@@ -319,20 +319,31 @@ SEED_DATA = {
     ],
 
     # ─────────────────────────────────────────────────────────────────────────
-    # EDUCATION — placeholder, user should edit
+    # EDUCATION — Academic Background
     # ─────────────────────────────────────────────────────────────────────────
     "education": [
         {
             "institution": "Haramaya University",
             "degree": "B.Sc. in Software Engineering",
-            "field_of_study": "Software Engineering",
+            "field_of_study": "Software Engineering & Computer Science",
             "start_date": "2019",
             "end_date": "2023",
             "description": (
-                "Studied software engineering fundamentals including data structures, "
-                "algorithms, database systems, software architecture, and web development."
+                "Completed an intensive four-year Software Engineering degree covering computer science fundamentals, "
+                "algorithmic problem solving, system architecture, database design, and end-to-end SDLC methodologies. "
+                "Combined deep theoretical analysis with extensive laboratory projects, software verification & testing, "
+                "and an enterprise capstone software project."
             ),
-            "coursework": ["Data Structures", "Database Systems", "Software Engineering", "Algorithms", "Web Development"],
+            "coursework": [
+                "Web Application Development",
+                "Data Structures & Algorithms (DSA)",
+                "Software Testing & QA",
+                "SDLC & System Design",
+                "Machine Learning (ML)",
+                "Cloud & Distributed Systems",
+                "Database Management Systems",
+                "Object-Oriented Design (OOD)",
+            ],
             "order": 1,
         },
     ],
