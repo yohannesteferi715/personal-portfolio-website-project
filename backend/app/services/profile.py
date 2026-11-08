@@ -32,3 +32,9 @@ class ProfileService:
         profile = self.repo.update(profile, profile_photo_url=url)
         self.repo.save()
         return profile
+
+    def update_cv_url(self, url: str | None) -> Profile:
+        profile = self.repo.get_or_create()
+        profile = self.repo.update(profile, cv_url=url)
+        self.repo.save()
+        return profile

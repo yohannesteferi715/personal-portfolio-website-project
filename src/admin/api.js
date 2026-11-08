@@ -65,6 +65,12 @@ export const api = {
     fd.append("file", file);
     return request("POST", "/profile/photo", fd, true);
   },
+  uploadCV: (file) => {
+    const fd = new FormData();
+    fd.append("file", file);
+    return request("POST", "/profile/cv", fd, true);
+  },
+  deleteCV: () => request("DELETE", "/profile/cv"),
 
   // Skills
   getSkills: () => request("GET", "/skills"),

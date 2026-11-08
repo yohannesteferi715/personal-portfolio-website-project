@@ -124,7 +124,7 @@ export const Hero = () => {
                 Contact Me <ArrowRight className="w-5 h-5" />
               </Button>
               {profile?.cv_url ? (
-                <a href={profile.cv_url} download>
+                <a href={profile.cv_url} download="Yohannes_Teferi_CV.pdf" target="_blank" rel="noopener noreferrer">
                   <AnimatedBorderButton>
                     <Download className="w-5 h-5" />
                     Download CV

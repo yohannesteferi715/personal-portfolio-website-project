@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { api } from "../api";
 import { PageHeader, Card, Field, Input, Textarea, Toggle, Alert, Btn, Spinner } from "../components/ui";
-import { Plus, Trash2, Upload } from "lucide-react";
+import { Plus, Trash2, Upload, FileText, ExternalLink } from "lucide-react";
 
 const PLATFORMS = ["github", "linkedin", "telegram", "x", "instagram", "youtube", "dribbble"];
 
@@ -10,6 +10,8 @@ export const ProfilePage = () => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [photoUploading, setPhotoUploading] = useState(false);
+  const [cvUploading, setCvUploading] = useState(false);
+  const [cvDeleting, setCvDeleting] = useState(false);
   const [alert, setAlert] = useState(null);
 
   useEffect(() => {
@@ -43,6 +45,40 @@ export const ProfilePage = () => {
       setAlert({ type: "error", message: err.message });
     } finally {
       setPhotoUploading(false);
+    }
+  };
+
+  const handleCVChange = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!file.name.toLowerCase().endsWith(".pdf") && file.type !== "application/pdf") {
+      setAlert({ type: "error", message: "Only PDF files are allowed for CV upload." });
+      return;
+    }
+    setCvUploading(true);
+    try {
+      const res = await api.uploadCV(file);
+      set("cv_url", res.message);
+      setAlert({ type: "success", message: "CV document uploaded successfully." });
+    } catch (err) {
+      setAlert({ type: "error", message: err.message || "Failed to upload CV." });
+    } finally {
+      setCvUploading(false);
+      e.target.value = "";
+    }
+  };
+
+  const handleDeleteCV = async () => {
+    if (!window.confirm("Are you sure you want to remove your uploaded CV document?")) return;
+    setCvDeleting(true);
+    try {
+      await api.deleteCV();
+      set("cv_url", null);
+      setAlert({ type: "success", message: "CV document removed successfully." });
+    } catch (err) {
+      setAlert({ type: "error", message: err.message || "Failed to delete CV." });
+    } finally {
+      setCvDeleting(false);
     }
   };
 
@@ -88,6 +124,68 @@ export const ProfilePage = () => {
                 <input type="file" accept="image/*" className="hidden" onChange={handlePhotoChange} />
               </label>
               <p className="text-xs text-muted-foreground mt-2">JPEG, PNG or WebP. Shown in hero section.</p>
+            </div>
+          </div>
+        </Card>
+
+        {/* CV Document Management */}
+        <Card>
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h3 className="font-semibold text-base">Curriculum Vitae (CV / Resume PDF)</h3>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                Upload your official PDF resume. When attached, the hero section activates the "Download CV" button.
+              </p>
+            </div>
+            {form?.cv_url && (
+              <span className="px-2.5 py-1 rounded-full bg-green-500/10 text-green-400 text-xs font-medium border border-green-500/20 flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                Active PDF Attached
+              </span>
+            )}
+          </div>
+
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl bg-surface border border-border/50">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                <FileText className="w-6 h-6" />
+              </div>
+              <div>
+                <div className="text-sm font-medium text-foreground">
+                  {form?.cv_url ? "Yohannes_Teferi_CV.pdf" : "No CV document attached"}
+                </div>
+                <div className="text-xs text-muted-foreground mt-0.5">
+                  {form?.cv_url ? (
+                    <a
+                      href={form.cv_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary hover:underline inline-flex items-center gap-1 font-medium"
+                    >
+                      Preview / Open uploaded PDF <ExternalLink className="w-3 h-3" />
+                    </a>
+                  ) : (
+                    "Visitors will see 'Request CV' until a PDF is uploaded"
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <label className="cursor-pointer">
+                <Btn as="span" variant={form?.cv_url ? "secondary" : "primary"} size="sm" loading={cvUploading}>
+                  <Upload className="w-3.5 h-3.5" />
+                  {cvUploading ? "Uploading…" : form?.cv_url ? "Replace PDF" : "Upload CV (PDF)"}
+                </Btn>
+                <input type="file" accept="application/pdf,.pdf" className="hidden" onChange={handleCVChange} />
+              </label>
+
+              {form?.cv_url && (
+                <Btn variant="danger" size="sm" type="button" onClick={handleDeleteCV} loading={cvDeleting}>
+                  <Trash2 className="w-3.5 h-3.5" />
+                  Delete CV
+                </Btn>
+              )}
             </div>
           </div>
         </Card>
