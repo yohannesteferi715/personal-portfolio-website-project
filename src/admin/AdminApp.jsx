@@ -11,6 +11,7 @@ import { EducationPage } from "./pages/EducationPage";
 import { TestimonialsPage } from "./pages/TestimonialsPage";
 import { SkillsPage } from "./pages/SkillsPage";
 import { ArticlesPage } from "./pages/ArticlesPage";
+import { SecurityPage } from "./pages/SecurityPage";
 
 const Protected = ({ children }) => {
   if (!isAuthenticated()) return <Navigate to="/admin/login" replace />;
@@ -29,6 +30,7 @@ export const AdminApp = () => (
     <Route path="testimonials" element={<Protected><TestimonialsPage /></Protected>} />
     <Route path="skills" element={<Protected><SkillsPage /></Protected>} />
     <Route path="articles" element={<Protected><ArticlesPage /></Protected>} />
+    <Route path="security" element={<Protected><SecurityPage /></Protected>} />
     <Route path="*" element={<Navigate to="/admin" replace />} />
   </Routes>
 );

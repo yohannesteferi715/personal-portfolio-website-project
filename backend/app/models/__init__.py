@@ -1,4 +1,5 @@
 from app.models.about import About
+from app.models.admin_user import AdminUser
 from app.models.article import Article
 from app.models.education import Education
 from app.models.experience import Experience
@@ -9,5 +10,5 @@ from app.models.testimonial import Testimonial
 
 __all__ = [
     "Profile", "Skill", "About", "Project", "Experience",
-    "Testimonial", "Education", "Article",
+    "Testimonial", "Education", "Article", "AdminUser",
 ]

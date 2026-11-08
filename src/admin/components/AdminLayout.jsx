@@ -3,7 +3,7 @@ import { logout } from "../auth";
 import {
   LayoutDashboard, User, FolderKanban, Briefcase,
   MessageSquareQuote, Wrench, BookOpen, LogOut, ExternalLink,
-  GraduationCap, FileText,
+  GraduationCap, FileText, ShieldCheck,
 } from "lucide-react";
 
 const links = [
@@ -16,6 +16,7 @@ const links = [
   { to: "/admin/testimonials", label: "Testimonials", icon: MessageSquareQuote },
   { to: "/admin/skills", label: "Skills", icon: Wrench },
   { to: "/admin/articles", label: "Articles", icon: FileText },
+  { to: "/admin/security", label: "Security & Password", icon: ShieldCheck },
 ];
 
 export const AdminLayout = ({ children }) => {

@@ -62,6 +62,8 @@ def get_db() -> Generator[Session, None, None]:
 # ── Table creation (dev fallback — production uses Alembic) ───────────────────
 
 def create_all_tables() -> None:
-    from app.models import about, article, education, experience, profile, project, skill, testimonial  # noqa: F401
+    from app.models import (  # noqa: F401
+        about, admin_user, article, education, experience, profile, project, skill, testimonial,
+    )
 
     Base.metadata.create_all(bind=engine)

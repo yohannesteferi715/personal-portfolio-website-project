@@ -43,6 +43,20 @@ export const api = {
     return data;
   },
 
+  changePassword: async (currentPassword, newPassword, confirmPassword) => {
+    const data = await request("POST", "/auth/change-password", {
+      current_password: currentPassword,
+      new_password: newPassword,
+      confirm_password: confirmPassword,
+    });
+    if (data?.access_token) {
+      setToken(data.access_token);
+    }
+    return data;
+  },
+
+  getMe: () => request("GET", "/auth/me"),
+
   // Profile
   getProfile: () => request("GET", "/profile"),
   updateProfile: (data) => request("PUT", "/profile", data),

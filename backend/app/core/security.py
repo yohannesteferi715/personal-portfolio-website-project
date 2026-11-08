@@ -4,26 +4,29 @@ Public read endpoints remain unprotected.
 """
 from datetime import datetime, timedelta, timezone
 
+import bcrypt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
-from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
 from app.core.database import get_db
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login", auto_error=False)
 
 
 def verify_password(plain: str, hashed: str) -> bool:
-    return pwd_context.verify(plain, hashed)
+    try:
+        pw = plain.encode("utf-8")[:72]
+        return bcrypt.checkpw(pw, hashed.encode("utf-8"))
+    except Exception:
+        return False
 
 
 def hash_password(plain: str) -> str:
-    return pwd_context.hash(plain)
+    pw = plain.encode("utf-8")[:72]
+    return bcrypt.hashpw(pw, bcrypt.gensalt()).decode("utf-8")
 
 
 def create_access_token(subject: str) -> str:
@@ -35,8 +38,8 @@ def create_access_token(subject: str) -> str:
 def get_current_admin(
     token: str | None = Depends(oauth2_scheme),
     db: Session = Depends(get_db),
-) -> bool:
-    """Dependency: raises 401 if the request is not from an authenticated admin."""
+) -> str:
+    """Dependency: raises 401 if the request is not from an authenticated admin. Returns username."""
     if not token:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -47,9 +50,9 @@ def get_current_admin(
     try:
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
         username: str | None = payload.get("sub")
-        if username is None or username != settings.ADMIN_USERNAME:
-            raise HTTPException(status_code=401, detail="Invalid token")
+        if not username:
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
     except JWTError:
-        raise HTTPException(status_code=401, detail="Invalid token")
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
 
-    return True
+    return username

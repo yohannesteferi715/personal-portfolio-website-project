@@ -5,7 +5,7 @@ import { Card, Spinner } from "../components/ui";
 import { PageHeader } from "../components/ui";
 import {
   FolderKanban, Briefcase, MessageSquareQuote,
-  Wrench, User, BookOpen, ArrowRight,
+  Wrench, User, BookOpen, ArrowRight, ShieldCheck,
 } from "lucide-react";
 
 const StatCard = ({ icon: Icon, label, value, to, color }) => (
@@ -34,6 +34,7 @@ const quickLinks = [
   { to: "/admin/experience", label: "Manage Experience", icon: Briefcase, desc: "Timeline & work history" },
   { to: "/admin/testimonials", label: "Manage Testimonials", icon: MessageSquareQuote, desc: "Client quotes & reviews" },
   { to: "/admin/skills", label: "Manage Skills", icon: Wrench, desc: "Technologies & categories" },
+  { to: "/admin/security", label: "Security & Password", icon: ShieldCheck, desc: "Change admin password & credentials" },
 ];
 
 export const Dashboard = () => {
