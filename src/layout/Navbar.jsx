@@ -89,7 +89,7 @@ export const Navbar = () => {
               Yohannes <span className="text-primary font-mono">.</span>
             </span>
             <span className="text-[10px] text-muted-foreground/80 font-mono tracking-widest uppercase">
-              AI & Backend
+              Full-Stack & AI
             </span>
           </div>
         </a>

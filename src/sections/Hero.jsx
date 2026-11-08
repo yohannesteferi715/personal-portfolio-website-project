@@ -80,7 +80,7 @@ export const Hero = () => {
               ) : (
                 <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-primary">
                   <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                  {profile?.title ?? "Backend & Agentic AI Engineer"}
+                  {profile?.title ?? "Backend-Heavy Full-Stack & Agentic AI Engineer"}
                 </span>
               )}
             </div>

@@ -10,7 +10,7 @@ SEED_DATA = {
     # ─────────────────────────────────────────────────────────────────────────
     "profile": {
         "name": "Yohannes Teferi",
-        "title": "Backend & Agentic AI Engineer",
+        "title": "Backend-Heavy Full-Stack & Agentic AI Engineer",
         "headline_prefix": "Building",
         "headline_highlight": "scalable",
         "headline_suffix": "backend & agentic systems with",

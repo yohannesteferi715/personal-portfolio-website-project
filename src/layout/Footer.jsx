@@ -53,7 +53,7 @@ export const Footer = () => {
               </span>
             </a>
             <p className="text-sm text-muted-foreground max-w-md leading-relaxed">
-              {profile?.title || "Backend & Agentic AI Engineer"}. Specializing in building scalable architectures, production REST APIs, and autonomous RAG workflows.
+              {profile?.title || "Backend-Heavy Full-Stack & Agentic AI Engineer"}. Specializing in building scalable architectures, production REST APIs, and autonomous RAG workflows.
             </p>
             <div className="flex items-center gap-3 pt-2">
               {profile?.social_links?.map((link, idx) => {
