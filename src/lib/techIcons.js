@@ -7,14 +7,16 @@ import {
   SiPostgresql, SiDocker, SiGit, SiGithub, SiLinux,
   SiReact, SiJavascript, SiHtml5, SiCss, SiNginx, SiSwagger,
   SiTailwindcss, SiStripe, SiSelenium, SiTypescript, SiLangchain,
-  SiHuggingface, SiAnthropic,
+  SiHuggingface, SiAnthropic, SiKubernetes, SiGooglecloud,
+  SiApachekafka, SiGraphql, SiNextdotjs, SiNodedotjs,
+  SiLanggraph, SiOllama,
 } from "@icons-pack/react-simple-icons";
 
 import {
   Server, Code2, Lock, Database, Table2, Boxes,
   FileText, Layers, Network, Sparkles, ClipboardList,
   BookOpen, Wrench, ShieldCheck, GitBranch,
-  Bot, Brain, Binary, Workflow, Search,
+  Bot, Brain, Binary, Workflow, Search, Cloud,
 } from "lucide-react";
 
 export const TECH_ICONS = {
@@ -24,6 +26,8 @@ export const TECH_ICONS = {
   "RAG Systems":                     { Icon: Sparkles,     color: "#8B5CF6" },
   "LLMs":                            { Icon: Brain,        color: "#A855F7" },
   "LangChain":                       { Icon: SiLangchain,  color: "#20B2A6" },
+  "LangGraph":                       { Icon: SiLanggraph,  color: "#20B2A6" },
+  "Ollama":                          { Icon: SiOllama,     color: "#FFFFFF" },
   "Vector Databases":                { Icon: Database,     color: "#EC4899" },
   "Prompt Engineering":              { Icon: Workflow,     color: "#38BDF8" },
   "Hugging Face":                    { Icon: SiHuggingface,color: "#FFD21E" },
@@ -43,10 +47,15 @@ export const TECH_ICONS = {
   "API Authentication & Authorization": { Icon: Lock,       color: "#f5a623" },
   "Redis":                           { Icon: SiRedis,      color: "#FF4438" },
   "Celery":                          { Icon: SiCelery,     color: "#37814A" },
+  "Kafka":                           { Icon: SiApachekafka,color: "#E05A47" },
+  "Apache Kafka":                    { Icon: SiApachekafka,color: "#E05A47" },
+  "GraphQL":                         { Icon: SiGraphql,    color: "#E10098" },
 
   // ── Frontend
   "React":                           { Icon: SiReact,      color: "#61DAFB" },
   "React.js":                        { Icon: SiReact,      color: "#61DAFB" },
+  "Next.js":                         { Icon: SiNextdotjs,  color: "#FFFFFF" },
+  "Nextjs":                          { Icon: SiNextdotjs,  color: "#FFFFFF" },
   "TypeScript":                      { Icon: SiTypescript, color: "#3178C6" },
   "JavaScript":                      { Icon: SiJavascript, color: "#F7DF1E" },
   "JS":                              { Icon: SiJavascript, color: "#F7DF1E" },
@@ -64,8 +73,15 @@ export const TECH_ICONS = {
   "DSA":                             { Icon: Binary,       color: "#F59E0B" },
   "Data Structures & Algorithms":    { Icon: Binary,       color: "#F59E0B" },
 
-  // ── DevOps & Tools
+  // ── DevOps & Cloud
   "Docker":                          { Icon: SiDocker,     color: "#2496ED" },
+  "Kubernetes":                      { Icon: SiKubernetes, color: "#326CE5" },
+  "k8s":                             { Icon: SiKubernetes, color: "#326CE5" },
+  "K8s":                             { Icon: SiKubernetes, color: "#326CE5" },
+  "AWS":                             { Icon: Cloud,        color: "#FF9900" },
+  "Amazon Web Services":             { Icon: Cloud,        color: "#FF9900" },
+  "GCP":                             { Icon: SiGooglecloud,color: "#4285F4" },
+  "Google Cloud":                    { Icon: SiGooglecloud,color: "#4285F4" },
   "Git":                             { Icon: SiGit,        color: "#F05032" },
   "GitHub":                          { Icon: SiGithub,     color: "#ffffff" },
   "Linux":                           { Icon: SiLinux,      color: "#FCC624" },
@@ -82,7 +98,8 @@ export const TECH_ICONS = {
   "Requirements Analysis":           { Icon: ClipboardList,color: "#F59E0B" },
 
   // ── Extra project tags
-  "Node.js":                         { Icon: SiReact,      color: "#83CD29" },
+  "Node.js":                         { Icon: SiNodedotjs,  color: "#5FA04E" },
+  "Node":                            { Icon: SiNodedotjs,  color: "#5FA04E" },
   "Stripe":                          { Icon: SiStripe,     color: "#635BFF" },
   "Selenium":                        { Icon: SiSelenium,   color: "#43B02A" },
   "WebSocket":                       { Icon: Server,       color: "#20b2a6" },
@@ -93,7 +110,19 @@ export const TECH_ICONS = {
 
 /**
  * Get icon for a tech name, falling back to a generic code icon.
+ * Supports exact match first, followed by case-insensitive matching.
  */
 export function getTechIcon(name) {
-  return TECH_ICONS[name] || { Icon: Code2, color: "#7a8491" };
+  if (!name || typeof name !== "string") {
+    return { Icon: Code2, color: "#7a8491" };
+  }
+  if (TECH_ICONS[name]) return TECH_ICONS[name];
+
+  const lower = name.toLowerCase().trim();
+  const matchedKey = Object.keys(TECH_ICONS).find(
+    (k) => k.toLowerCase() === lower
+  );
+  if (matchedKey) return TECH_ICONS[matchedKey];
+
+  return { Icon: Code2, color: "#7a8491" };
 }
