@@ -1,4 +1,4 @@
-import { ArrowUp, Terminal } from "lucide-react";
+import { ArrowUp, Terminal, Mail, MapPin, Send, ExternalLink, ShieldCheck, Sparkles } from "lucide-react";
 import { SiGithub, SiX, SiTelegram } from "@icons-pack/react-simple-icons";
 import { useApi } from "@/hooks/useApi";
 
@@ -21,41 +21,71 @@ export const Footer = () => {
   const navLinks = [
     { href: "#about", label: "About" },
     { href: "#backend-architecture", label: "Architecture" },
-    { href: "#skills", label: "Skills" },
-    { href: "#projects", label: "Projects" },
-    { href: "#experience", label: "Experience" },
-    { href: "#education", label: "Education" },
-    { href: "#contact", label: "Contact" },
+    { href: "#skills", label: "Skills & Stack" },
+    { href: "#projects", label: "Featured Work" },
+    { href: "#experience", label: "Career Journey" },
+    { href: "#education", label: "Academic Core" },
+    { href: "#contact", label: "Get In Touch" },
+  ];
+
+  const focusAreas = [
+    "High-Throughput APIs (FastAPI & DRF)",
+    "Autonomous Agentic AI & RAG",
+    "PostgreSQL & Vector Embeddings",
+    "Async Caching & Queues (Redis/Celery)",
+    "Full-Stack React & TypeScript",
   ];
 
   return (
-    <footer className="relative border-t border-border/50 bg-background/80 backdrop-blur-md pt-12 pb-8 mt-12 overflow-hidden">
-      {/* Decorative ambient glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-24 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+    <footer className="relative border-t border-border/50 bg-background/90 backdrop-blur-xl pt-14 pb-8 mt-16 overflow-hidden">
+      {/* Top subtle gradient highlight line */}
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+
+      {/* Decorative ambient background glows */}
+      <div className="absolute top-0 left-1/3 w-96 h-32 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-80 h-28 bg-highlight/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-10">
-          {/* Brand info */}
-          <div className="sm:col-span-2 space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 mb-12">
+          {/* ── Brand & Engineering Bio (Col 1 — 5 columns) ─────────── */}
+          <div className="lg:col-span-5 space-y-4">
             <a
               href="#"
               onClick={(e) => {
                 e.preventDefault();
                 scrollToTop();
               }}
-              className="inline-flex items-center gap-2.5 text-xl font-bold tracking-tight text-foreground hover:text-primary transition-colors group cursor-pointer"
+              className="inline-flex items-center gap-3 group cursor-pointer"
+              aria-label="Back to top"
             >
-              <div className="w-8 h-8 rounded-lg glass border border-primary/30 flex items-center justify-center font-mono font-bold text-xs text-primary group-hover:border-primary transition-colors">
+              <div className="w-9 h-9 rounded-xl glass border border-primary/30 flex items-center justify-center font-mono font-bold text-sm text-primary group-hover:border-primary group-hover:shadow-[0_0_16px_rgba(32,178,166,0.35)] transition-all">
                 YT
               </div>
-              <span>
-                Yohannes <span className="text-primary font-mono">.</span>
-              </span>
+              <div className="flex flex-col">
+                <span className="text-lg font-bold tracking-tight text-foreground group-hover:text-primary transition-colors leading-tight">
+                  Yohannes Teferi
+                </span>
+                <span className="text-xs text-primary font-mono tracking-wide">
+                  {profile?.title || "Backend-Heavy Full-Stack & Agentic AI Engineer"}
+                </span>
+              </div>
             </a>
-            <p className="text-sm text-muted-foreground max-w-md leading-relaxed">
-              {profile?.title || "Backend-Heavy Full-Stack & Agentic AI Engineer"}. Specializing in building scalable architectures, production REST APIs, and autonomous RAG workflows.
+
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-md">
+              Architecting resilient distributed backends, high-throughput APIs, and autonomous agentic AI workflows with full-stack execution and precision.
             </p>
-            <div className="flex items-center gap-3 pt-2">
+
+            {/* Live Availability Status */}
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface border border-border/60 text-xs text-muted-foreground">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <span>Available for high-impact engineering roles & consulting</span>
+            </div>
+
+            {/* Social channels */}
+            <div className="flex items-center gap-2.5 pt-1">
               {profile?.social_links?.map((link, idx) => {
                 const Icon = ICON_MAP[link.platform] ?? SiGithub;
                 return (
@@ -64,8 +94,8 @@ export const Footer = () => {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={link.platform}
-                    className="w-9 h-9 rounded-full glass flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 hover:scale-105 transition-all duration-300"
+                    aria-label={`Visit Yohannes on ${link.platform}`}
+                    className="w-9 h-9 rounded-xl glass border border-border/60 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 hover:scale-105 transition-all duration-200"
                   >
                     <Icon className="w-4 h-4" />
                   </a>
@@ -74,17 +104,33 @@ export const Footer = () => {
             </div>
           </div>
 
-          {/* Quick links */}
-          <div>
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-secondary-foreground mb-3">
+          {/* ── Engineering Specializations (Col 2 — 3 columns) ───────── */}
+          <div className="lg:col-span-3 space-y-3">
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-secondary-foreground flex items-center gap-2">
+              <Sparkles className="w-3.5 h-3.5 text-primary" />
+              <span>Core Pillars</span>
+            </h4>
+            <ul className="space-y-2">
+              {focusAreas.map((item, i) => (
+                <li key={i} className="text-xs text-muted-foreground/90 flex items-center gap-2">
+                  <span className="w-1 h-1 rounded-full bg-primary/60 flex-shrink-0" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* ── Navigation (Col 3 — 2 columns) ───────────────────────── */}
+          <div className="lg:col-span-2 space-y-3">
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-secondary-foreground">
               Navigation
             </h4>
             <ul className="space-y-2">
-              {navLinks.slice(0, 4).map((link) => (
+              {navLinks.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+                    className="text-xs text-muted-foreground hover:text-foreground hover:translate-x-0.5 transition-all inline-block"
                   >
                     {link.label}
                   </a>
@@ -93,42 +139,72 @@ export const Footer = () => {
             </ul>
           </div>
 
-          <div>
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-secondary-foreground mb-3">
-              Sections
+          {/* ── Direct Channels (Col 4 — 2 columns) ──────────────────── */}
+          <div className="lg:col-span-2 space-y-3">
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-secondary-foreground">
+              Direct Channels
             </h4>
-            <ul className="space-y-2">
-              {navLinks.slice(4).map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
+            <ul className="space-y-2.5 text-xs text-muted-foreground">
+              <li>
+                <a
+                  href="https://t.me/yoni715"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 hover:text-primary transition-colors group"
+                >
+                  <Send className="w-3.5 h-3.5 text-primary" />
+                  <span>@yoni715</span>
+                  <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/yohannesteferi715"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 hover:text-primary transition-colors group"
+                >
+                  <SiGithub className="w-3.5 h-3.5 text-primary" />
+                  <span>yohannesteferi715</span>
+                  <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </a>
+              </li>
+              <li className="flex items-center gap-2 pt-1 text-muted-foreground/80">
+                <MapPin className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+                <span>Addis Ababa, Ethiopia</span>
+              </li>
             </ul>
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="border-t border-border/40 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
-          <div className="flex items-center gap-2">
-            <Terminal className="w-4 h-4 text-primary" />
+        {/* ── Bottom Bar / Copyright ─────────────────────────────────── */}
+        <div className="border-t border-border/40 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 text-center sm:text-left">
             <span>
-              &copy; {new Date().getFullYear()} {profile?.name || "Yohannes Teferi"}. Built with React, Tailwind CSS & FastAPI.
+              &copy; {new Date().getFullYear()} {profile?.name || "Yohannes Teferi"}. All rights reserved.
+            </span>
+            <span className="hidden sm:inline text-border">•</span>
+            <span className="text-muted-foreground/80 flex items-center justify-center sm:justify-start gap-1.5">
+              <Terminal className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+              <span>Architected with FastAPI, PostgreSQL & React</span>
             </span>
           </div>
 
-          <button
-            onClick={scrollToTop}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full glass hover:text-primary hover:border-primary/30 transition-all cursor-pointer"
-            aria-label="Back to top"
-          >
-            <span>Back to top</span>
-            <ArrowUp className="w-3.5 h-3.5" />
-          </button>
+          <div className="flex items-center gap-4">
+            <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface/60 border border-border/40 text-[11px] font-mono text-muted-foreground/70">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              <span>API v4.0.0</span>
+            </div>
+
+            <button
+              onClick={scrollToTop}
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl glass hover:text-primary hover:border-primary/40 transition-all cursor-pointer text-xs font-medium group"
+              aria-label="Back to top of page"
+            >
+              <span>Back to top</span>
+              <ArrowUp className="w-3.5 h-3.5 group-hover:-translate-y-0.5 transition-transform" />
+            </button>
+          </div>
         </div>
       </div>
     </footer>
