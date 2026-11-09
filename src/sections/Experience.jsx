@@ -12,7 +12,7 @@ const DEFAULT_EXPERIENCES = [
     role: "High-Performance Systems & Agentic AI",
     company: "Deepening Focus & Advanced Innovation",
     description:
-      "Advancing into asynchronous high-throughput architectures and autonomous agentic workflows. Engineering production-grade RAG systems, semantic vector search, LLM orchestration, and high-performance microservices with FastAPI.",
+      "Advancing into asynchronous high-efficiency architectures and autonomous agentic workflows. Engineering production-grade RAG systems, semantic vector search, LLM orchestration, and high-efficiency backend services with FastAPI.",
     employment_type: "Specialization & Innovation",
     technologies: ["FastAPI", "LLMs", "RAG Systems", "Agentic AI"],
     current: true,

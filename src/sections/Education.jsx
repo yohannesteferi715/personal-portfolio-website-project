@@ -44,11 +44,11 @@ const COURSE_META = {
     tag: "AI & Neural Systems",
     description: "Supervised & unsupervised models, statistical analysis, neural networks, loss functions & vector representations.",
   },
-  "cloud & distributed systems": {
+  "cloud computing & devops": {
     icon: Cloud,
     color: "#38bdf8",
-    tag: "Cloud & Microservices",
-    description: "Microservice decomposition, horizontal scaling, cloud deployment models, containerization & fault tolerance.",
+    tag: "Cloud & Containerization",
+    description: "Docker containerization, cloud deployment workflows, horizontal scaling, Nginx reverse proxying & high availability.",
   },
   "database management systems": {
     icon: Database,
@@ -85,8 +85,8 @@ const getCourseMeta = (courseName = "") => {
     return COURSE_META["sdlc & system design"];
   if (normalized.includes("machine") || normalized.includes("ml") || normalized.includes("ai"))
     return COURSE_META["machine learning (ml)"];
-  if (normalized.includes("cloud") || normalized.includes("distributed"))
-    return COURSE_META["cloud & distributed systems"];
+  if (normalized.includes("cloud") || normalized.includes("devops") || normalized.includes("container"))
+    return COURSE_META["cloud computing & devops"];
   if (normalized.includes("data") || normalized.includes("sql") || normalized.includes("dbms"))
     return COURSE_META["database management systems"];
   if (normalized.includes("object") || normalized.includes("design") || normalized.includes("ood"))
@@ -117,7 +117,7 @@ const DEFAULT_EDUCATION = [
       "Software Testing & QA",
       "SDLC & System Design",
       "Machine Learning (ML)",
-      "Cloud & Distributed Systems",
+      "Cloud Computing & DevOps",
       "Database Management Systems",
       "Object-Oriented Design (OOD)",
     ],

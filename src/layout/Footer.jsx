@@ -72,7 +72,7 @@ export const Footer = () => {
             </a>
 
             <p className="text-sm text-muted-foreground leading-relaxed max-w-md">
-              Architecting resilient distributed backends, high-throughput APIs, and autonomous agentic AI workflows with full-stack execution and precision.
+              Architecting high-efficiency backends, robust REST APIs, and autonomous agentic AI workflows with full-stack execution and precision.
             </p>
 
             {/* Live Availability Status */}

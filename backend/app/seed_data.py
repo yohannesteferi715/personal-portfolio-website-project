@@ -17,7 +17,7 @@ SEED_DATA = {
         "headline_italic": "precision.",
         "bio": (
             "Backend-focused full-stack software and AI engineer with 2+ years of experience "
-            "building high-throughput APIs, scalable distributed architectures, and autonomous RAG systems. "
+            "building high-throughput APIs, scalable, high-efficiency backend architectures, and autonomous RAG systems. "
             "Specialized in Python (FastAPI, Django, DRF), React, TypeScript, and multi-agent AI workflows."
         ),
         "years_experience": 2,
@@ -124,7 +124,7 @@ SEED_DATA = {
             {"icon": "Bot", "title": "Agentic AI & RAG",
              "description": "Building autonomous multi-agent systems, semantic vector search, and verifiable RAG pipelines."},
             {"icon": "Server", "title": "Backend Architecture",
-             "description": "Designing high-performance async APIs and microservices with FastAPI, Django, and DRF."},
+             "description": "Designing high-efficiency async APIs and modular backends with FastAPI, Django, and DRF."},
             {"icon": "Database", "title": "Database Design & DSA",
              "description": "Modeling relational schemas in PostgreSQL, Redis caching, and algorithmic optimization."},
             {"icon": "FileText", "title": "Software Design & SRS",
@@ -282,7 +282,7 @@ SEED_DATA = {
             "description": (
                 "Advancing into asynchronous high-throughput architectures and autonomous agentic workflows. "
                 "Engineering production-grade RAG systems, semantic vector search, LLM orchestration, "
-                "and high-performance microservices with FastAPI."
+                "and high-efficiency backend services with FastAPI."
             ),
             "employment_type": "Specialization & Innovation",
             "start_date": "2027-01",
@@ -349,7 +349,7 @@ SEED_DATA = {
                 "Software Testing & QA",
                 "SDLC & System Design",
                 "Machine Learning (ML)",
-                "Cloud & Distributed Systems",
+                "Cloud Computing & DevOps",
                 "Database Management Systems",
                 "Object-Oriented Design (OOD)",
             ],
@@ -364,7 +364,7 @@ SEED_DATA = {
         {
             "quote": (
                 "Yohannes is a powerhouse backend engineer. He architected our asynchronous "
-                "FastAPI microservices and vector RAG pipelines with remarkable precision. "
+                "FastAPI backend services and vector RAG pipelines with remarkable precision. "
                 "His code is clean, modular, and resilient."
             ),
             "author": "Marcus Vance",
@@ -439,7 +439,7 @@ SEED_DATA = {
                 "and teams that value convention over configuration.\n\n"
                 "## FastAPI\n\n"
                 "Use FastAPI when you need high performance, async support, and "
-                "auto-generated API docs. Great for microservices and API-first projects."
+                "auto-generated API docs. Great for high-efficiency services and API-first projects."
             ),
             "tags": ["FastAPI", "Django", "Python"],
             "published": True,
