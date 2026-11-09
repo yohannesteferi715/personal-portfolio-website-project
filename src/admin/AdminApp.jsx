@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { isAuthenticated } from "./auth";
+import { ADMIN_BASE_PATH, ADMIN_ROUTES } from "./constants";
 import { AdminLayout } from "./components/AdminLayout";
 import { Login } from "./pages/Login";
 import { Dashboard } from "./pages/Dashboard";
@@ -14,7 +15,7 @@ import { ArticlesPage } from "./pages/ArticlesPage";
 import { SecurityPage } from "./pages/SecurityPage";
 
 const Protected = ({ children }) => {
-  if (!isAuthenticated()) return <Navigate to="/admin/login" replace />;
+  if (!isAuthenticated()) return <Navigate to={ADMIN_ROUTES.login} replace />;
   return <AdminLayout>{children}</AdminLayout>;
 };
 
@@ -31,6 +32,6 @@ export const AdminApp = () => (
     <Route path="skills" element={<Protected><SkillsPage /></Protected>} />
     <Route path="articles" element={<Protected><ArticlesPage /></Protected>} />
     <Route path="security" element={<Protected><SecurityPage /></Protected>} />
-    <Route path="*" element={<Navigate to="/admin" replace />} />
+    <Route path="*" element={<Navigate to={ADMIN_BASE_PATH} replace />} />
   </Routes>
 );

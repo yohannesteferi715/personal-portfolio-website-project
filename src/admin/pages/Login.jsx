@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../auth";
+import { ADMIN_ROUTES } from "../constants";
 import { Lock, Eye, EyeOff, Loader2 } from "lucide-react";
 
 export const Login = () => {
@@ -17,7 +18,7 @@ export const Login = () => {
     setError("");
     try {
       await login(username, password);
-      navigate("/admin");
+      navigate(ADMIN_ROUTES.dashboard);
     } catch (err) {
       setError(err.message || "Login failed");
       setPassword("");

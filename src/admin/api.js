@@ -3,6 +3,8 @@
  * Sends JWT token on all requests after login.
  */
 
+import { ADMIN_ROUTES } from "./constants";
+
 const TOKEN_KEY = "portfolio_admin_token";
 
 export const getToken = () => localStorage.getItem(TOKEN_KEY);
@@ -20,7 +22,7 @@ async function request(method, path, body = null, isFormData = false) {
   const res = await fetch(`/api/v1${path}`, opts);
   if (res.status === 401) {
     clearToken();
-    window.location.href = "/admin/login";
+    window.location.href = ADMIN_ROUTES.login;
     throw new Error("Session expired");
   }
   if (res.status === 204) return null;

@@ -1,5 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { logout } from "../auth";
+import { ADMIN_ROUTES } from "../constants";
 import {
   LayoutDashboard, User, FolderKanban, Briefcase,
   MessageSquareQuote, Wrench, BookOpen, LogOut, ExternalLink,
@@ -7,16 +8,16 @@ import {
 } from "lucide-react";
 
 const links = [
-  { to: "/admin", label: "Dashboard", icon: LayoutDashboard, end: true },
-  { to: "/admin/profile", label: "Profile", icon: User },
-  { to: "/admin/about", label: "About", icon: BookOpen },
-  { to: "/admin/projects", label: "Projects", icon: FolderKanban },
-  { to: "/admin/experience", label: "Experience", icon: Briefcase },
-  { to: "/admin/education", label: "Education", icon: GraduationCap },
-  { to: "/admin/testimonials", label: "Testimonials", icon: MessageSquareQuote },
-  { to: "/admin/skills", label: "Skills", icon: Wrench },
-  { to: "/admin/articles", label: "Articles", icon: FileText },
-  { to: "/admin/security", label: "Security & Password", icon: ShieldCheck },
+  { to: ADMIN_ROUTES.dashboard, label: "Dashboard", icon: LayoutDashboard, end: true },
+  { to: ADMIN_ROUTES.profile, label: "Profile", icon: User },
+  { to: ADMIN_ROUTES.about, label: "About", icon: BookOpen },
+  { to: ADMIN_ROUTES.projects, label: "Projects", icon: FolderKanban },
+  { to: ADMIN_ROUTES.experience, label: "Experience", icon: Briefcase },
+  { to: ADMIN_ROUTES.education, label: "Education", icon: GraduationCap },
+  { to: ADMIN_ROUTES.testimonials, label: "Testimonials", icon: MessageSquareQuote },
+  { to: ADMIN_ROUTES.skills, label: "Skills", icon: Wrench },
+  { to: ADMIN_ROUTES.articles, label: "Articles", icon: FileText },
+  { to: ADMIN_ROUTES.security, label: "Security & Password", icon: ShieldCheck },
 ];
 
 export const AdminLayout = ({ children }) => {
@@ -24,7 +25,7 @@ export const AdminLayout = ({ children }) => {
 
   const handleLogout = () => {
     logout();
-    navigate("/admin/login");
+    navigate(ADMIN_ROUTES.login);
   };
 
   return (

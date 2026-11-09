@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../api";
+import { ADMIN_ROUTES } from "../constants";
 import { Card, Spinner } from "../components/ui";
 import { PageHeader } from "../components/ui";
 import {
@@ -28,13 +29,13 @@ const StatCard = ({ icon: Icon, label, value, to, color }) => (
 );
 
 const quickLinks = [
-  { to: "/admin/profile", label: "Edit Profile", icon: User, desc: "Name, bio, photo, social links" },
-  { to: "/admin/about", label: "Edit About", icon: BookOpen, desc: "Story, mission quote, highlights" },
-  { to: "/admin/projects", label: "Manage Projects", icon: FolderKanban, desc: "Add, edit or delete projects" },
-  { to: "/admin/experience", label: "Manage Experience", icon: Briefcase, desc: "Timeline & work history" },
-  { to: "/admin/testimonials", label: "Manage Testimonials", icon: MessageSquareQuote, desc: "Client quotes & reviews" },
-  { to: "/admin/skills", label: "Manage Skills", icon: Wrench, desc: "Technologies & categories" },
-  { to: "/admin/security", label: "Security & Password", icon: ShieldCheck, desc: "Change admin password & credentials" },
+  { to: ADMIN_ROUTES.profile, label: "Edit Profile", icon: User, desc: "Name, bio, photo, social links" },
+  { to: ADMIN_ROUTES.about, label: "Edit About", icon: BookOpen, desc: "Story, mission quote, highlights" },
+  { to: ADMIN_ROUTES.projects, label: "Manage Projects", icon: FolderKanban, desc: "Add, edit or delete projects" },
+  { to: ADMIN_ROUTES.experience, label: "Manage Experience", icon: Briefcase, desc: "Timeline & work history" },
+  { to: ADMIN_ROUTES.testimonials, label: "Manage Testimonials", icon: MessageSquareQuote, desc: "Client quotes & reviews" },
+  { to: ADMIN_ROUTES.skills, label: "Manage Skills", icon: Wrench, desc: "Technologies & categories" },
+  { to: ADMIN_ROUTES.security, label: "Security & Password", icon: ShieldCheck, desc: "Change admin password & credentials" },
 ];
 
 export const Dashboard = () => {
@@ -56,10 +57,10 @@ export const Dashboard = () => {
         <Spinner />
       ) : (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-          <StatCard icon={FolderKanban} label="Projects" value={stats.projects} to="/admin/projects" color="#20b2a6" />
-          <StatCard icon={Briefcase} label="Experience" value={stats.experiences} to="/admin/experience" color="#f5a623" />
-          <StatCard icon={MessageSquareQuote} label="Testimonials" value={stats.testimonials} to="/admin/testimonials" color="#a78bfa" />
-          <StatCard icon={Wrench} label="Skills" value={stats.skills} to="/admin/skills" color="#34d399" />
+          <StatCard icon={FolderKanban} label="Projects" value={stats.projects} to={ADMIN_ROUTES.projects} color="#20b2a6" />
+          <StatCard icon={Briefcase} label="Experience" value={stats.experiences} to={ADMIN_ROUTES.experience} color="#f5a623" />
+          <StatCard icon={MessageSquareQuote} label="Testimonials" value={stats.testimonials} to={ADMIN_ROUTES.testimonials} color="#a78bfa" />
+          <StatCard icon={Wrench} label="Skills" value={stats.skills} to={ADMIN_ROUTES.skills} color="#34d399" />
         </div>
       )}
 

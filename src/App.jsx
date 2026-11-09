@@ -12,6 +12,7 @@ import { Engineering } from "@/sections/Engineering";
 import { Testimonials } from "@/sections/Testimonials";
 import { Contact } from "@/sections/Contact";
 import { AdminApp } from "@/admin/AdminApp";
+import { ADMIN_BASE_PATH } from "@/admin/constants";
 
 const Portfolio = () => (
   <div className="min-h-screen overflow-x-hidden flex flex-col justify-between">
@@ -36,7 +37,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/admin/*" element={<AdminApp />} />
+        <Route path={`${ADMIN_BASE_PATH}/*`} element={<AdminApp />} />
         <Route path="*" element={<Portfolio />} />
       </Routes>
     </BrowserRouter>
