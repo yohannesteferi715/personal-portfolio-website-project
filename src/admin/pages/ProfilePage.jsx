@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { api } from "../api";
 import { PageHeader, Card, Field, Input, Textarea, Toggle, Alert, Btn, Spinner } from "../components/ui";
 import { Plus, Trash2, Upload, FileText, ExternalLink } from "lucide-react";
@@ -13,6 +13,8 @@ export const ProfilePage = () => {
   const [cvUploading, setCvUploading] = useState(false);
   const [cvDeleting, setCvDeleting] = useState(false);
   const [alert, setAlert] = useState(null);
+  const photoInputRef = useRef(null);
+  const cvInputRef = useRef(null);
 
   useEffect(() => {
     api.getProfile()
@@ -37,34 +39,40 @@ export const ProfilePage = () => {
     const file = e.target.files?.[0];
     if (!file) return;
     setPhotoUploading(true);
+    setAlert(null);
     try {
       const res = await api.uploadProfilePhoto(file);
-      set("profile_photo_url", res.profile_photo_url);
-      setAlert({ type: "success", message: "Photo uploaded." });
+      const url = res.message || res.profile_photo_url || res.url;
+      set("profile_photo_url", url);
+      setAlert({ type: "success", message: "Profile photo uploaded successfully." });
     } catch (err) {
-      setAlert({ type: "error", message: err.message });
+      setAlert({ type: "error", message: err.message || "Failed to upload photo." });
     } finally {
       setPhotoUploading(false);
+      if (e.target) e.target.value = "";
     }
   };
 
   const handleCVChange = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    if (!file.name.toLowerCase().endsWith(".pdf") && file.type !== "application/pdf") {
-      setAlert({ type: "error", message: "Only PDF files are allowed for CV upload." });
+    const isPdf = file.name.toLowerCase().endsWith(".pdf") || (file.type && file.type.includes("pdf"));
+    if (!isPdf) {
+      setAlert({ type: "error", message: "Only PDF documents (.pdf) are allowed for CV upload." });
       return;
     }
     setCvUploading(true);
+    setAlert(null);
     try {
       const res = await api.uploadCV(file);
-      set("cv_url", res.message);
-      setAlert({ type: "success", message: "CV document uploaded successfully." });
+      const url = res.message || res.cv_url || res.url || "/api/uploads/cv/Yohannes_Teferi_CV.pdf";
+      set("cv_url", url);
+      setAlert({ type: "success", message: "CV PDF uploaded successfully and activated on portfolio!" });
     } catch (err) {
       setAlert({ type: "error", message: err.message || "Failed to upload CV." });
     } finally {
       setCvUploading(false);
-      e.target.value = "";
+      if (e.target) e.target.value = "";
     }
   };
 
@@ -116,13 +124,22 @@ export const ProfilePage = () => {
               )}
             </div>
             <div>
-              <label className="cursor-pointer">
-                <Btn as="span" variant="secondary" loading={photoUploading}>
-                  <Upload className="w-4 h-4" />
-                  {photoUploading ? "Uploading…" : "Upload Photo"}
-                </Btn>
-                <input type="file" accept="image/*" className="hidden" onChange={handlePhotoChange} />
-              </label>
+              <Btn
+                type="button"
+                variant="secondary"
+                loading={photoUploading}
+                onClick={() => photoInputRef.current?.click()}
+              >
+                <Upload className="w-4 h-4" />
+                {photoUploading ? "Uploading…" : "Upload Photo"}
+              </Btn>
+              <input
+                ref={photoInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handlePhotoChange}
+              />
               <p className="text-xs text-muted-foreground mt-2">JPEG, PNG or WebP. Shown in hero section.</p>
             </div>
           </div>
@@ -172,13 +189,23 @@ export const ProfilePage = () => {
             </div>
 
             <div className="flex items-center gap-2">
-              <label className="cursor-pointer">
-                <Btn as="span" variant={form?.cv_url ? "secondary" : "primary"} size="sm" loading={cvUploading}>
-                  <Upload className="w-3.5 h-3.5" />
-                  {cvUploading ? "Uploading…" : form?.cv_url ? "Replace PDF" : "Upload CV (PDF)"}
-                </Btn>
-                <input type="file" accept="application/pdf,.pdf" className="hidden" onChange={handleCVChange} />
-              </label>
+              <Btn
+                type="button"
+                variant={form?.cv_url ? "secondary" : "primary"}
+                size="sm"
+                loading={cvUploading}
+                onClick={() => cvInputRef.current?.click()}
+              >
+                <Upload className="w-3.5 h-3.5" />
+                {cvUploading ? "Uploading…" : form?.cv_url ? "Replace PDF" : "Upload CV (PDF)"}
+              </Btn>
+              <input
+                ref={cvInputRef}
+                type="file"
+                accept="application/pdf,.pdf"
+                className="hidden"
+                onChange={handleCVChange}
+              />
 
               {form?.cv_url && (
                 <Btn variant="danger" size="sm" type="button" onClick={handleDeleteCV} loading={cvDeleting}>

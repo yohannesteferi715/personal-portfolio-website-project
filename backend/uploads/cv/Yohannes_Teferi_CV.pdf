@@ -1,0 +1,241 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+6 0 obj
+<< /Length 4316 >>
+stream
+0.125 0.698 0.651 rg
+45 805 505 4 re f
+BT
+/F2 22 Tf
+0.058 0.09 0.165 rg
+45 780 Td
+(YOHANNES TEFERI) Tj
+/F2 11 Tf
+0.125 0.698 0.651 rg
+0 -18 Td
+(BACKEND-HEAVY FULL-STACK & AGENTIC AI ENGINEER) Tj
+/F1 9 Tf
+0.4 0.45 0.52 rg
+0 -15 Td
+(Addis Ababa, Ethiopia   |   yteferi964@gmail.com   |   github.com/yohannesteferi715   |   @yoni715) Tj
+ET
+0.88 0.91 0.94 rg
+45 737 505 1 re f
+BT
+/F2 11 Tf
+0.125 0.698 0.651 rg
+45 725 Td
+(PROFESSIONAL SUMMARY) Tj
+ET
+BT
+/F1 9.5 Tf
+0.2 0.25 0.3 rg
+45 711 Td
+(Results-driven Engineer specializing in high-throughput backend microservices, resilient distributed architecture,) Tj
+ET
+BT
+/F1 9.5 Tf
+0.2 0.25 0.3 rg
+45 698 Td
+(and autonomous Agentic AI workflows. Proven track record designing production APIs with FastAPI and Django,) Tj
+ET
+BT
+/F1 9.5 Tf
+0.2 0.25 0.3 rg
+45 685 Td
+(relational database modeling with PostgreSQL, Redis asynchronous queues, and modern React user interfaces.) Tj
+ET
+0.88 0.91 0.94 rg
+45 676 505 1 re f
+BT
+/F2 11 Tf
+0.125 0.698 0.651 rg
+45 664 Td
+(CORE TECHNICAL SKILLS) Tj
+ET
+BT
+/F2 9 Tf
+0.1 0.15 0.2 rg
+45 650 Td
+(Backend & APIs: Python, FastAPI, Django, Django REST Framework, RESTful API Design, JWT/OAuth2 Auth) Tj
+ET
+BT
+/F2 9 Tf
+0.1 0.15 0.2 rg
+45 637 Td
+(Databases & Queues: PostgreSQL, SQL Optimization, Redis Caching, Celery Background Workers, Kafka) Tj
+ET
+BT
+/F2 9 Tf
+0.1 0.15 0.2 rg
+45 624 Td
+(Agentic AI & LLMs: LangChain, LangGraph, RAG Architectures, Vector DBs, Ollama, Prompt Engineering) Tj
+ET
+BT
+/F2 9 Tf
+0.1 0.15 0.2 rg
+45 611 Td
+(DevOps & Systems: Docker, Kubernetes \(k8s\), Linux/Bash, Nginx, Git/GitHub, Microservices, CI/CD) Tj
+ET
+BT
+/F2 9 Tf
+0.1 0.15 0.2 rg
+45 598 Td
+(Frontend & Tools: React.js, Tailwind CSS, JavaScript/ES6+, TypeScript, Next.js, Swagger/OpenAPI) Tj
+ET
+0.88 0.91 0.94 rg
+45 589 505 1 re f
+BT
+/F2 11 Tf
+0.125 0.698 0.651 rg
+45 577 Td
+(PROFESSIONAL EXPERIENCE) Tj
+ET
+BT
+/F2 10 Tf
+0.06 0.09 0.16 rg
+45 563 Td
+(Senior Backend & AI Systems Engineer  |  InnovateTech Labs \(2024 - Present\)) Tj
+ET
+BT
+/F1 9 Tf
+0.25 0.3 0.35 rg
+45 550 Td
+(- Architected async REST microservices with FastAPI & PostgreSQL serving 100K+ daily transactions.) Tj
+ET
+BT
+/F1 9 Tf
+0.25 0.3 0.35 rg
+45 537 Td
+(- Designed autonomous agentic AI assistants leveraging LangChain, vector retrieval, and custom tooling.) Tj
+ET
+BT
+/F1 9 Tf
+0.25 0.3 0.35 rg
+45 524 Td
+(- Optimized database query latencies by 42% via PostgreSQL indexing and Redis caching tiers.) Tj
+ET
+BT
+/F1 9 Tf
+0.25 0.3 0.35 rg
+45 511 Td
+(- Deployed containerized microservices using Docker and orchestrated self-healing deployments.) Tj
+ET
+BT
+/F2 10 Tf
+0.06 0.09 0.16 rg
+45 498 Td
+(Full-Stack Software Engineer  |  Nexus Systems \(2022 - 2024\)) Tj
+ET
+BT
+/F1 9 Tf
+0.25 0.3 0.35 rg
+45 485 Td
+(- Developed enterprise ERP web platform with Django REST Framework, PostgreSQL, and React.) Tj
+ET
+BT
+/F1 9 Tf
+0.25 0.3 0.35 rg
+45 472 Td
+(- Built asynchronous notification pipelines using Celery and Redis with 99.9% delivery reliability.) Tj
+ET
+BT
+/F1 9 Tf
+0.25 0.3 0.35 rg
+45 459 Td
+(- Implemented role-based access control \(RBAC\) and audited API security with zero regressions.) Tj
+ET
+0.88 0.91 0.94 rg
+45 450 505 1 re f
+BT
+/F2 11 Tf
+0.125 0.698 0.651 rg
+45 438 Td
+(FEATURED PROJECTS) Tj
+ET
+BT
+/F2 10 Tf
+0.06 0.09 0.16 rg
+45 424 Td
+(AI-Powered Agentic Assistant & Workflow Automation Platform) Tj
+ET
+BT
+/F1 9 Tf
+0.25 0.3 0.35 rg
+45 411 Td
+(- Multi-agent autonomous workflow coordinator built with LangGraph, FastAPI, and local LLM runners.) Tj
+ET
+BT
+/F2 10 Tf
+0.06 0.09 0.16 rg
+45 398 Td
+(Enterprise Multi-Tenant Inventory & Billing Engine) Tj
+ET
+BT
+/F1 9 Tf
+0.25 0.3 0.35 rg
+45 385 Td
+(- Scalable ERP backend with Stripe integration, async report generation, and strict audit trails.) Tj
+ET
+BT
+/F2 10 Tf
+0.06 0.09 0.16 rg
+45 372 Td
+(Real-Time Logistics & Telemetry Streaming Service) Tj
+ET
+BT
+/F1 9 Tf
+0.25 0.3 0.35 rg
+45 359 Td
+(- High-concurrency event ingestion pipeline powered by Redis streams, WebSockets, and Celery.) Tj
+ET
+0.88 0.91 0.94 rg
+45 350 505 1 re f
+BT
+/F2 11 Tf
+0.125 0.698 0.651 rg
+45 338 Td
+(EDUCATION) Tj
+ET
+BT
+/F2 10 Tf
+0.06 0.09 0.16 rg
+45 324 Td
+(B.Sc. in Computer Science & Engineering  \(2018 - 2022\)) Tj
+ET
+BT
+/F1 9 Tf
+0.25 0.3 0.35 rg
+45 311 Td
+(- Focus: Distributed Systems, Data Structures & Algorithms \(DSA\), Software Architecture, Database Systems.) Tj
+ET
+endstream
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000257 00000 n 
+0000000327 00000 n 
+0000000402 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+4770
+%%EOF

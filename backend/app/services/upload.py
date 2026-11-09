@@ -50,7 +50,8 @@ def save_pdf(file: UploadFile, sub_dir: str, filename: str) -> str:
         Public URL string served by the /api/uploads mount.
     """
     ext = Path(file.filename or "cv.pdf").suffix.lower()
-    is_pdf = ext == ".pdf" or file.content_type in ["application/pdf", "application/x-pdf"]
+    content_type = (file.content_type or "").lower()
+    is_pdf = ext == ".pdf" or "pdf" in content_type or (content_type == "application/octet-stream" and ext == ".pdf")
     if not is_pdf:
         raise UploadError("Only PDF documents (.pdf) are allowed for CV uploads.")
 

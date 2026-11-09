@@ -22,7 +22,7 @@ SEED_DATA = {
         ),
         "years_experience": 2,
         "profile_photo_url": "/api/uploads/profile/profile-photo.jpg",
-        "cv_url": None,
+        "cv_url": "/api/uploads/cv/Yohannes_Teferi_CV.pdf",
         "available_for_work": True,
         "email": "yteferi964@gmail.com",
         "phone": None,

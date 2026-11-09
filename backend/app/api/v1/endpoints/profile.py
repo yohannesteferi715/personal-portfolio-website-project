@@ -1,6 +1,8 @@
-from fastapi import APIRouter, Depends, File, UploadFile
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
+from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
+from app.core.config import settings
 from app.core.database import get_db
 from app.core.security import get_current_admin
 from app.schemas.profile import ProfileRead, ProfileUpdate
@@ -36,6 +38,30 @@ async def upload_profile_photo(
     url = save_image(file, "profile", f"profile-photo{ext}")
     ProfileService(db).update_photo_url(url)
     return {"message": url}
+
+
+@router.get(
+    "/cv/download",
+    summary="Download official CV PDF document",
+)
+def download_cv(db: Session = Depends(get_db)):
+    profile = ProfileService(db).get()
+    cv_file = settings.UPLOADS_DIR / "cv" / "Yohannes_Teferi_CV.pdf"
+    if profile.cv_url and profile.cv_url.startswith("/api/uploads/"):
+        rel_path = profile.cv_url.replace("/api/uploads/", "", 1)
+        candidate = settings.UPLOADS_DIR / rel_path
+        if candidate.exists():
+            cv_file = candidate
+
+    if not cv_file.exists():
+        raise HTTPException(status_code=404, detail="CV document not found.")
+
+    return FileResponse(
+        path=str(cv_file),
+        media_type="application/pdf",
+        filename="Yohannes_Teferi_CV.pdf",
+        headers={"Content-Disposition": 'attachment; filename="Yohannes_Teferi_CV.pdf"'},
+    )
 
 
 @router.post(

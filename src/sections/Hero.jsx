@@ -123,19 +123,16 @@ export const Hero = () => {
               <Button size="lg" onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}>
                 Contact Me <ArrowRight className="w-5 h-5" />
               </Button>
-              {profile?.cv_url ? (
-                <a href={profile.cv_url} download="Yohannes_Teferi_CV.pdf" target="_blank" rel="noopener noreferrer">
-                  <AnimatedBorderButton>
-                    <Download className="w-5 h-5" />
-                    Download CV
-                  </AnimatedBorderButton>
-                </a>
-              ) : (
-                <AnimatedBorderButton onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}>
-                  <Download className="w-5 h-5" />
-                  Request CV
-                </AnimatedBorderButton>
-              )}
+              <AnimatedBorderButton
+                as="a"
+                href="/api/v1/profile/cv/download"
+                download="Yohannes_Teferi_CV.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Download className="w-5 h-5" />
+                Download CV
+              </AnimatedBorderButton>
             </div>
 
             {/* Social links */}

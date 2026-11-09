@@ -20,7 +20,16 @@ export const Card = ({ children, className = "" }) => (
 );
 
 // ── Buttons ───────────────────────────────────────────────────────────────────
-export const Btn = ({ children, variant = "primary", size = "default", loading, className = "", ...props }) => {
+export const Btn = ({
+  as: Component = "button",
+  children,
+  variant = "primary",
+  size = "default",
+  loading,
+  type = "button",
+  className = "",
+  ...props
+}) => {
   const base = "inline-flex items-center gap-2 font-medium rounded-xl transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-50 disabled:cursor-not-allowed";
   const sizes = { sm: "px-3 py-1.5 text-xs", default: "px-4 py-2 text-sm", lg: "px-6 py-3 text-base" };
   const variants = {
@@ -29,11 +38,17 @@ export const Btn = ({ children, variant = "primary", size = "default", loading, 
     danger: "bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20",
     ghost: "text-muted-foreground hover:text-foreground hover:bg-surface",
   };
+  const extraProps = Component === "button" ? { type } : {};
   return (
-    <button className={`${base} ${sizes[size]} ${variants[variant]} ${className}`} disabled={loading} {...props}>
+    <Component
+      className={`${base} ${sizes[size]} ${variants[variant]} ${className}`}
+      disabled={loading}
+      {...extraProps}
+      {...props}
+    >
       {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
       {children}
-    </button>
+    </Component>
   );
 };
 
