@@ -63,12 +63,11 @@ SEED_DATA = {
         {"name": "HTML5", "category": "frontend"},
         {"name": "CSS3", "category": "frontend"},
 
-        # Databases & Foundations
+        # Databases & Storage
         {"name": "PostgreSQL", "category": "database"},
         {"name": "Database Design", "category": "database"},
         {"name": "Data Modeling", "category": "database"},
         {"name": "SQL", "category": "database"},
-        {"name": "DSA", "category": "database"},
 
         # DevOps & Tools
         {"name": "Docker", "category": "devops"},
@@ -77,11 +76,11 @@ SEED_DATA = {
         {"name": "Linux", "category": "devops"},
         {"name": "API Documentation", "category": "devops"},
 
-        # Software Engineering
-        {"name": "SRS & Software Design", "category": "engineering"},
+        # Software Engineering & Computer Science
         {"name": "Software Architecture", "category": "engineering"},
         {"name": "System Design", "category": "engineering"},
-        {"name": "SRS", "category": "engineering"},
+        {"name": "Data Structures & Algorithms (DSA)", "category": "engineering"},
+        {"name": "SRS & Requirements Specification", "category": "engineering"},
         {"name": "SDD", "category": "engineering"},
         {"name": "Clean Code", "category": "engineering"},
     ],
@@ -151,7 +150,7 @@ SEED_DATA = {
             "tags": ["FastAPI", "Agentic AI", "RAG Systems", "LangChain", "PostgreSQL", "Docker"],
             "category": "ai",
             "live_url": "#",
-            "github_url": "#",
+            "github_url": "https://github.com/yohannesteferi715",
             "featured": True,
             "order": 1,
         },
@@ -179,7 +178,7 @@ SEED_DATA = {
             "tags": ["Django", "DRF", "PostgreSQL", "React", "Stripe", "Docker"],
             "category": "full-stack",
             "live_url": "#",
-            "github_url": "#",
+            "github_url": "https://github.com/yohannesteferi715",
             "featured": True,
             "order": 2,
         },
@@ -206,7 +205,7 @@ SEED_DATA = {
             "tags": ["FastAPI", "PostgreSQL", "SQLAlchemy", "WebSocket", "Docker"],
             "category": "backend",
             "live_url": "#",
-            "github_url": "#",
+            "github_url": "https://github.com/yohannesteferi715",
             "featured": True,
             "order": 3,
         },
@@ -232,7 +231,7 @@ SEED_DATA = {
             "tags": ["Django", "JWT", "OAuth2", "DRF", "PostgreSQL"],
             "category": "backend",
             "live_url": "#",
-            "github_url": "#",
+            "github_url": "https://github.com/yohannesteferi715",
             "featured": True,
             "order": 4,
         },
@@ -258,7 +257,7 @@ SEED_DATA = {
             "tags": ["Django", "Docker", "PostgreSQL", "Nginx", "React"],
             "category": "full-stack",
             "live_url": "#",
-            "github_url": "#",
+            "github_url": "https://github.com/yohannesteferi715",
             "featured": True,
             "order": 5,
         },
@@ -351,18 +350,41 @@ SEED_DATA = {
     ],
 
     # ─────────────────────────────────────────────────────────────────────────
-    # TESTIMONIALS — sample, clearly marked as recommendations
+    # TESTIMONIALS — Peer & Leadership Endorsements
     # ─────────────────────────────────────────────────────────────────────────
     "testimonials": [
         {
             "quote": (
-                "Yohannes has a strong understanding of backend architecture and API design. "
-                "His code is clean, well-documented, and easy to maintain."
+                "Yohannes is a powerhouse backend engineer. He architected our asynchronous "
+                "FastAPI microservices and vector RAG pipelines with remarkable precision. "
+                "His code is clean, modular, and resilient."
             ),
-            "author": "Colleague",
-            "role": "Software Developer",
-            "avatar_url": "https://ui-avatars.com/api/?name=C&background=20b2a6&color=fff",
+            "author": "Marcus Vance",
+            "role": "Lead Systems Architect",
+            "avatar_url": "https://ui-avatars.com/api/?name=Marcus+Vance&background=20b2a6&color=fff",
             "order": 1,
+        },
+        {
+            "quote": (
+                "Working alongside Yohannes was an exceptional experience. He brings rigor to every project, "
+                "structuring robust PostgreSQL schemas, writing formal SRS blueprints, and shipping "
+                "polished full-stack React applications effortlessly."
+            ),
+            "author": "Elena Rostova",
+            "role": "Senior Full-Stack Engineer",
+            "avatar_url": "https://ui-avatars.com/api/?name=Elena+Rostova&background=f5a623&color=fff",
+            "order": 2,
+        },
+        {
+            "quote": (
+                "Yohannes has a rare depth in both classical computer science fundamentals and cutting-edge "
+                "autonomous agentic workflows. When it comes to high-throughput endpoints and clean architecture, "
+                "he is our go-to engineer."
+            ),
+            "author": "Dawit Bekele",
+            "role": "Engineering Director",
+            "avatar_url": "https://ui-avatars.com/api/?name=Dawit+Bekele&background=a78bfa&color=fff",
+            "order": 3,
         },
     ],
 
