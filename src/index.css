@@ -282,6 +282,42 @@
     animation-play-state: paused;
   }
 
+  /* ── Interactive scroll indicator animations ───────────────────────────── */
+
+  @keyframes scroll-dot-bounce {
+    0% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    60% {
+      transform: translateY(14px);
+      opacity: 0.9;
+    }
+    100% {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes chevron-flow {
+    0%, 100% {
+      opacity: 0.35;
+      transform: translateY(0);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(4px);
+    }
+  }
+
+  .animate-scroll-dot {
+    animation: scroll-dot-bounce 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  }
+
+  .animate-chevron-flow {
+    animation: chevron-flow 1.5s ease-in-out infinite;
+  }
+
   /* ── Applied animation classes ────────────────────────────────────────── */
 
   .animate-skill-card {

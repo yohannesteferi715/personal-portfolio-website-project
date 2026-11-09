@@ -28,7 +28,24 @@ export const Hero = () => {
   const { data: profile, loading: profileLoading, error: profileError } = useApi("/api/v1/profile");
   const { data: skills, loading: skillsLoading } = useApi("/api/v1/skills", []);
 
-  const skillNames = skills?.map((s) => s.name) ?? [];
+  // Curate concrete brand technologies from API skills (fallback to core known stack)
+  const CORE_KNOWN_TECHS = [
+    "FastAPI", "Python", "Kubernetes", "Docker", "LangChain",
+    "LangGraph", "PostgreSQL", "Redis", "Celery", "Django",
+    "React", "TypeScript", "Next.js", "Kafka", "AWS",
+    "GraphQL", "Tailwind CSS", "Linux", "Ollama", "Git",
+  ];
+
+  const skillNames = (skills && skills.length > 0)
+    ? skills
+        .map((s) => s.name)
+        .filter((name) =>
+          name.length <= 22 &&
+          !name.toLowerCase().includes("specification") &&
+          !name.toLowerCase().includes("authorization") &&
+          !name.toLowerCase().includes("analysis")
+        )
+    : CORE_KNOWN_TECHS;
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
@@ -247,16 +264,40 @@ export const Hero = () => {
             </div>
           )}
         </div>
-      </div>
+        {/* Action-triggered interactive scroll indicator */}
+        <div className="mt-8 sm:mt-10 flex justify-center animate-fade-in animation-delay-800 relative z-20">
+          <button
+            type="button"
+            onClick={() => {
+              const target = document.getElementById("about");
+              if (target) {
+                target.scrollIntoView({ behavior: "smooth" });
+              }
+            }}
+            className="group relative flex flex-col items-center gap-2.5 p-3 rounded-2xl transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            aria-label="Scroll down to explore about section"
+          >
+            {/* Subtle glowing halo behind indicator on hover */}
+            <div className="absolute inset-0 rounded-2xl bg-primary/0 group-hover:bg-primary/10 blur-xl transition-all duration-500 pointer-events-none" />
 
-      <div className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 animate-fade-in animation-delay-800">
-        <a
-          href="#about"
-          className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors group"
-        >
-          <span className="text-xs uppercase tracking-wider">Scroll</span>
-          <ChevronDown className="w-6 h-6 animate-bounce" />
-        </a>
+            {/* Mouse capsule with animated glowing wheel */}
+            <div className="relative w-7 h-11 rounded-full border-2 border-primary/40 group-hover:border-primary glass flex items-start justify-center p-1.5 shadow-[0_0_15px_rgba(32,178,166,0.18)] group-hover:shadow-[0_0_24px_rgba(32,178,166,0.5)] transition-all duration-300">
+              <span className="w-1.5 h-2.5 rounded-full bg-primary animate-scroll-dot shadow-[0_0_8px_#20b2a6]" />
+            </div>
+
+            {/* Label & Cascading animated chevrons */}
+            <div className="flex flex-col items-center -space-y-0.5">
+              <span className="text-[11px] font-mono tracking-widest uppercase text-muted-foreground group-hover:text-primary transition-colors duration-300 font-semibold flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-ping" />
+                Scroll to Explore
+              </span>
+              <div className="flex flex-col items-center pt-0.5">
+                <ChevronDown className="w-4 h-4 text-primary/80 group-hover:text-primary transition-colors animate-chevron-flow" />
+                <ChevronDown className="w-4 h-4 text-primary/40 -mt-2.5 group-hover:text-primary/70 transition-colors animate-chevron-flow" style={{ animationDelay: "200ms" }} />
+              </div>
+            </div>
+          </button>
+        </div>
       </div>
     </section>
   );

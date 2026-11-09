@@ -40,9 +40,11 @@ SEED_DATA = {
     "skills": [
         # AI & Agentic Systems
         {"name": "Agentic AI", "category": "ai"},
+        {"name": "LangChain", "category": "ai"},
+        {"name": "LangGraph", "category": "ai"},
         {"name": "RAG Systems", "category": "ai"},
         {"name": "LLMs", "category": "ai"},
-        {"name": "LangChain", "category": "ai"},
+        {"name": "Ollama", "category": "ai"},
         {"name": "Vector Databases", "category": "ai"},
         {"name": "Prompt Engineering", "category": "ai"},
 
@@ -51,6 +53,8 @@ SEED_DATA = {
         {"name": "Python", "category": "backend"},
         {"name": "Django", "category": "backend"},
         {"name": "Django REST Framework", "category": "backend"},
+        {"name": "Kafka", "category": "backend"},
+        {"name": "GraphQL", "category": "backend"},
         {"name": "RESTful API Design", "category": "backend"},
         {"name": "API Authentication & Authorization", "category": "backend"},
         {"name": "Redis", "category": "backend"},
@@ -58,8 +62,10 @@ SEED_DATA = {
 
         # Frontend Development
         {"name": "React", "category": "frontend"},
+        {"name": "Next.js", "category": "frontend"},
         {"name": "TypeScript", "category": "frontend"},
         {"name": "JavaScript", "category": "frontend"},
+        {"name": "Tailwind CSS", "category": "frontend"},
         {"name": "HTML5", "category": "frontend"},
         {"name": "CSS3", "category": "frontend"},
 
@@ -71,6 +77,8 @@ SEED_DATA = {
 
         # DevOps & Tools
         {"name": "Docker", "category": "devops"},
+        {"name": "Kubernetes", "category": "devops"},
+        {"name": "AWS", "category": "devops"},
         {"name": "Git", "category": "devops"},
         {"name": "GitHub", "category": "devops"},
         {"name": "Linux", "category": "devops"},
