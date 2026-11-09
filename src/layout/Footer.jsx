@@ -147,6 +147,15 @@ export const Footer = () => {
             <ul className="space-y-2.5 text-xs text-muted-foreground">
               <li>
                 <a
+                  href={`mailto:${profile?.email || "yteferi964@gmail.com"}`}
+                  className="flex items-center gap-2 hover:text-primary transition-colors group"
+                >
+                  <Mail className="w-3.5 h-3.5 text-primary" />
+                  <span>{profile?.email || "yteferi964@gmail.com"}</span>
+                </a>
+              </li>
+              <li>
+                <a
                   href="https://t.me/yoni715"
                   target="_blank"
                   rel="noopener noreferrer"

@@ -214,7 +214,7 @@ export const ProfilePage = () => {
           </div>
           <div className="mt-4 grid sm:grid-cols-3 gap-4">
             <Field label="Email">
-              <Input type="email" value={form?.email || ""} onChange={(e) => set("email", e.target.value)} placeholder="you@example.com" />
+              <Input type="email" value={form?.email || ""} onChange={(e) => set("email", e.target.value)} placeholder="yteferi964@gmail.com" />
             </Field>
             <Field label="Phone">
               <Input value={form?.phone || ""} onChange={(e) => set("phone", e.target.value)} placeholder="+1 (555) 123-4567" />

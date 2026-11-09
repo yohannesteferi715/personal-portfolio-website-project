@@ -24,7 +24,7 @@ SEED_DATA = {
         "profile_photo_url": "/api/uploads/profile/profile-photo.jpg",
         "cv_url": None,
         "available_for_work": True,
-        "email": "yohannes.teferi@example.com",
+        "email": "yteferi964@gmail.com",
         "phone": None,
         "location": "Addis Ababa, Ethiopia",
         "social_links": [

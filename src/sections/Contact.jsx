@@ -69,7 +69,7 @@ export const Contact = () => {
 
       if (!serviceId || !templateId || !publicKey) {
         // Graceful fallback to mailto if EmailJS service keys aren't configured in frontend env
-        const recipient = profile?.email || "yohannes.teferi@example.com";
+        const recipient = profile?.email || "yteferi964@gmail.com";
         const subject = encodeURIComponent(`Portfolio Inquiry from ${formData.name}`);
         const body = encodeURIComponent(
           `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
