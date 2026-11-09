@@ -5,6 +5,7 @@ import {
   Send,
   CheckCircle,
   AlertCircle,
+  ExternalLink,
 } from "lucide-react";
 import { Button } from "@/components/Button";
 import { useState } from "react";
@@ -19,33 +20,39 @@ export const Contact = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [submitStatus, setSubmitStatus] = useState({ type: null, message: "" });
 
-  // Build contact info from live profile data, with sensible fallbacks
+  // Build contact info from live profile data, with direct Gmail compose routing
   const telegramLink = profile?.social_links?.find((l) => l.platform === "telegram");
+  const emailAddress = profile?.email || "yteferi964@gmail.com";
+  const gmailComposeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(emailAddress)}&su=${encodeURIComponent("Portfolio Inquiry - Yohannes Teferi")}`;
 
   const contactInfo = [
-    profile?.email && {
+    {
       icon: Mail,
-      label: "Email",
-      value: profile.email,
-      href: `mailto:${profile.email}`,
+      label: "Email (Direct via Gmail)",
+      value: emailAddress,
+      href: gmailComposeUrl,
+      external: true,
     },
     telegramLink && {
       icon: Send,
       label: "Telegram",
       value: telegramLink.href.replace(/^https?:\/\/(www\.)?t\.me\//i, "@"),
       href: telegramLink.href,
+      external: true,
     },
     profile?.phone && {
       icon: Phone,
       label: "Phone",
       value: profile.phone,
       href: `tel:${profile.phone}`,
+      external: false,
     },
     profile?.location && {
       icon: MapPin,
       label: "Location",
       value: profile.location,
       href: "#",
+      external: false,
     },
   ].filter(Boolean);
 
@@ -68,16 +75,17 @@ export const Contact = () => {
       const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
       if (!serviceId || !templateId || !publicKey) {
-        // Graceful fallback to mailto if EmailJS service keys aren't configured in frontend env
+        // Direct route to Gmail web compose with prefilled recipient and message
         const recipient = profile?.email || "yteferi964@gmail.com";
         const subject = encodeURIComponent(`Portfolio Inquiry from ${formData.name}`);
         const body = encodeURIComponent(
           `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
         );
-        window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+        const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(recipient)}&su=${subject}&body=${body}`;
+        window.open(gmailUrl, "_blank", "noopener,noreferrer");
         setSubmitStatus({
           type: "success",
-          message: `Opening your email client to send your message directly to ${recipient}!`,
+          message: `Opening Gmail with ${recipient} pre-filled so you can review and send!`,
         });
         setFormData({ name: "", email: "", message: "" });
         return;
@@ -233,13 +241,21 @@ export const Contact = () => {
                       : {})}
                   >
                     {item.value ? (
-                      <a href={item.href} className="flex items-center gap-4 w-full group">
+                      <a
+                        href={item.href}
+                        target={item.external ? "_blank" : undefined}
+                        rel={item.external ? "noopener noreferrer" : undefined}
+                        className="flex items-center gap-4 w-full group"
+                      >
                         <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors flex-shrink-0">
                           <item.icon className="w-5 h-5 text-primary" />
                         </div>
-                        <div>
+                        <div className="flex-1 min-w-0">
                           <div className="text-sm text-muted-foreground">{item.label}</div>
-                          <div className="font-medium">{item.value}</div>
+                          <div className="font-medium group-hover:text-primary transition-colors flex items-center gap-1.5 truncate">
+                            <span className="truncate">{item.value}</span>
+                            {item.external && <ExternalLink className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />}
+                          </div>
                         </div>
                       </a>
                     ) : (

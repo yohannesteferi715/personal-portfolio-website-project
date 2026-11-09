@@ -147,11 +147,15 @@ export const Footer = () => {
             <ul className="space-y-2.5 text-xs text-muted-foreground">
               <li>
                 <a
-                  href={`mailto:${profile?.email || "yteferi964@gmail.com"}`}
+                  href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(profile?.email || "yteferi964@gmail.com")}&su=${encodeURIComponent("Portfolio Inquiry - Yohannes Teferi")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center gap-2 hover:text-primary transition-colors group"
+                  title="Compose email directly in Gmail"
                 >
                   <Mail className="w-3.5 h-3.5 text-primary" />
                   <span>{profile?.email || "yteferi964@gmail.com"}</span>
+                  <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </a>
               </li>
               <li>
