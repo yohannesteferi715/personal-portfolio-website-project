@@ -1,4 +1,5 @@
 from pathlib import Path
+import re
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -34,8 +35,31 @@ class Settings(BaseSettings):
     UPLOADS_DIR: Path = BASE_DIR / "uploads"
     ALLOWED_IMAGE_TYPES: set[str] = {"image/jpeg", "image/png", "image/webp"}
 
+    # ── Supabase Cloud Storage ────────────────────────────────────────────────
+    SUPABASE_URL: str | None = None
+    SUPABASE_SERVICE_KEY: str | None = None
+    SUPABASE_BUCKET: str = "bucket_portiolio"
+
+    @property
+    def supabase_base_url(self) -> str | None:
+        """Normalized Supabase project base URL (strips /rest/v1 and quotes)."""
+        if not self.SUPABASE_URL:
+            return None
+        url = self.SUPABASE_URL.strip().strip("'\"")
+        return re.sub(r"/rest/v1/?$", "", url).rstrip("/")
+
+    @property
+    def supabase_bucket(self) -> str:
+        """Sanitized bucket name without extraneous quotes."""
+        return (self.SUPABASE_BUCKET or "bucket_portiolio").strip().strip("'\"")
+
+    @property
+    def supabase_is_configured(self) -> bool:
+        """True if Supabase URL, Service Key, and Bucket are available."""
+        return bool(self.supabase_base_url and self.SUPABASE_SERVICE_KEY and self.supabase_bucket)
+
     model_config = SettingsConfigDict(
-        env_file=BASE_DIR / ".env",
+        env_file=(BASE_DIR / ".env", BASE_DIR.parent / ".env"),
         env_file_encoding="utf-8",
         case_sensitive=True,
         extra="ignore",

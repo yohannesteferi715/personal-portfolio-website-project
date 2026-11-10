@@ -54,6 +54,10 @@ def download_cv(db: Session = Depends(get_db)):
             cv_file = candidate
 
     if not cv_file.exists():
+        if profile.cv_url and profile.cv_url.startswith("http"):
+            from fastapi.responses import RedirectResponse
+            sep = "&" if "?" in profile.cv_url else "?"
+            return RedirectResponse(url=f"{profile.cv_url}{sep}download=Yohannes_Teferi_CV.pdf")
         raise HTTPException(status_code=404, detail="CV document not found.")
 
     return FileResponse(
