@@ -17,6 +17,12 @@ class Settings(BaseSettings):
     # PostgreSQL for production, SQLite fallback for local dev
     DATABASE_URL: str = f"sqlite:///{BASE_DIR / 'portfolio.db'}"
 
+    @property
+    def clean_database_url(self) -> str:
+        """Sanitize database URL (strips quotes and bracketed passwords)."""
+        url = self.DATABASE_URL.strip().strip("'\"")
+        return re.sub(r":\[([^\]]+)\]@", r":\1@", url)
+
     # ── Security / JWT ─────────────────────────────────────────────────────────
     SECRET_KEY: str = "dev-secret-change-in-production"
     ALGORITHM: str = "HS256"

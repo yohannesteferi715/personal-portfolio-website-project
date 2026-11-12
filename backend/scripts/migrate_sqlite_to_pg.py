@@ -12,17 +12,33 @@ from datetime import datetime
 import json
 import logging
 from pathlib import Path
+import os
 import sqlite3
 import sys
+from urllib.parse import urlparse
 
 import psycopg2
 from psycopg2.extras import Json
+from sqlalchemy import create_engine
+
+from app.core.config import settings
+from app.core.database import Base
+from app.models import (  # noqa: F401
+    about, admin_user, article, education, experience, profile, project, skill, testimonial,
+)
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
 
 SQLITE_PATH = Path(__file__).resolve().parent.parent / "portfolio.db"
-PG_URL = "postgresql://postgres:715@127.0.0.1:5432/portfolio_db"
+PG_URL = sys.argv[1] if len(sys.argv) > 1 else settings.clean_database_url
+
+
+def mask_url(url: str) -> str:
+    parsed = urlparse(url)
+    if parsed.password:
+        return url.replace(f":{parsed.password}@", ":***@")
+    return url
 
 TABLES = [
     "about",
@@ -81,12 +97,17 @@ def migrate() -> dict:
     if not SQLITE_PATH.exists():
         raise FileNotFoundError(f"SQLite database not found at {SQLITE_PATH}")
 
+    logger.info("Ensuring PostgreSQL tables exist via SQLAlchemy metadata...")
+    engine = create_engine(PG_URL)
+    Base.metadata.create_all(bind=engine)
+    logger.info("PostgreSQL schema ready.")
+
     logger.info("Connecting to SQLite: %s", SQLITE_PATH)
     sqlite_conn = sqlite3.connect(SQLITE_PATH)
     sqlite_conn.row_factory = sqlite3.Row
     sqlite_cur = sqlite_conn.cursor()
 
-    logger.info("Connecting to PostgreSQL: %s", PG_URL.replace(":715@", ":***@"))
+    logger.info("Connecting to PostgreSQL: %s", mask_url(PG_URL))
     pg_conn = psycopg2.connect(PG_URL)
     pg_cur = pg_conn.cursor()
 

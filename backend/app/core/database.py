@@ -8,7 +8,8 @@ from app.core.config import settings
 
 # ── Engine ────────────────────────────────────────────────────────────────────
 
-_is_sqlite = settings.DATABASE_URL.startswith("sqlite")
+_db_url = settings.clean_database_url
+_is_sqlite = _db_url.startswith("sqlite")
 
 engine_kwargs: dict = {"echo": settings.DEBUG}
 
@@ -19,7 +20,7 @@ else:
     engine_kwargs["pool_size"] = 10
     engine_kwargs["max_overflow"] = 20
 
-engine = create_engine(settings.DATABASE_URL, **engine_kwargs)
+engine = create_engine(_db_url, **engine_kwargs)
 
 # SQLite-specific WAL mode + foreign keys
 if _is_sqlite:
