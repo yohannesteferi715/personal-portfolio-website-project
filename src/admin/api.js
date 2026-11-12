@@ -4,6 +4,7 @@
  */
 
 import { ADMIN_ROUTES } from "./constants";
+import { apiUrl } from "@/lib/api";
 
 const TOKEN_KEY = "portfolio_admin_token";
 
@@ -19,7 +20,7 @@ async function request(method, path, body = null, isFormData = false) {
   const opts = { method, headers };
   if (body) opts.body = isFormData ? body : JSON.stringify(body);
 
-  const res = await fetch(`/api/v1${path}`, opts);
+  const res = await fetch(apiUrl(`/api/v1${path}`), opts);
   if (res.status === 401) {
     clearToken();
     window.location.href = ADMIN_ROUTES.login;
@@ -34,7 +35,7 @@ async function request(method, path, body = null, isFormData = false) {
 export const api = {
   // Auth
   login: async (username, password) => {
-    const res = await fetch("/api/v1/auth/login", {
+    const res = await fetch(apiUrl("/api/v1/auth/login"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),

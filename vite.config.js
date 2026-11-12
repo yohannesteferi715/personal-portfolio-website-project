@@ -14,9 +14,9 @@ export default defineConfig({
 
   server: {
     proxy: {
-      // All /api/* requests are forwarded to the FastAPI server
+      // All /api/* requests are forwarded to the live Render FastAPI server (or local override)
       '/api': {
-        target: process.env.VITE_API_PROXY_TARGET || 'http://127.0.0.1:8001',
+        target: process.env.VITE_API_PROXY_TARGET || 'https://yoni-portfolio-api.onrender.com',
         changeOrigin: true,
       },
     },

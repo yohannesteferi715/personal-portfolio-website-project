@@ -5,6 +5,7 @@ import { AnimatedBorderButton } from "@/components/AnimatedBorderButton";
 import { Skeleton, SkeletonText, ApiError } from "@/components/Skeleton";
 import { useApi } from "@/hooks/useApi";
 import { getTechIcon } from "@/lib/techIcons";
+import { apiUrl } from "@/lib/api";
 
 // Inline LinkedIn SVG — not available in this package version
 const SiLinkedin = ({ className }) => (
@@ -178,7 +179,7 @@ export const Hero = () => {
               </Button>
               <AnimatedBorderButton
                 as="a"
-                href="/api/v1/profile/cv/download"
+                href={apiUrl("/api/v1/profile/cv/download")}
                 download="Yohannes_Teferi_CV.pdf"
                 target="_blank"
                 rel="noopener noreferrer"

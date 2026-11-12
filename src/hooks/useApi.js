@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import { useState, useEffect, useCallback } from "react";
+import { apiUrl } from "@/lib/api";
 
 /**
  * Generic data-fetching hook.
  *
- * @param {string} url  - API path, e.g. "/api/projects"
+ * @param {string} url  - API path, e.g. "/api/v1/projects"
  * @param {*} fallback  - value returned while loading or on error
  *
  * Returns { data, loading, error, refetch }
@@ -18,7 +19,8 @@ export function useApi(url, fallback = null) {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(url);
+      const fullUrl = apiUrl(url);
+      const res = await fetch(fullUrl);
       if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
       const json = await res.json();
       setData(json);
