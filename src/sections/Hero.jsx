@@ -1,5 +1,5 @@
 import { Button } from "@/components/Button";
-import { ArrowRight, Download, ChevronDown } from "lucide-react";
+import { ArrowRight, Download, ChevronDown, Sparkles } from "lucide-react";
 import { SiGithub, SiX, SiTelegram } from "@icons-pack/react-simple-icons";
 import { AnimatedBorderButton } from "@/components/AnimatedBorderButton";
 import { Skeleton, SkeletonText, ApiError } from "@/components/Skeleton";
@@ -91,14 +91,50 @@ export const Hero = () => {
           {/* Left column */}
           <div className="space-y-6">
             {/* Badge */}
-            <div className="animate-fade-in">
+            <div className="animate-fade-in inline-block">
               {profileLoading ? (
-                <Skeleton className="h-9 w-64 rounded-full" />
+                <Skeleton className="h-10 w-72 rounded-full" />
               ) : (
-                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-primary">
-                  <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                  {profile?.title ?? "Backend-Heavy Full-Stack & Agentic AI Engineer"}
-                </span>
+                <div className="group relative inline-flex items-center cursor-default">
+                  {/* Ambient aura glow behind the badge */}
+                  <div className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-primary/50 via-primary/25 to-highlight/30 opacity-60 blur-sm group-hover:opacity-100 group-hover:blur-md transition-all duration-500 -z-10" />
+
+                  {/* Main Badge Container */}
+                  <div className="relative inline-flex items-center gap-2.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-background/90 backdrop-blur-xl border border-primary/35 group-hover:border-primary/70 shadow-[0_0_20px_-3px_rgba(32,178,166,0.3)] transition-all duration-300 overflow-hidden">
+                    {/* Subtle sweeping light sheen on hover */}
+                    <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none" />
+
+                    {/* Left micro-chip: Live radar ping + Sparkles icon */}
+                    <span className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-primary/15 border border-primary/30 text-primary text-[11px] font-semibold tracking-wide">
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-primary shadow-[0_0_8px_#20B2A6]"></span>
+                      </span>
+                      <Sparkles className="w-3 h-3 text-primary animate-pulse" />
+                    </span>
+
+                    {/* Typographic Title Styling */}
+                    <span className="text-xs sm:text-sm font-medium tracking-wide text-foreground/90 group-hover:text-white transition-colors flex items-center gap-1">
+                      {profile?.title ? (
+                        profile.title.includes("&") ? (
+                          <>
+                            <span>{profile.title.split("&")[0].trim()}</span>
+                            <span className="text-primary font-mono text-xs px-1">&</span>
+                            <span className="text-white font-semibold">{profile.title.split("&")[1].trim()}</span>
+                          </>
+                        ) : (
+                          <span>{profile.title}</span>
+                        )
+                      ) : (
+                        <>
+                          <span>Backend-Heavy Full-Stack</span>
+                          <span className="text-primary font-mono text-xs px-1">&</span>
+                          <span className="text-white font-semibold">Agentic AI Engineer</span>
+                        </>
+                      )}
+                    </span>
+                  </div>
+                </div>
               )}
             </div>
 
