@@ -58,3 +58,26 @@ settings.UPLOADS_DIR.mkdir(parents=True, exist_ok=True)
 app.mount("/api/uploads", StaticFiles(directory=str(settings.UPLOADS_DIR)), name="uploads")
 
 app.include_router(api_router)
+
+
+@app.get("/", tags=["Health"])
+def root():
+    return {
+        "status": "online",
+        "service": settings.APP_TITLE,
+        "version": settings.APP_VERSION,
+        "docs": "/api/docs",
+    }
+
+
+@app.get("/health", tags=["Health"])
+def health_check():
+    return {"status": "healthy"}
+
+
+if __name__ == "__main__":
+    import os
+    import uvicorn
+
+    port = int(os.environ.get("PORT", 8001))
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=settings.DEBUG)
